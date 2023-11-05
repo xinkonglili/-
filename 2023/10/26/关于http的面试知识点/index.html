@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="网络知识," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="http的udp协议字段组成？udp由8字节+数据组成： 16位源端口号+16位目的端口号+16位包长度+16位校验和 16位源端口号+16位目的端口号：告诉udp协议应该把报文发给哪几个进程 16位包长度：保存了udp首部的长度跟数据的长度之和 16位校验和：为了提供可靠的udp首部和数据设计的，防止收到在网络传输中受损的udp包 http和https有哪些区别http是明文传输：存在风险，会发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于http的面试知识点">
+<meta property="og:url" content="http://example.com/2023/10/26/%E5%85%B3%E4%BA%8Ehttp%E7%9A%84%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="http的udp协议字段组成？udp由8字节+数据组成： 16位源端口号+16位目的端口号+16位包长度+16位校验和 16位源端口号+16位目的端口号：告诉udp协议应该把报文发给哪几个进程 16位包长度：保存了udp首部的长度跟数据的长度之和 16位校验和：为了提供可靠的udp首部和数据设计的，防止收到在网络传输中受损的udp包 http和https有哪些区别http是明文传输：存在风险，会发">
+<meta property="og:locale">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193953097.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193913970.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193851135.png">
+<meta property="og:image" content="https://www.topgoer.cn/uploads/gozhuanjia/images/m_b499f154d0135854b725ce27a6b7a009_r.png">
+<meta property="og:image" content="https://www.topgoer.cn/uploads/gozhuanjia/images/m_fa5c2be587f99cf1120b126f0c563055_r.png">
+<meta property="og:image" content="https://www.topgoer.cn/uploads/gozhuanjia/images/m_274ee3af62bab4ad8f74a6753d6969cf_r.png">
+<meta property="og:image" content="https://www.topgoer.cn/uploads/gozhuanjia/images/m_fd748bf1364411aa7929b84c155ef67a_r.png">
+<meta property="article:published_time" content="2023-10-26T06:19:02.000Z">
+<meta property="article:modified_time" content="2023-11-04T06:50:00.147Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络知识">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193953097.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/10/26/关于http的面试知识点/"/>
+
+
+
+
+
+  <title>关于http的面试知识点 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/26/%E5%85%B3%E4%BA%8Ehttp%E7%9A%84%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于http的面试知识点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-10-26T14:19:02+08:00">
+                2023-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">网络面试考点</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="http的udp协议字段组成？"><a href="#http的udp协议字段组成？" class="headerlink" title="http的udp协议字段组成？"></a>http的udp协议字段组成？</h4><p>udp由8字节+数据组成：</p>
+<p>16位源端口号+16位目的端口号+16位包长度+16位校验和</p>
+<p>16位源端口号+16位目的端口号：告诉udp协议应该把报文发给哪几个进程</p>
+<p>16位包长度：保存了udp首部的长度跟数据的长度之和</p>
+<p>16位校验和：为了提供可靠的udp首部和数据设计的，防止收到在网络传输中受损的udp包</p>
+<h4 id="http和https有哪些区别"><a href="#http和https有哪些区别" class="headerlink" title="http和https有哪些区别"></a>http和https有哪些区别</h4><p>http是明文传输：存在风险，会发生内容<strong>纂改</strong>（纂改请假内容），<strong>冒充</strong>(冒充请假签名)，切听的风险</p>
+<p>https:加入了ssl&#x2F;tls安全协议，三次握手之后还要进行ssl&#x2F;tls握手过程，才可以进行加密报文的传输</p>
+<p>http：80端口，https:443</p>
+<p>https协议要向CA(证书权威机构)申请数字证书，来保证服务器的身份是可信的</p>
+<p>私钥和公钥一般要去CA机构申请，一般是服务器端会拿着公钥去CA机构注册数字证书，然后把数字证书发给客户端，数字证书里面包含公钥，客户端拿着公钥把要发送的数据进行加密，服务器端使用私钥来解密</p>
+<p>对称加密：加密解密用同一个公钥</p>
+<p>非对称加密：加密用私钥，解密用公钥</p>
+<h4 id="http为什么一定是三次握手，不能是四次或者二次"><a href="#http为什么一定是三次握手，不能是四次或者二次" class="headerlink" title="http为什么一定是三次握手，不能是四次或者二次"></a>http为什么一定是三次握手，不能是四次或者二次</h4><ul>
+<li><p>三次握手才可以阻止<strong>旧的重复历史连接初始化</strong>（主要原因），防止历史连接初始化了连接，2次握手的情况下，第一次握手的时候可能就之间建立了连接，服务端需要接收到RST报文才会断开连接，当正确的SYN报文到达的时候，又会进行一次连接的初始化</p>
+<p><strong>场景：</strong></p>
+<p>服务器发送一个SYN报文之后，出现宕机，或者这个时候网络阻塞，过后服务器又重新启动了，再次发了一个新的SYN报文，但是旧的SYN报文先到达了(这里注意两次发的SYN报文的序列号是不同的)，服务端发了ACK确认，客户端发现seq不是自己想要的，于是发了RST报文，中断连接，这个就是历史连接，但是此时二者并没有建立分配资源的连接建立，2次握手的话就会出现连接重复，浪费资源</p>
+</li>
+<li><p>三次握手才可以同步双方的初始化序列号</p>
+<p>​	<strong>序列号是可靠传输的关键</strong></p>
+<ul>
+<li>接收方可以<strong>去除重复的数据</strong></li>
+<li>接收方可以根据数据包的序列号，<strong>按序接收</strong></li>
+<li>可以标识发送出去的数据包，<strong>哪些数据包是已经被对方收到的</strong></li>
+</ul>
+</li>
+<li><p><strong>三次握手才可以避免浪费资源</strong></p>
+</li>
+</ul>
+<h4 id="Tcp四次挥手，可以是三次吗"><a href="#Tcp四次挥手，可以是三次吗" class="headerlink" title="Tcp四次挥手，可以是三次吗"></a>Tcp四次挥手，可以是三次吗</h4><p>可以是三次，当开启Tcp延迟确认机制的时候，服务器的Fin和ACk会一起发送，比如我们使用tcpdump抓包的时候会出现3次握手的情况</p>
+<p>Tcp延迟确认机制：</p>
+<h4 id="长连接和短连接什么意思"><a href="#长连接和短连接什么意思" class="headerlink" title="长连接和短连接什么意思"></a>长连接和短连接什么意思</h4><p>http协议采用了请求应答的模式，客户端发起请求，服务端才会返回响应、</p>
+<p>http是基于tcp协议传输的，客户端要和服务端进行http通信前，需要建立tcp连接，然后客户端发送http请求，服务端收到响应返回，请求应答模式完成，随后释放tcp连接</p>
+<p>http每次请求都要经历：建立Tcp连接–&gt;请求资源–&gt;响应资源–&gt;释放连接  （这种称为Http短连接）</p>
+<p>一次连接只能请求一次资源，这样频繁操作，实在太重复，能不能在第一次http请求之后不断开连接，让后续的http请求，继续走上一个tcp连接？</p>
+<p>答案：可以，使用Keep-Alive</p>
+<p>http1.0默认是关闭的:Connection:close</p>
+<p>http1.1默认开启：Connection:Keep-Alive，还可以设置keeplive_timeout参数来设置http请求再次发起的时间，如果在keeplive_timeout内还没有另外的http请求再次发起，那么就触发回调函数，断开tcp连接</p>
+<h4 id="http-1-1，http-2，http-3演变"><a href="#http-1-1，http-2，http-3演变" class="headerlink" title="http&#x2F;1.1，http&#x2F;2，http&#x2F;3演变"></a>http&#x2F;1.1，http&#x2F;2，http&#x2F;3演变</h4><p>第一点，HTTP&#x2F;2 没使用常见的 gzip 压缩方式来压缩头部，而是使用<strong>HPACK来压缩头部</strong>，里面用了 Huffman 编码<strong>的方式，将体积压缩了近一半，而且针对后续的请求头部，还可以建立</strong>动态表**，将体积压缩近 90%，大大提高了编码效率，同时节约了带宽资源。</p>
+<p>HTTP&#x2F;2 为高频出现在头部的字符串和字段建立了一张<strong>静态表</strong></p>
+<p>HTTP&#x2F;2 头部由于基于<strong>二进制编码</strong></p>
+<p>HTTP&#x2F;2 厉害的地方在于将 HTTP&#x2F;1 的文本格式改成二进制格式传输数据，极大提高了 HTTP 传输效率，而且二进制数据使用位运算能高效解析。</p>
+<p>第二点：<strong>实现了 Stream 并发</strong></p>
+<p>在 HTTP&#x2F;2 连接上，<strong>不同 Stream 的帧是可以乱序发送的（因此可以并发不同的 Stream ）</strong>，因为每个帧的头部会携带 Stream ID 信息，所以接收端可以通过 Stream ID 有序组装成 HTTP 消息，而<strong>同一 Stream 内部的帧必须是严格有序的</strong></p>
+<p>第三点：<strong>服务器支持主动推送资源</strong>，大大提升了消息的传输性能，服务器推送资源时，会先发送 PUSH_PROMISE 帧，告诉客户端接下来在哪个 Stream 发送资源，然后用偶数号 Stream 发送资源给客户端。</p>
+<p>HTTP&#x2F;2 通过 Stream 的并发能力，解决了 HTTP&#x2F;1 队头阻塞的问题，看似很完美了，但是 HTTP&#x2F;2 还是存在“队头阻塞”的问题，只不过问题不是在 HTTP 这一层面，而是在 TCP 这一层。‘’</p>
+<p><strong>HTTP&#x2F;2 是基于 TCP 协议来传输数据的，TCP 是字节流协议，TCP 层必须保证收到的字节数据是完整且连续的，这样内核才会将缓冲区里的数据返回给 HTTP 应用，那么当「前 1 个字节数据」没有到达时，后收到的字节数据只能存放在内核缓冲区里，只有等到这 1 个字节数据到达时，HTTP&#x2F;2 应用层才能从内核中拿到数据，这就是 HTTP&#x2F;2 队头阻塞问题。</strong></p>
+<h4 id="udp和tcp的应用场景"><a href="#udp和tcp的应用场景" class="headerlink" title="udp和tcp的应用场景"></a>udp和tcp的应用场景</h4><p>tcp：</p>
+<p>1、<strong>面向连接</strong>（一对一，不能一对多），</p>
+<p>2、<strong>可靠</strong>（无论链路上出现怎样的链路变化，Tcp都可以保证一个报文一定能够到达接收端，超时重传，拥塞控制，滑动窗口）</p>
+<p>3、<strong>传输字节流 ** (消息可能会被操作系统分组成多个TCP报文，如果接收方不知道消息的边界，是无法读出一个有效的用户消息，</strong>并且TCP报文是有序的，如果无序，即使先收到后面的报文，也会选择丢弃**)  </p>
+<p>（Ftp文件，电子邮件(【smtp发送邮件协议】,和【pop3接收邮件协议】通常也是基于tcp)传输，远程登陆，web网页浏览比如：http&#x2F;https）</p>
+<p>udp：面向无连接，可以随时发送数据，udp处理简单高效（包总量较少的通信，DNS(将域名转换成ip)，视频，音频，广播等多媒体通信）</p>
+<h4 id="tcp四元组可以唯一确定一个Tcp连接"><a href="#tcp四元组可以唯一确定一个Tcp连接" class="headerlink" title="tcp四元组可以唯一确定一个Tcp连接"></a>tcp四元组可以唯一确定一个Tcp连接</h4><p>源地址  源端口  目的地址  目的端口</p>
+<h4 id="什么是Tcp连接"><a href="#什么是Tcp连接" class="headerlink" title="什么是Tcp连接"></a>什么是Tcp连接</h4><p>用于保证可靠性和流量控制，维护的某些状态信息，这些信息的组合就称为连接，</p>
+<p>组合的信息就是：socket(ip+端口) ，序列号(用来解决乱序问题)，窗口大小(用来做流量控制)</p>
+<p>查看TCP状态：netstat -napt</p>
+<h4 id="Tcp的超时重传，快速重传，滑动窗口"><a href="#Tcp的超时重传，快速重传，滑动窗口" class="headerlink" title="Tcp的超时重传，快速重传，滑动窗口"></a>Tcp的超时重传，快速重传，滑动窗口</h4><p>1、超时重传：超时重传时间RTT，比如服务器的ACK包在发送的过程中由于网络阻塞等原因，.发生丢包，那么客户端没有收到ACK，且RTT(数据包往返的时间)时间大于RTO(超时重传的时间)之后，客户端会重新传数据包</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193953097.png" alt="image-20231027193953097"></p>
+<p>2、快速重传：不需要等必须到RTT这个时间才可以重传，当接收方收到3个连续的ACK，这个时候客户端就会重新发数据包给服务端，服务端收到之后，发ACK包的时候同时会带着发SACK（代表之前的数据包，我已经收到了，只是我传输给你的ACK包丢失了），即使丢失了，他也可以根据SACK只重传那些丢失的数据包，DSACK可以知道哪些数据被重复接收了</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193913970.png" alt="image-20231027193913970"></p>
+<p>3、滑动窗口：相当于一段缓存，如果服务端没有及时给应答，客户端可以一直发数据，服务端会把数据缓存下来，即使某个ACK丢失，也是可以通过累计应答，让之前的数据不需要重复发</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193851135.png" alt="image-20231027193851135"></p>
+<h4 id="Goroutine的GMP模型"><a href="#Goroutine的GMP模型" class="headerlink" title="Goroutine的GMP模型"></a>Goroutine的GMP模型</h4><p>Goroutine调度是一个很复杂的机制，尽管Go源码中提供了大量的注释，但对其原理没有一个好的理解的情况下去读源码收获不会很大。下面尝试用简单的语言描述一下Goroutine调度机制，在此基础上再去研读源码效果可能更好一些。</p>
+<h4 id="1-线程池的缺陷"><a href="#1-线程池的缺陷" class="headerlink" title="1. 线程池的缺陷"></a>1. 线程池的缺陷</h4><p>我们知道，在高并发应用中<strong>频繁创建线程会造成不必要的开销，所以有了线程池</strong>。线程池中预先保存一定数量的线程，而新任务将不再以创建线程的方式去执行，而是将任务发布到任务队列，线程池中的线程不断地从任务队列中取出任务并执行，可以有效的减少线程创建和销毁所带来的开销。</p>
+<p>下图展示一个典型的线程池：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_b499f154d0135854b725ce27a6b7a009_r.png" alt="null"></p>
+<p>为了方便下面的叙述，我们把任务队列中的每一个任务称作G，而G往往代表一个函数。<br>线程池中的worker线程不断地从任务队列中取出任务并执行。而worker线程的调度则交给操作系统进行调度。</p>
+<p>如果worker线程执行的G任务中发生系统调用，则操作系统会将该线程置为阻塞状态，也意味着该线程在怠工，也意味着消费任务队列的worker线程变少了，也就是说线程池消费任务队列的能力变弱了。</p>
+<p>如果任务队列中的大部分任务都会进行系统调用，则会让这种状态恶化，大部分worker线程进入阻塞状态，从而任务队列中的任务产生堆积。</p>
+<p>解决这个问题的一个思路就是重新审视线程池中线程的数量，增加线程池中线程数量可以一定程度上提高消费能力，但随着线程数量增多，由于过多线程争抢CPU，消费能力会有上限，甚至出现消费能力下降。 如下图所示：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_fa5c2be587f99cf1120b126f0c563055_r.png" alt="null"></p>
+<h4 id="2-Goroutine调度器"><a href="#2-Goroutine调度器" class="headerlink" title="2. Goroutine调度器"></a>2. Goroutine调度器</h4><p>线程数过多，意味着操作系统会不断地切换线程，频繁的上下文切换就成了性能瓶颈。<br>Go提供一种机制，可以在线程中自己实现调度，上下文切换更轻量，从而达到了线程数少，而并发数并不少的效果。而线程中调度的就是Goroutine.</p>
+<p>早期Go版本，比如1.9.2版本的源码注释中有关于调度器的解释。<br>Goroutine 调度器的工作就是把“ready-to-run”的goroutine分发到线程中。</p>
+<p>Goroutine主要概念如下：</p>
+<ul>
+<li>G（Goroutine）: 即Go协程，每个go关键字都会创建一个协程。</li>
+<li>M（Machine）： 工作线程，在Go中称为Machine。</li>
+<li>P(Processor): 处理器（Go中定义的一个摡念，不是指CPU），包含运行Go代码的必要资源，也有调度goroutine的能力。</li>
+</ul>
+<p>M必须拥有P才可以执行G中的代码，P含有一个包含多个G的队列，P可以调度G交由M执行。其关系如下图所示：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_274ee3af62bab4ad8f74a6753d6969cf_r.png" alt="null"></p>
+<p>图中M是交给操作系统调度的线程，M持有一个P，P将G调度进M中执行。P同时还维护着一个包含G的队列（图中灰色部分），可以按照一定的策略将G调度到M中执行。</p>
+<p>P的个数在程序启动时决定，默认情况下等同于CPU的核数，由于M必须持有一个P才可以运行Go代码，所以同时运行的M个数，也即线程数一般等同于CPU的个数，以达到尽可能的使用CPU而又不至于产生过多的线程切换开销。</p>
+<p>程序中可以使用<code>runtime.GOMAXPROCS()</code>设置P的个数，在某些IO密集型的场景下可以在一定程度上提高性能。这个后面再详细介绍。</p>
+<p><strong>锁有线程锁和进程锁：</strong></p>
+<p><strong>线程锁」则是保证同一段代码在同一时间只有一个线程在执行，一般各语言本身或类库会提供实现方式，go语言里面协程是怎么保证的，有哪些锁呢</strong></p>
+<p>在Go语言中，可以使用<code>sync</code>包提供的锁来实现线程安全的访问共享资源。以下是一些常用的锁：</p>
+<ol>
+<li><p><strong>互斥锁（Mutex）</strong>：<code>sync.Mutex</code> 是一个最基本的互斥锁。通过 <code>Lock()</code> 和 <code>Unlock()</code> 方法来保护临界区，只允许一个goroutine进入临界区。</p>
+</li>
+<li><p><strong>读写锁（RWMutex）</strong>：<code>sync.RWMutex</code> 是一种更复杂的锁，允许多个goroutine同时访问共享资源，但在写操作时会进行互斥锁定。</p>
+</li>
+<li><p><strong>等待组（WaitGroup）</strong>：<code>sync.WaitGroup</code> 允许等待一组goroutine的结束。</p>
+</li>
+<li><p><strong>条件变量（Cond）</strong>：<code>sync.Cond</code> 允许一个或多个goroutine等待特定条件的发生。</p>
+</li>
+<li><p><strong>原子操作（atomic）</strong>：<code>sync/atomic</code> 包提供了一些原子操作函数，可以对共享变量进行原子操作，不需要加锁。</p>
+</li>
+<li><p><strong>单次执行（Once）</strong>：<code>sync.Once</code> 可以确保某个操作只执行一次，常用于初始化。</p>
+</li>
+<li><p><strong>通道（Channel）</strong>：通过通道可以实现goroutine之间的同步和通信，可以用于替代锁的使用。</p>
+</li>
+<li><p><strong>上下文（Context）</strong>：<code>context.Context</code> 可以用于管理goroutine的生命周期和传递取消信号。</p>
+</li>
+</ol>
+<p>Go语言的并发模型使用goroutine和通道来实现，避免了传统线程锁带来的复杂性和性能开销。通常情况下，使用通道来实现goroutine之间的通信和同步，而避免显式地使用锁。</p>
+<p>在Go中，推荐尽量避免使用显式锁，而是使用通道和<code>select</code>语句来实现并发控制，这种方式更符合Go语言的设计理念。只有在必要的情况下才使用锁，而且要根据具体情况选择适合的锁类型。</p>
+<h1 id="3-Goroutine调度策略"><a href="#3-Goroutine调度策略" class="headerlink" title="3. Goroutine调度策略"></a>3. Goroutine调度策略</h1><h2 id="3-1-队列轮转"><a href="#3-1-队列轮转" class="headerlink" title="3.1 队列轮转"></a>3.1 队列轮转</h2><p>上图中可见每个P维护着一个包含G的队列，不考虑G进入系统调用或IO操作的情况下，P周期性的将G调度到M中执行，执行一小段时间，将上下文保存下来，然后将G放到队列尾部，然后从队列中重新取出一个G进行调度。</p>
+<p>除了每个P维护的G队列以外，还有一个全局的队列，每个P会周期性地查看全局队列中是否有G待运行并将其调度到M中执行，全局队列中G的来源，主要有从系统调用中恢复的G。之所以P会周期性地查看全局队列，也是为了防止全局队列中的G被饿死。</p>
+<h2 id="3-2-系统调用"><a href="#3-2-系统调用" class="headerlink" title="3.2 系统调用"></a>3.2 系统调用</h2><p>上面说到P的个数默认等于CPU核数，每个M必须持有一个P才可以执行G，一般情况下M的个数会略大于P的个数，这多出来的M将会在G产生系统调用时发挥作用。类似线程池，Go也提供一个M的池子，需要时从池子中获取，用完放回池子，不够用时就再创建一个。</p>
+<p>当M运行的某个G产生系统调用时，如下图所示：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_fd748bf1364411aa7929b84c155ef67a_r.png" alt="null"></p>
+<p>如图所示，当G0即将进入系统调用时，M0将释放P，进而某个空闲的M1获取P，继续执行P队列中剩下的G。而M0由于陷入系统调用而进被阻塞，M1接替M0的工作，只要P不空闲，就可以保证充分利用CPU。</p>
+<p>M1的来源有可能是M的缓存池，也可能是新建的。当G0系统调用结束后，根据M0是否能获取到P，将会将G0做不同的处理：</p>
+<ol>
+<li>如果有空闲的P，则获取一个P，继续执行G0。</li>
+<li>如果没有空闲的P，则将G0放入全局队列，等待被其他的P调度。然后M0将进入缓存池睡眠。</li>
+</ol>
+<p>快速排序的情况比较棘手，在最糟情况下，其运行时间为O(n2)。。在平均情况下，快速排序的运行时间为O(nlogn)。</p>
+<p>快排思想:</p>
+<p>1、找个基准元素，比如刚开始取nums[0],左右指针分别指向最左边和最右边</p>
+<p>2、从最右边开始，将右指针所指的元素和基准比较，如果比基准小，那么就把该位置的元素拿到坑位上，右边的位置成为了坑位，左指针向前移动，左指针上的元素再和基准元素比较，比基准大，就移动到坑位上，然后空出来的位置变成了坑位，依次执行下去直到最后一个坑位，把基准元素填入</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quick_sort</span><span class="params">(l,r <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> l&gt;r&#123; <span class="comment">//这个临界条件不写，会导致栈溢出</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    i,j:= l<span class="number">-1</span>,r+<span class="number">1</span></span><br><span class="line">    x := q[(l+r)/<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">for</span> i&lt;j&#123;</span><br><span class="line">        <span class="keyword">for</span>&#123;</span><br><span class="line">            i++</span><br><span class="line">            <span class="keyword">if</span> q[i]&gt;=x&#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>&#123;</span><br><span class="line">            j--</span><br><span class="line">            <span class="keyword">if</span> q[j]&lt;=x&#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> i&gt;j&#123;</span><br><span class="line">            q[i],q[j] = q[j],q[i]</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(l,j)</span><br><span class="line">    quick_sork(j+<span class="number">1</span>,r)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    q := []<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>&#125;</span><br><span class="line">    quick_sort(<span class="number">0</span>,<span class="built_in">len</span>(q)<span class="number">-1</span>)</span><br><span class="line">    fmt.Println(q)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>冒泡思想：2层循环：外层循环遍历整个数组，每次找出一个最大的，内层循环随着找出的最大的值，循环的次数不断减小，次数为了<code>len(nu)-i-1</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main </span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;   </span><br><span class="line">    nu := []<span class="type">int</span>&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>&#125;   </span><br><span class="line">    ints := b(nu)   </span><br><span class="line">    fmt.Println(ints) </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">b</span><span class="params">(nu []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;   </span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(nu); i++ &#123;      </span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="built_in">len</span>(nu)-i<span class="number">-1</span>; j++ &#123;         </span><br><span class="line">            <span class="keyword">if</span> nu[j] &gt; nu[j+<span class="number">1</span>] &#123;            </span><br><span class="line">                nu[j], nu[j+<span class="number">1</span>] = nu[j+<span class="number">1</span>], nu[j]         </span><br><span class="line">            &#125;      </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="keyword">return</span> nu </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>文件格式检查：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">jsonCmp</span><span class="params">(json3, json4 []<span class="type">byte</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> json3 == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//前端传来的数据形式为[&#123;sturct&#125;&#123;sturct&#125;],改为&#123;&quot;a&quot;:[&#123;sturct&#125;&#123;sturct&#125;]&#125;</span></span><br><span class="line">   json1 := []<span class="type">byte</span>(<span class="string">`&#123;&quot;a&quot;:`</span>)</span><br><span class="line">   json1 = <span class="built_in">append</span>(json1, json3...)</span><br><span class="line">   j1 := []<span class="type">byte</span>(<span class="string">`&#125;`</span>)</span><br><span class="line">   json1 = <span class="built_in">append</span>(json1, j1...)</span><br><span class="line">   json2 := []<span class="type">byte</span>(<span class="string">`&#123;&quot;a&quot;:`</span>)</span><br><span class="line">   j2 := []<span class="type">byte</span>(<span class="string">`&#125;`</span>)</span><br><span class="line">   json2 = <span class="built_in">append</span>(json2, json4...)</span><br><span class="line">   json2 = <span class="built_in">append</span>(json2, j2...)</span><br><span class="line">   <span class="comment">//解析json到map</span></span><br><span class="line">   <span class="keyword">var</span> map1, map2 <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">   <span class="keyword">if</span> err := json.Unmarshal(json1, &amp;map1); err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> err := json.Unmarshal(json2, &amp;map2); err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//递归调用，每次仅比较最外层json</span></span><br><span class="line">   <span class="keyword">return</span> jsonRecur(map1, map2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">jsonRecur</span><span class="params">(map1, map2 <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">   <span class="comment">//取map中的最外层key，按名称排序</span></span><br><span class="line">   getMapKey := <span class="function"><span class="keyword">func</span><span class="params">(m <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span></span> []<span class="type">string</span> &#123;</span><br><span class="line">      keys := <span class="built_in">make</span>([]<span class="type">string</span>, <span class="number">0</span>, <span class="built_in">len</span>(m))</span><br><span class="line">      <span class="keyword">for</span> k := <span class="keyword">range</span> m &#123;</span><br><span class="line">         keys = <span class="built_in">append</span>(keys, k)</span><br><span class="line">      &#125;</span><br><span class="line">      sort.Strings(keys)</span><br><span class="line">      <span class="keyword">return</span> keys</span><br><span class="line">   &#125;</span><br><span class="line">   key1 := getMapKey(map1) <span class="comment">//map的key的切片</span></span><br><span class="line">   key2 := getMapKey(map2)</span><br><span class="line">   <span class="comment">//对比key长度</span></span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(key1) != <span class="built_in">len</span>(key2) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//对比key内容</span></span><br><span class="line">   <span class="keyword">for</span> i, k := <span class="keyword">range</span> key1 &#123;</span><br><span class="line">      <span class="keyword">if</span> k != key2[i] &#123; <span class="comment">//key值不相等</span></span><br><span class="line">         <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">      maps1, ok1 := map1[k].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;) <span class="comment">//判断是否是内嵌的结构体</span></span><br><span class="line">      maps2, ok2 := map2[k].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">      <span class="keyword">if</span> ok1 &amp;&amp; ok2 &#123; <span class="comment">//key值相等，内容均为map，则递归</span></span><br><span class="line">         <span class="keyword">return</span> jsonRecur(maps1, maps2)</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ok1 || ok2 &#123; <span class="comment">//key值相等，内容不均为map</span></span><br><span class="line">         <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> !ok1 &amp;&amp; !ok2 &#123;</span><br><span class="line">         <span class="keyword">if</span> isArray(map1[k]) == isArray(map2[k]) &#123;</span><br><span class="line">            <span class="keyword">if</span> isArray(map1[k]) &#123; <span class="comment">//相等且为true</span></span><br><span class="line">               <span class="comment">//双方都是数组，进来判断数组里面的类型</span></span><br><span class="line">               <span class="comment">//数组不为空，取第一个元素比较</span></span><br><span class="line">               <span class="keyword">if</span> <span class="built_in">len</span>(map1[k].([]<span class="keyword">interface</span>&#123;&#125;)) != <span class="number">0</span> &#123;</span><br><span class="line">                  maps10, ok10 := map1[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">                  maps20, ok20 := map2[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">                  <span class="keyword">if</span> ok10 &amp;&amp; ok20 &#123; <span class="comment">//key值相等，内容均为map，则递归</span></span><br><span class="line">                     <span class="keyword">return</span> jsonRecur(maps10, maps20)</span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ok10 || ok20 &#123; <span class="comment">//key值相等，内容不均为map</span></span><br><span class="line">                     <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> !ok10 &amp;&amp; !ok20 &#123;</span><br><span class="line">                     <span class="keyword">if</span> reflect.TypeOf(map1[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>]) != reflect.TypeOf(map2[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">                     &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">//双方都不是数组</span></span><br><span class="line">               <span class="keyword">if</span> reflect.TypeOf(map1[k]) != reflect.TypeOf(map2[k]) &#123;</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> reflect.TypeOf(map1[k]) != reflect.TypeOf(map2[k]) &#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isArray</span><span class="params">(data <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">   typeOf := reflect.TypeOf(data)</span><br><span class="line">   <span class="keyword">return</span> typeOf.Kind() == reflect.Slice</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="阻塞式接口，处理阻塞式接口的办法-context-WithTimeout设置超时机制"><a href="#阻塞式接口，处理阻塞式接口的办法-context-WithTimeout设置超时机制" class="headerlink" title="阻塞式接口，处理阻塞式接口的办法(context.WithTimeout设置超时机制)"></a>阻塞式接口，处理阻塞式接口的办法(context.WithTimeout设置超时机制)</h4><h5 id="阻塞式接口"><a href="#阻塞式接口" class="headerlink" title="阻塞式接口"></a>阻塞式接口</h5><p>描述：调用某个方法时，如果没有拿到返回时，会一直等待，直到拿到返回值为止</p>
+<p>但是一直死等的话会消耗cpu的资源，所以设置超时机制来结束该进程</p>
+<p><strong>在Go语言中，可以使用 <code>context</code> 包来实现超时机制</strong>。</p>
+<p>具体步骤如下：</p>
+<ol>
+<li>导入 <code>context</code> 包：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;context&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建一个带有超时的 <code>context</code>：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctx, cancel := context.WithTimeout(context.Background(), </span><br><span class="line">                                   time.Duration(timeout) * time.Second)</span><br><span class="line"><span class="keyword">defer</span> cancel()</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>timeout</code> 是超时时间的秒数。</p>
+<ol start="3">
+<li>在执行阻塞式操作之前，将创建的 <code>ctx</code> 传递给相应的操作：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">resultChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这里执行阻塞式操作，比如读取数据</span></span><br><span class="line">    <span class="comment">// 如果超时会立即返回</span></span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">        resultChan &lt;- <span class="number">-1</span> <span class="comment">// 超时处理</span></span><br><span class="line">    <span class="keyword">case</span> data := &lt;-dataChan:</span><br><span class="line">        resultChan &lt;- data</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>使用 <code>select</code> 语句来等待结果：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line"><span class="keyword">case</span> data := &lt;-resultChan:</span><br><span class="line">    <span class="comment">// 处理结果</span></span><br><span class="line"><span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">    <span class="comment">// 处理超时</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，如果阻塞式操作在超时时间内没有完成，<code>ctx.Done()</code> 会接收到信号，可以在 <code>case &lt;-ctx.Done()</code> 中进行超时处理。</p>
+<p>这样，通过使用 <code>context</code> 包，可以实现对阻塞式操作的超时控制。</p>
+<h4 id="读取文件的几种方式"><a href="#读取文件的几种方式" class="headerlink" title="读取文件的几种方式"></a>读取文件的几种方式</h4><p><code>1、</code><strong>ioutil.ReadAll</strong>—一次性的读取和写入文件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file, err := os.Open(<span class="string">&quot;file/test&quot;</span>)<span class="string">`</span></span><br><span class="line"><span class="string">ackBody, err := ioutil.ReadAll(file)   //ackBody(字节数组)</span></span><br></pre></td></tr></table></figure>
+
+<p>2、<strong>ioutil.ReadFile</strong>—一次性的读取和写入文件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ReadFile</span><span class="params">(filename <span class="type">string</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> os.ReadFile(filename)</span><br><span class="line">&#125;</span><br><span class="line">fileName := <span class="string">&quot;file/test2&quot;</span></span><br><span class="line">file,err :=ioutil.ReadFile(fileName)</span><br></pre></td></tr></table></figure>
+
+<p>3、<strong>使用 bufio.NewWriter 写文件</strong>—-加了一层缓冲区，把ioutil库的按字节读取转成按行读取</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewWriter</span><span class="params">(w io.Writer)</span></span> *Writer &#123;</span><br><span class="line">	<span class="keyword">return</span> NewWriterSize(w, defaultBufSize)</span><br><span class="line">&#125;</span><br><span class="line">file, err3 := os.Create(fileName) <span class="comment">//创建文件</span></span><br><span class="line">writer := bufio.NewWriter(file) <span class="comment">//创建新的 Writer 对象</span></span><br><span class="line">    _, err := writer.WriteString(<span class="string">&quot;bufferedn&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="几个文件库的对比"><a href="#几个文件库的对比" class="headerlink" title="几个文件库的对比"></a>几个文件库的对比</h4><p><strong>io.Reader&#x2F;Writer,有几个常用的实现：</strong></p>
+<p>net.Conn: 网络<br>os.Stdin, os.Stdout, os.Stderr: console终端标准输出,err<br>os.File: 网络,标准输入输出,文件的流读取<br>strings.Reader: 把字符串抽象成Reader<br>bytes.Reader: 把[]byte抽象成Reader<br>bytes.Buffer: 把[]byte抽象成Reader和Writer<br>bufio.Reader&#x2F;Writer: 抽象成带缓冲的流读取（比如按行读写）</p>
+<p><strong>io库</strong><br>io 库属于底层接口定义库。它的作用主要是定义个 I&#x2F;O 的基本接口和个基本常量，并解释这些接口的功能。在实际编写代码做 I&#x2F;O 操作时，这个库一般只用来调用它的常量和接口定义，比如用 io.EOF 判断是否已经读取完，用 io.Reader 做变量的类型声明。</p>
+<p><strong>os 库</strong><br>os 库主要是处理操作系统操作的，它作为<strong>Go程序和操作系统交互的桥梁</strong>。创建文件、打开或者关闭文件、Socket等等这些操作和都是和操作系统挂钩的，所以都通过 os 库来执行。</p>
+<p><strong>ioutil库</strong><br>ioutil 库是一个有工具包，它提供了很多使用的 IO 工具函数，例如 ReadAll、ReadFile、WriteFile、ReadDir。唯一需要注意的是它们都是一次性读取和一次性写入，所以使用时，尤其是把数据从文件里一次性读到内存中时需要注意文件的大小。</p>
+<p><strong>bufio库</strong><br>bufio，可以理解为在 io 库的基础上额外封装加了一个缓存层，它提供了很多按行进行读写的函数，从io库的按字节读写变为按行读写对写代码来说还是方便了不少。</p>
+<p><strong>bytes 和 strings 库</strong><br>bytes 和 strings 库里的 bytes.Reader 和string.Reader，它们都实现了 io.Reader 接口，也都提供了NewReader方法用来从 []byte 或者 string 类型的变量直接构建出相应的Reader实现。</p>
+<h4 id="redis的数据结构"><a href="#redis的数据结构" class="headerlink" title="redis的数据结构"></a>redis的数据结构</h4><p>string：密码，用户认证的token信息</p>
+<p>List: 使用双端链表</p>
+<p>hash：用户的结构体信息</p>
+<p>set:存的string类型，但是数据不能重复，无序</p>
+<p>zset：存的有序数据</p>
+<h4 id="defer语句的总结"><a href="#defer语句的总结" class="headerlink" title="defer语句的总结"></a>defer语句的总结</h4><p>defer是go中一种延迟调用机制，defer后面的函数只有在当前函数执行完毕后才能执行。</p>
+<p>多个defer出现的时候，它会把defer之后的函数压入一个栈中延迟执行，也就是先进后出。</p>
+<p>defer后面的函数值在入栈的时候就决定了。</p>
+<p>defer 最大的功能是 panic 后依然有效,我们可以在defer中进行recover，如果defer中包含recover，则程序将不会再进行panic，实现try catch机制。</p>
+<p>例如：</p>
+<p>recover 通常用于处理 panic 异常，它能够阻止程序直接崩溃，并允许你在异常情况下进行一些恢复性的操作。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> r := <span class="built_in">recover</span>(); r != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Println(<span class="string">&quot;Recovered:&quot;</span>, r)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">	<span class="built_in">panic</span>(<span class="string">&quot;This is a panic!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，当程序执行到 panic 时，会触发一个 panic，但因为在 defer 中包含了 recover，程序会继续执行 recover 中的逻辑，打印出 “Recovered: This is a panic!”。这样就防止了程序直接崩溃。</p>
+<p>需要注意的是，recover 只在 defer 中直接调用才会生效，否则它会返回 nil。此外，recover 只能用于处理 panic，如果在没有 panic 的情况下调用 recover，它会返回 nil。</p>
+<p>总的来说，recover 是用于恢复程序在发生 panic 时的处理机制，使得程序能够在出现异常情况下继续执行下去</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" rel="tag"># 网络知识</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/10/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="数据库面试总结">
+                <i class="fa fa-chevron-left"></i> 数据库面试总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#http%E7%9A%84udp%E5%8D%8F%E8%AE%AE%E5%AD%97%E6%AE%B5%E7%BB%84%E6%88%90%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">http的udp协议字段组成？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http%E5%92%8Chttps%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">http和https有哪些区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E5%AE%9A%E6%98%AF%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%8C%E4%B8%8D%E8%83%BD%E6%98%AF%E5%9B%9B%E6%AC%A1%E6%88%96%E8%80%85%E4%BA%8C%E6%AC%A1"><span class="nav-number">3.</span> <span class="nav-text">http为什么一定是三次握手，不能是四次或者二次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tcp%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%98%AF%E4%B8%89%E6%AC%A1%E5%90%97"><span class="nav-number">4.</span> <span class="nav-text">Tcp四次挥手，可以是三次吗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%95%BF%E8%BF%9E%E6%8E%A5%E5%92%8C%E7%9F%AD%E8%BF%9E%E6%8E%A5%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="nav-number">5.</span> <span class="nav-text">长连接和短连接什么意思</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-1-1%EF%BC%8Chttp-2%EF%BC%8Chttp-3%E6%BC%94%E5%8F%98"><span class="nav-number">6.</span> <span class="nav-text">http&#x2F;1.1，http&#x2F;2，http&#x2F;3演变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#udp%E5%92%8Ctcp%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">7.</span> <span class="nav-text">udp和tcp的应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tcp%E5%9B%9B%E5%85%83%E7%BB%84%E5%8F%AF%E4%BB%A5%E5%94%AF%E4%B8%80%E7%A1%AE%E5%AE%9A%E4%B8%80%E4%B8%AATcp%E8%BF%9E%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">tcp四元组可以唯一确定一个Tcp连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFTcp%E8%BF%9E%E6%8E%A5"><span class="nav-number">9.</span> <span class="nav-text">什么是Tcp连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tcp%E7%9A%84%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0%EF%BC%8C%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0%EF%BC%8C%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">10.</span> <span class="nav-text">Tcp的超时重传，快速重传，滑动窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Goroutine%E7%9A%84GMP%E6%A8%A1%E5%9E%8B"><span class="nav-number">11.</span> <span class="nav-text">Goroutine的GMP模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-number">12.</span> <span class="nav-text">1. 线程池的缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Goroutine%E8%B0%83%E5%BA%A6%E5%99%A8"><span class="nav-number">13.</span> <span class="nav-text">2. Goroutine调度器</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Goroutine%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5"><span class="nav-number"></span> <span class="nav-text">3. Goroutine调度策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E9%98%9F%E5%88%97%E8%BD%AE%E8%BD%AC"><span class="nav-number"></span> <span class="nav-text">3.1 队列轮转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number"></span> <span class="nav-text">3.2 系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E5%BC%8F%E6%8E%A5%E5%8F%A3%EF%BC%8C%E5%A4%84%E7%90%86%E9%98%BB%E5%A1%9E%E5%BC%8F%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8A%9E%E6%B3%95-context-WithTimeout%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">阻塞式接口，处理阻塞式接口的办法(context.WithTimeout设置超时机制)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">阻塞式接口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">读取文件的几种方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E6%96%87%E4%BB%B6%E5%BA%93%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">几个文件库的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">redis的数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#defer%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">defer语句的总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

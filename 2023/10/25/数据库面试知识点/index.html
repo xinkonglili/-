@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="桌面的 chat ai 是什么？自己的 ChatGPT 是怎么搭建的？还有没有做过和ai相关的应用？ 说一下链表是什么？有没有实际用过？然后就引到了算法题 :sob: 手撕：一个数组，奇数放前面，偶数放后面。力扣 905. ******* 手撕 时间空间复杂度，我的空间复杂度是 O(n), 面试官说怎么优化？ 了解过哪些排序算法？讲一下冒泡的算法思想，复杂度？快排的思想，复杂度？ MySQL 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库面试总结">
+<meta property="og:url" content="http://example.com/2023/10/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="桌面的 chat ai 是什么？自己的 ChatGPT 是怎么搭建的？还有没有做过和ai相关的应用？ 说一下链表是什么？有没有实际用过？然后就引到了算法题 :sob: 手撕：一个数组，奇数放前面，偶数放后面。力扣 905. ******* 手撕 时间空间复杂度，我的空间复杂度是 O(n), 面试官说怎么优化？ 了解过哪些排序算法？讲一下冒泡的算法思想，复杂度？快排的思想，复杂度？ MySQL 的">
+<meta property="og:locale">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027103629774.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027145540750.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027145513743.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192545870.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192803257.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102222455603.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113050124.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113042224.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113058523.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113609968.png">
+<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113626401.png">
+<meta property="article:published_time" content="2023-10-25T03:16:20.000Z">
+<meta property="article:modified_time" content="2023-11-04T06:58:10.291Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027103629774.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/10/25/数据库面试知识点/"/>
+
+
+
+
+
+  <title>数据库面试总结 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库面试总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-10-25T11:16:20+08:00">
+                2023-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>桌面的 <code>chat ai</code> 是什么？自己的 ChatGPT 是怎么搭建的？还有没有做过和<code>ai</code>相关的应用？</li>
+<li>说一下链表是什么？有没有实际用过？然后就引到了算法题 :sob:</li>
+<li>手撕：一个数组，奇数放前面，偶数放后面。力扣 <a target="_blank" rel="noopener" href="https://gw-c.nowcoder.com/api/sparta/jump/link?link=https://leetcode.cn/problems/sort-array-by-parity/description/">905. *******</a></li>
+<li>手撕 时间空间复杂度，我的空间复杂度是 O(n), 面试官说<strong>怎么优化</strong>？</li>
+<li>了解过哪些排序算法？讲一下冒泡的算法思想，复杂度？快排的思想，复杂度？</li>
+<li>MySQL 的索引 ？B+树？</li>
+<li>sql题：分别有员工表和部门表两张表，关联字段是部门id，求每个部门薪资最高的员工的信息，薪资最高有多个人需要全部输出。</li>
+<li>随口一句<code>mysql</code>用的比较多，问我具体用在哪里？</li>
+<li>选品库是怎么设计的？并发度是多少？</li>
+<li>实习项目选品库的难点在哪里？索引怎么设计的？联合索引限制长度吧？</li>
+</ul>
+<h2 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h2><p>面试前收到税友HR面，通过offer。所以迟到了几分钟 :sob: 第一次遇上女面试官哈哈哈，自我介绍说我是不是照着念的哈哈哈，整体的氛围就是哈哈哈。面试前看了大佬们的面经，没想到很多题都遇到了，包括手撕和<code>sql</code>，所以说明交流很重要，欢迎大家一起交流，一起OC！！手撕的优化还是自己傻逼了，面试官通过快排来引导我，面试之后就想出来了。</p>
+<p>然后就是学会引导面试官吧，有时候随口的一句话可能就引入了另一个面试点，所以可以去刻意的引导！</p>
+<p>欢迎大佬们指教！</p>
+<h2 id="面试详解"><a href="#面试详解" class="headerlink" title="面试详解"></a>面试详解</h2><ul>
+<li><p>了解过哪些排序算法？讲一下冒泡的算法思想，复杂度？快排的思想，复杂度？</p>
+</li>
+<li><p>sql题：分别有员工表和部门表两张表，关联字段是部门id，求每个部门薪资最高的员工的信息，薪资最高有多个人需要全部输出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参考链接：https://www.cnblogs.com/hi3254014978/p/17179682.html</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>随口一句<code>mysql</code>用的比较多，问我具体用在哪里？</p>
+</li>
+<li><p>选品库是怎么设计的？并发度是多少？</p>
+</li>
+<li><p>实习项目选品库的难点在哪里？索引怎么设计的？联合索引限制长度吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url 字段比较长，可以用前缀索引进行优化</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h4 id="Mysql的汇总数据函数"><a href="#Mysql的汇总数据函数" class="headerlink" title="Mysql的汇总数据函数"></a>Mysql的汇总数据函数</h4><p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027103629774.png" alt="image-20231027103629774"></p>
+<p>AVG:基本对特定的<strong>列</strong>进行操作，返回指定列的平均值，也可以用来对所有列计算平均值，或者特定行的平均值</p>
+<p>MAX: 对特定的<strong>列</strong>进行操作，返回指定列中的最大值，要求指定列名</p>
+<p>MIN:对特定的<strong>列</strong>进行操作，返回指定列中的最小值，要求指定列名</p>
+<p>COUNT(*)：<strong>注意操作的是行</strong>，对表中行的数目进行计数，不忽略null值</p>
+<p>COUNT()：对指定<strong>列</strong>计数，忽略null值</p>
+<p>SUM：返回指定列的总和，也可用来合计计算值（多个列做乘除加减），ex:SUM(countPrice*countNumber)</p>
+<p>Group by子句必须出现在where子句之后，order by(排序)子句之前</p>
+<p>Group by可以包含任意数目的列，为分组提供更加细致的控制</p>
+<p>where子句过滤的是指定的行，而不是分组</p>
+<p>Having用来过滤分组</p>
+<p>mysql语句的先后执行顺序：</p>
+<p>1、from</p>
+<p>2、where</p>
+<p>3、group by</p>
+<p>4、having</p>
+<p>5、select</p>
+<p>6、distinct</p>
+<p>7、order by</p>
+<p>子查询中：where 列名A in (select 列名A from table  where 条件)</p>
+<p>where后面的列名要和select中的列名一致 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>找出每个部门薪资最高的那个人</span><br><span class="line"><span class="keyword">SELECT</span> d.department_id, d.department_name, e.employee_id, e.salary</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> (e.department_id, e.salary) <span class="keyword">IN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> department_id, <span class="built_in">MAX</span>(salary)</span><br><span class="line">    <span class="keyword">FROM</span> employees </span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> department_id</span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027145540750.png" alt="image-20231027145540750"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>找出it部门薪资最高的三个人</span><br><span class="line"><span class="keyword">SELECT</span> d.department_id, d.department_name, e.employee_id, e.salary</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> d.department_name <span class="operator">=</span> &quot;it&quot; </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> e.salary <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027145513743.png" alt="image-20231027145513743"></p>
+<h4 id="Mysql索引"><a href="#Mysql索引" class="headerlink" title="Mysql索引"></a>Mysql索引</h4><p>1、mysql和myisam都使用B+树作为索引结构</p>
+<p>2、作用：加快查询数据的速度</p>
+<h4 id="B树和B-树区别"><a href="#B树和B-树区别" class="headerlink" title="B树和B+树区别"></a>B树和B+树区别</h4><p>1、B树的非叶子和叶子节点都是存关键字和指针(地址)，查找关键字额外的数据，需要二次回访地址查找</p>
+<p>2、B+的非叶子节点只存关键字，叶子节点存储完整的数据，B+树不存指针；叶子节点之间可以</p>
+<h4 id="几种树的分类"><a href="#几种树的分类" class="headerlink" title="几种树的分类"></a>几种树的分类</h4><p>1、完全二叉树：只对树的形状有要求，对树的内容没要求，最后一层叶子节点都靠左排列，除了最后一层，</p>
+<p>其余层次的叶子都是满的</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192545870.png" alt="image-20231030192545870"></p>
+<p>应用实例堆，但是堆里面的数据大小很有讲究，分为大根堆（根节点最大），小根堆（根节点最小）</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192803257.png" alt="image-20231030192803257"></p>
+<p>2、二叉搜索树&#x2F;二叉查找树：左小右大，和树节点值的大小关联，和树的形状没关系</p>
+<p>3、平衡二叉树：二叉树中任意一个节点的左右子树的高度差不能超过1，节点值大小并没有什么特定的关系</p>
+<p>4、平衡二叉查找树：左小右大，和树节点值的大小关联，任意一个节点的左右子树的高度差不能超过1</p>
+<p>二叉树的最小深度</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">minDepth</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">   left :=  minDepth(root.Left)</span><br><span class="line">   right := minDepth(root.Right)</span><br><span class="line">   <span class="keyword">if</span> left==<span class="number">0</span>||right==<span class="number">0</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> left+right+<span class="number">1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> left &gt;right&#123;</span><br><span class="line">       <span class="keyword">return</span> right+<span class="number">1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> left+<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二叉树的最大深度&#x2F;深度</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxDepth</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    left := maxDepth(root.Left)</span><br><span class="line">    right := maxDepth(root.Right)</span><br><span class="line">    <span class="keyword">if</span> left &gt; right&#123;</span><br><span class="line">        <span class="keyword">return</span> left+<span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> right+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二叉树的中序遍历</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">inorderTraversal</span><span class="params">(root *TreeNode)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">var</span> tree []<span class="type">int</span></span><br><span class="line">   <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> tree</span><br><span class="line">   &#125;</span><br><span class="line">   tree = <span class="built_in">append</span>(tree,inorderTraversal(root.Left)...)</span><br><span class="line">   tree = <span class="built_in">append</span>(tree,root.Val)</span><br><span class="line">   tree = <span class="built_in">append</span>(tree,inorderTraversal(root.Right)...)</span><br><span class="line">   <span class="keyword">return</span> tree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>冒泡</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bub</span><span class="params">(number []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(number); i++ &#123;</span><br><span class="line">      <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="built_in">len</span>(number)-i<span class="number">-1</span>; j++ &#123;</span><br><span class="line">         <span class="keyword">if</span> number[j] &gt; number[j+<span class="number">1</span>] &#123;</span><br><span class="line">            number[j+<span class="number">1</span>], number[j] = number[j], number[j+<span class="number">1</span>]</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   mp := []<span class="type">int</span>&#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">1</span>&#125;</span><br><span class="line">   fmt.Println(bub(mp))</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>快排</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> q []<span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quick_sort</span><span class="params">(l, r <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> l &gt;= r &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   i := l - <span class="number">1</span></span><br><span class="line">   j := r + <span class="number">1</span></span><br><span class="line">   x := q[(r+l)/<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> i &lt; j &#123;</span><br><span class="line">      <span class="keyword">for</span> &#123;</span><br><span class="line">         i++</span><br><span class="line">         <span class="keyword">if</span> q[i] &gt;= x &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> &#123;</span><br><span class="line">         j--</span><br><span class="line">         <span class="keyword">if</span> q[j] &lt;= x &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> i &lt;= j &#123;</span><br><span class="line">         q[i], q[j] = q[j], q[i]</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   quick_sort(l, j)</span><br><span class="line">   quick_sort(j+<span class="number">1</span>, r)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   q = []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line">   quick_sort(<span class="number">0</span>, <span class="built_in">len</span>(q)<span class="number">-1</span>)</span><br><span class="line">   fmt.Println(q)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>奇偶排序</p>
+<p><strong>使用容器</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortArrayByParity</span><span class="params">(nums []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">	left, right := <span class="number">0</span>,<span class="built_in">len</span>(nums)<span class="number">-1</span></span><br><span class="line">    numP := <span class="built_in">make</span>([]<span class="type">int</span>,<span class="built_in">len</span>(nums))</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(nums);i++&#123;</span><br><span class="line">        <span class="keyword">if</span> nums[i]%<span class="number">2</span>==<span class="number">0</span>&#123;</span><br><span class="line">            numP[left] = nums[i]</span><br><span class="line">            left++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[i]%<span class="number">2</span>!=<span class="number">0</span>&#123;</span><br><span class="line">            numP[right] = nums[i]</span><br><span class="line">            right--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> numP</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>使用双指针</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortArrayByParity</span><span class="params">(nums []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">	left,right := <span class="number">0</span>,<span class="built_in">len</span>(nums)<span class="number">-1</span></span><br><span class="line">    <span class="keyword">for</span> left &lt;right&#123;</span><br><span class="line">        <span class="keyword">if</span> nums[left] %<span class="number">2</span>!=<span class="number">0</span>&amp;&amp;nums[right]%<span class="number">2</span>==<span class="number">0</span>&#123;</span><br><span class="line">           nums[left],nums[right] = nums[right],nums[left] </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[left]%<span class="number">2</span>==<span class="number">0</span>&#123;</span><br><span class="line">            left++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[right]%<span class="number">2</span>!=<span class="number">0</span>&#123;</span><br><span class="line">            right--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>用栈实现队列：先进先出，不用交换，直接压，只是pop和peek的时候麻烦</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MyQueue <span class="keyword">struct</span> &#123;</span><br><span class="line">   Stack1 []<span class="type">int</span></span><br><span class="line">   Stack2 []<span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span></span> MyQueue &#123;</span><br><span class="line">   <span class="keyword">return</span> MyQueue&#123;</span><br><span class="line">      Stack1: <span class="literal">nil</span>,</span><br><span class="line">      Stack2: <span class="literal">nil</span>,</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 规定stack1为队尾，stack2为队头</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Push(x <span class="type">int</span>) &#123;</span><br><span class="line">   queue.Stack1 = <span class="built_in">append</span>(queue.Stack1, x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先对stack2的长度判空，是空的就把stack1弹到stack2中，这有stack2的长度就会大于0，然后把len(queue.Stack2)-1弹出</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Pop() <span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(queue.Stack2) == <span class="number">0</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> <span class="built_in">len</span>(queue.Stack1) != <span class="number">0</span> &#123;</span><br><span class="line">         queue.Stack2 = <span class="built_in">append</span>(queue.Stack2, queue.Stack1[<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>])</span><br><span class="line">         queue.Stack1 = queue.Stack1[:<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>]</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(queue.Stack2) &gt; <span class="number">0</span> &#123;</span><br><span class="line">      val := queue.Stack2[<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">      queue.Stack2 = queue.Stack2[:<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Peek() <span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(queue.Stack2) != <span class="number">0</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> queue.Stack2[<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> <span class="built_in">len</span>(queue.Stack1) != <span class="number">0</span> &#123;</span><br><span class="line">         queue.Stack2 = <span class="built_in">append</span>(queue.Stack2, queue.Stack1[<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>])</span><br><span class="line">         queue.Stack1 = queue.Stack1[:<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>]</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> queue.Stack2[<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Empty() <span class="type">bool</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="built_in">len</span>(queue.Stack1) == <span class="number">0</span> &amp;&amp; <span class="built_in">len</span>(queue.Stack2) == <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyQueue object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * obj := Constructor();</span></span><br><span class="line"><span class="comment"> * obj.Push(x);</span></span><br><span class="line"><span class="comment"> * param_2 := obj.Pop();</span></span><br><span class="line"><span class="comment"> * param_3 := obj.Peek();</span></span><br><span class="line"><span class="comment"> * param_4 := obj.Empty();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>用队列实现栈：先进后出，压入的时候做交换</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用队列实现栈</span></span><br><span class="line"><span class="keyword">type</span> MyStack <span class="keyword">struct</span> &#123;</span><br><span class="line">	Queue1 []<span class="type">int</span></span><br><span class="line">	Queue2 []<span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span></span> MyStack &#123;</span><br><span class="line">	<span class="keyword">return</span> MyStack&#123;</span><br><span class="line">		Queue1: <span class="literal">nil</span>,</span><br><span class="line">		Queue2: <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Push(x <span class="type">int</span>) &#123;</span><br><span class="line">	this.Queue2 = <span class="built_in">append</span>(this.Queue2, x)</span><br><span class="line">	<span class="keyword">for</span> <span class="built_in">len</span>(this.Queue1) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		this.Queue2 = <span class="built_in">append</span>(this.Queue2, this.Queue1[<span class="number">0</span>])</span><br><span class="line">		this.Queue1 = this.Queue1[<span class="number">1</span>:]</span><br><span class="line">	&#125;</span><br><span class="line">	this.Queue1, this.Queue2 = this.Queue2, this.Queue1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Pop() <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(this.Queue1) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		val := this.Queue1[<span class="number">0</span>]</span><br><span class="line">		this.Queue1 = this.Queue1[<span class="number">1</span>:]</span><br><span class="line">		<span class="keyword">return</span> val</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Top() <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(this.Queue1) != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> this.Queue1[<span class="number">0</span>]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Empty() <span class="type">bool</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(this.Queue1) == <span class="number">0</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="给定一个头节点为-head-的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第-cnt-个训练项目编号。—快慢指针"><a href="#给定一个头节点为-head-的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第-cnt-个训练项目编号。—快慢指针" class="headerlink" title="给定一个头节点为 head 的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第 cnt 个训练项目编号。—快慢指针"></a>给定一个头节点为 <code>head</code> 的链表用于记录一系列核心肌群训练项目编号，请查找并返回<strong>倒数第 <code>cnt</code> 个训练项目</strong>编号。—快慢指针</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">trainingPlan</span><span class="params">(head *ListNode, cnt <span class="type">int</span>)</span></span> *ListNode &#123;</span><br><span class="line">    <span class="comment">//快慢指针</span></span><br><span class="line">    slow,fast := head,head</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;cnt;i++&#123; </span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> fast!=<span class="literal">nil</span>&#123;</span><br><span class="line">        slow = slow.Next</span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="环形链表：如果链表中存在环-，则返回-true-。-否则，返回-false"><a href="#环形链表：如果链表中存在环-，则返回-true-。-否则，返回-false" class="headerlink" title="环形链表：如果链表中存在环 ，则返回 true 。 否则，返回 false"></a>环形链表：<em>如果链表中存在环</em> ，则返回 <code>true</code> 。 否则，返回 <code>false</code></h4><p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102222455603.png" alt="image-20231102222455603"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hasCycle</span><span class="params">(head *ListNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    visited := <span class="built_in">make</span>(<span class="keyword">map</span>[*ListNode]<span class="type">bool</span>)</span><br><span class="line">    cir := <span class="literal">false</span></span><br><span class="line">    <span class="keyword">for</span> head != <span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> visited[head]&#123;</span><br><span class="line">            cir = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">return</span> cir</span><br><span class="line">        &#125;</span><br><span class="line">        visited[head] = <span class="literal">true</span></span><br><span class="line">        head = head.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>数组中第k个最大元素</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findKthLargest</span><span class="params">(nums []<span class="type">int</span>, k <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">for</span> i:= <span class="number">0</span>;i&lt;<span class="built_in">len</span>(nums);i++&#123;</span><br><span class="line">       min := i</span><br><span class="line">       <span class="keyword">for</span> j:=i+<span class="number">1</span>;j&lt;<span class="built_in">len</span>(nums);j++&#123;</span><br><span class="line">           <span class="keyword">if</span> nums[min] &gt; nums[j]&#123;</span><br><span class="line">               min = j</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> min != i&#123;</span><br><span class="line">           nums[i],nums[min] = nums[min],nums[i]</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> nums[<span class="built_in">len</span>(nums)-k]</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<p>二叉树的路径</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">var</span> paths []<span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">binaryTreePaths</span><span class="params">(root *TreeNode)</span></span> []<span class="type">string</span> &#123;</span><br><span class="line">	paths = []<span class="type">string</span>&#123;&#125;</span><br><span class="line">	Dfs(root, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	<span class="keyword">return</span> paths</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Dfs</span><span class="params">(node *TreeNode, path <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> node == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	path += strconv.Itoa(node.Val)</span><br><span class="line">	<span class="keyword">if</span> node.Left == <span class="literal">nil</span> &amp;&amp; node.Right == <span class="literal">nil</span> &#123;</span><br><span class="line">		paths = <span class="built_in">append</span>(paths, path)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	path += <span class="string">&quot;-&gt;&quot;</span></span><br><span class="line">	Dfs(node.Left, path)</span><br><span class="line">	Dfs(node.Right, path)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>对称二叉树(镜像二叉树)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isSymmetric</span><span class="params">(root *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isMirror(root.Left,root.Right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isMirror</span><span class="params">(left *TreeNode, right *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> left == <span class="literal">nil</span> &amp;&amp; right ==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> left == <span class="literal">nil</span> || right == <span class="literal">nil</span> ||left.Val != right.Val&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isMirror(left.Left,right.Right)&amp;&amp; isMirror(left.Right,right.Left)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<p>在Go语言中，可以使用<code>sync</code>包提供的锁来实现线程安全的访问共享资源。以下是一些常用的锁：</p>
+<ol>
+<li><strong>互斥锁（Mutex）</strong>：<code>sync.Mutex</code> 是一个最基本的互斥锁。通过 <code>Lock()</code> 和 <code>Unlock()</code> 方法来保护临界区，只允许一个goroutine进入临界区。</li>
+<li><strong>读写锁（RWMutex）</strong>：<code>sync.RWMutex</code> 是一种更复杂的锁，允许多个goroutine同时访问共享资源，但在写操作时会进行互斥锁定。</li>
+<li><strong>等待组（WaitGroup）</strong>：<code>sync.WaitGroup</code> 允许等待一组goroutine的结束。</li>
+<li><strong>条件变量（Cond）</strong>：<code>sync.Cond</code> 允许一个或多个goroutine等待特定条件的发生。</li>
+<li><strong>原子操作（atomic）</strong>：<code>sync/atomic</code> 包提供了一些原子操作函数，可以对共享变量进行原子操作，不需要加锁。</li>
+<li><strong>单次执行（Once）</strong>：<code>sync.Once</code> 可以确保某个操作只执行一次，常用于初始化。</li>
+<li><strong>通道（Channel）</strong>：通过通道可以实现goroutine之间的同步和通信，可以用于替代锁的使用。</li>
+<li><strong>上下文（Context）</strong>：<code>context.Context</code> 可以用于管理goroutine的生命周期和传递取消信号。</li>
+</ol>
+<p>DFS,BFS:查找树的路径多少条</p>
+<p>go语言垃圾回收机制</p>
+<p>1，2，3，4，5，6，7，8     怎么优化复杂度</p>
+<p>16个cpu，我开了32个处理器，性能方面怎么样</p>
+<p>写屏障</p>
+<p>golang里面值传递还是引用传递</p>
+<h4 id="面试必问垃圾回收"><a href="#面试必问垃圾回收" class="headerlink" title="面试必问垃圾回收"></a>面试必问垃圾回收</h4><p>定义：回收程序中<strong>不再使用的</strong>内存资源进行<strong>自动回收</strong>的操作</p>
+<p>1、常见的垃圾回收算法</p>
+<ul>
+<li><p>引用计数：每个对象维护一个引用计数，当被引用对象被创建或被赋值给其他对象时引用计数自动+1；</p>
+<p>如果这个对象被销毁，则计数-1，当计数为0，回收该对象</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113050124.png" alt="image-20231102113050124"></p>
+</li>
+</ul>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113042224.png" alt="image-20231102113042224"></p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113058523.png" alt="image-20231102113058523"></p>
+<p>处理器是p，p的数量一定会等于GOMAXPROCS设置的数量，p会绑定到不同的内核线程上</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113609968.png" alt="image-20231102113609968"></p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113626401.png" alt="image-20231102113626401"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/10/25/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="next" title="实现栈和队列">
+                <i class="fa fa-chevron-left"></i> 实现栈和队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/10/26/%E5%85%B3%E4%BA%8Ehttp%E7%9A%84%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="prev" title="关于http的面试知识点">
+                关于http的面试知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">面试总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">面试详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Mysql%E7%9A%84%E6%B1%87%E6%80%BB%E6%95%B0%E6%8D%AE%E5%87%BD%E6%95%B0"><span class="nav-number">3.0.1.</span> <span class="nav-text">Mysql的汇总数据函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mysql%E7%B4%A2%E5%BC%95"><span class="nav-number">3.0.2.</span> <span class="nav-text">Mysql索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B%E6%A0%91%E5%92%8CB-%E6%A0%91%E5%8C%BA%E5%88%AB"><span class="nav-number">3.0.3.</span> <span class="nav-text">B树和B+树区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%A0%E7%A7%8D%E6%A0%91%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">3.0.4.</span> <span class="nav-text">几种树的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%A4%B4%E8%8A%82%E7%82%B9%E4%B8%BA-head-%E7%9A%84%E9%93%BE%E8%A1%A8%E7%94%A8%E4%BA%8E%E8%AE%B0%E5%BD%95%E4%B8%80%E7%B3%BB%E5%88%97%E6%A0%B8%E5%BF%83%E8%82%8C%E7%BE%A4%E8%AE%AD%E7%BB%83%E9%A1%B9%E7%9B%AE%E7%BC%96%E5%8F%B7%EF%BC%8C%E8%AF%B7%E6%9F%A5%E6%89%BE%E5%B9%B6%E8%BF%94%E5%9B%9E%E5%80%92%E6%95%B0%E7%AC%AC-cnt-%E4%B8%AA%E8%AE%AD%E7%BB%83%E9%A1%B9%E7%9B%AE%E7%BC%96%E5%8F%B7%E3%80%82%E2%80%94%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88"><span class="nav-number">3.0.5.</span> <span class="nav-text">给定一个头节点为 head 的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第 cnt 个训练项目编号。—快慢指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%EF%BC%9A%E5%A6%82%E6%9E%9C%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%AD%98%E5%9C%A8%E7%8E%AF-%EF%BC%8C%E5%88%99%E8%BF%94%E5%9B%9E-true-%E3%80%82-%E5%90%A6%E5%88%99%EF%BC%8C%E8%BF%94%E5%9B%9E-false"><span class="nav-number">3.0.6.</span> <span class="nav-text">环形链表：如果链表中存在环 ，则返回 true 。 否则，返回 false</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%BF%85%E9%97%AE%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">3.0.7.</span> <span class="nav-text">面试必问垃圾回收</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
