@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Map是不是并发安全的，如何实现并发安全的不是并发安全的，sync.map是安全的，使用读写分离实现的，其思想是空间换时间 RWMutex在某一时刻由任意数量的reader持有，或者是只被单个的writer持有,当有一个goroutine持有读锁，此时有其他的goroutine想要持有写锁，这个goroutine会被阻塞，直到读锁被释放   sync.Map的四个方法：Store、Load、Del">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言常见面试题">
+<meta property="og:url" content="http://example.com/2023/11/06/Go%E8%AF%AD%E8%A8%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Map是不是并发安全的，如何实现并发安全的不是并发安全的，sync.map是安全的，使用读写分离实现的，其思想是空间换时间 RWMutex在某一时刻由任意数量的reader持有，或者是只被单个的writer持有,当有一个goroutine持有读锁，此时有其他的goroutine想要持有写锁，这个goroutine会被阻塞，直到读锁被释放   sync.Map的四个方法：Store、Load、Del">
+<meta property="og:locale">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061139630.png">
+<meta property="article:published_time" content="2023-11-06T03:35:32.000Z">
+<meta property="article:modified_time" content="2023-11-06T10:21:17.245Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061139630.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/11/06/Go语言常见面试题/"/>
+
+
+
+
+
+  <title>Go语言常见面试题 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/06/Go%E8%AF%AD%E8%A8%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Go语言常见面试题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-06T11:35:32+08:00">
+                2023-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Map是不是并发安全的，如何实现并发安全的"><a href="#Map是不是并发安全的，如何实现并发安全的" class="headerlink" title="Map是不是并发安全的，如何实现并发安全的"></a>Map是不是并发安全的，如何实现并发安全的</h4><p>不是并发安全的，sync.map是安全的，使用读写分离实现的，其思想是空间换时间</p>
+<p>RWMutex在某一时刻由任意数量的reader持有，或者是只被单个的writer持有,当有一个goroutine持有读锁，此时有其他的goroutine想要持有写锁，这个goroutine会被阻塞，直到读锁被释放</p>
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061139630.png" alt="image-20231106113915565" style="zoom:67%;" />
+
+<p>sync.Map的四个方法：<strong>Store、Load、Delete、Range</strong></p>
+<h5 id="Load：func-m-Map-Load-key-interface-value-interface-ok-bool"><a href="#Load：func-m-Map-Load-key-interface-value-interface-ok-bool" class="headerlink" title="Load：func (m *Map) Load(key interface{}) (value interface{}, ok bool)"></a>Load：func (m *Map) Load(key interface{}) (value interface{}, ok bool)</h5><p>Load方法用来加载sync.Map中的值，入参是key，返回值是对应的value以及value存在与否</p>
+<p>sync.Map更<strong>适合读多，更新多，而插入新值少</strong>的场景</p>
+<p>readOnly <strong>不适合反复插入，读取新值</strong>的场景，因为这种场景会频繁操作dirty，需要频繁加锁和更新read</p>
+<h4 id="Context作用"><a href="#Context作用" class="headerlink" title="Context作用"></a>Context作用</h4><p>1、跨goroutine传递请求范围的值，这样可以避免使用全局变量或传递大量参数来实现数据共享</p>
+<p>2、取消信号传递：通过Context，可以向相关的goroutine传递信号(取消信号，中止信号)，这样可以避免因为某些操作超时或出现错误导致程序出现不必要的等待或者阻塞</p>
+<p>3、截止时间管理：Context还可以设置超时时间，控制某些goroutine的执行时间，执行超过时间，Context会自动发出取消的信号</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Context <span class="keyword">interface</span>&#123;</span><br><span class="line">	Deadline (deadline time.Time,ok <span class="type">bool</span>) <span class="comment">//执行时间，信号是否被取消</span></span><br><span class="line">	Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">	Err() <span class="type">error</span></span><br><span class="line">	Value(key <span class="keyword">interface</span>&#123;&#125;) <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>小tips：struct{}{}不占用内存空间，0大小的数据结构，在某些情况下可以用来当作占位符或者信号量</p>
+<p>a、信号量：某些情况我们可能只会关心某些事情的发生，但是不需要传递实际的数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> signal = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//处理逻辑</span></span><br><span class="line">   <span class="built_in">close</span>(signal)</span><br><span class="line">&#125;()</span><br><span class="line">&lt;-signal  <span class="comment">//等待信号</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33521184/article/details/131881189">比较好的golang面试题</a></strong></p>
+<ul>
+<li></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	fmt.Println(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Sprintf</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	c := fmt.Sprintf(<span class="string">&quot;%s,%s&quot;</span>, a, b)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> strings.Builder</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Builder <span class="keyword">struct</span> &#123;</span><br><span class="line">    addr *Builder</span><br><span class="line">    buf  []<span class="type">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bulid strings.Builder</span><br><span class="line">	bulid.WriteString(a)</span><br><span class="line">	bulid.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bulid.WriteString(b)</span><br><span class="line">	c := bulid.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>bytes.Buffer</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Buffer <span class="keyword">struct</span> &#123;</span><br><span class="line">    buf      []<span class="type">byte</span></span><br><span class="line">    off      <span class="type">int</span></span><br><span class="line">    lastRead readOp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bytes bytes.Buffer</span><br><span class="line">	bytes.WriteString(a)</span><br><span class="line">	bytes.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bytes.WriteString(b)</span><br><span class="line">	c := bytes.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>strings.Join</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="type">string</span>&#123;<span class="string">&quot;nihao&quot;</span>, <span class="string">&quot;hello&quot;</span>&#125;</span><br><span class="line">	c := strings.Join(a, <span class="string">&quot;+&quot;</span>)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/11/05/test/" rel="next" title="test">
+                <i class="fa fa-chevron-left"></i> test
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Map%E6%98%AF%E4%B8%8D%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">Map是不是并发安全的，如何实现并发安全的</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Load%EF%BC%9Afunc-m-Map-Load-key-interface-value-interface-ok-bool"><span class="nav-number">1.1.</span> <span class="nav-text">Load：func (m *Map) Load(key interface{}) (value interface{}, ok bool)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Context%E4%BD%9C%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Context作用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

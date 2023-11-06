@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="B树和B+树区别1、B树的非叶子和叶子节点都是存关键字和指针(地址)，查找关键字额外的数据，需要二次回访地址查找 2、B+的非叶子节点只存关键字，叶子节点存储完整的数据，B+树不存指针；叶子节点之间可以 几种树的分类1、完全二叉树：只对树的形状有要求，对树的内容没要求，最后一层叶子节点都靠左排列，除了最后一层， 其余层次的叶子都是满的  应用实例堆，但是堆里面的数据大小很有讲究，分为大根堆（根节点">
+<meta name="description" content="B树和B+树区别1、B树的非叶子和叶子节点都是存关键字和指针(地址)，查找关键字额外的数据，需要二次回访地址查找 2、B+的非叶子节点只存关键字，叶子节点存储完整的数据，B+树不存指针；叶子节点之间可以 几种树的分类1、完全二叉树：只对树的形状有要求，对树的内容没要求，最后一层叶子节点都靠左排列，除了最后一层， 其余层次的叶子都是满的   应用实例堆，但是堆里面的数据大小很有讲究，分为大根堆（根节">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二叉树的集合">
 <meta property="og:url" content="http://example.com/2023/10/25/%E4%BA%8C%E5%8F%89%E6%A0%91/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="B树和B+树区别1、B树的非叶子和叶子节点都是存关键字和指针(地址)，查找关键字额外的数据，需要二次回访地址查找 2、B+的非叶子节点只存关键字，叶子节点存储完整的数据，B+树不存指针；叶子节点之间可以 几种树的分类1、完全二叉树：只对树的形状有要求，对树的内容没要求，最后一层叶子节点都靠左排列，除了最后一层， 其余层次的叶子都是满的  应用实例堆，但是堆里面的数据大小很有讲究，分为大根堆（根节点">
+<meta property="og:description" content="B树和B+树区别1、B树的非叶子和叶子节点都是存关键字和指针(地址)，查找关键字额外的数据，需要二次回访地址查找 2、B+的非叶子节点只存关键字，叶子节点存储完整的数据，B+树不存指针；叶子节点之间可以 几种树的分类1、完全二叉树：只对树的形状有要求，对树的内容没要求，最后一层叶子节点都靠左排列，除了最后一层， 其余层次的叶子都是满的   应用实例堆，但是堆里面的数据大小很有讲究，分为大根堆（根节">
 <meta property="og:locale">
-<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231105122332305.png">
-<meta property="og:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192803257.png">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061116016.png">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061116355.png">
 <meta property="article:published_time" content="2023-10-25T03:00:39.000Z">
-<meta property="article:modified_time" content="2023-11-05T04:23:50.467Z">
+<meta property="article:modified_time" content="2023-11-06T03:16:30.607Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法题">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231105122332305.png">
+<meta name="twitter:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061116016.png">
 
 
 
@@ -359,9 +359,11 @@
 <p>2、B+的非叶子节点只存关键字，叶子节点存储完整的数据，B+树不存指针；叶子节点之间可以</p>
 <h4 id="几种树的分类"><a href="#几种树的分类" class="headerlink" title="几种树的分类"></a>几种树的分类</h4><p>1、完全二叉树：只对树的形状有要求，对树的内容没要求，最后一层叶子节点都靠左排列，除了最后一层，</p>
 <p>其余层次的叶子都是满的</p>
-<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231105122332305.png" alt="image-20231105122332305"></p>
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061116016.png" alt="image-20231106111550516" style="zoom: 50%;" />
+
 <p>应用实例堆，但是堆里面的数据大小很有讲究，分为大根堆（根节点最大），小根堆（根节点最小）</p>
-<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192803257.png" alt="image-20231030192803257"></p>
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061116355.png" alt="image-20231106111620978" style="zoom:50%;" />
+
 <p>2、二叉搜索树&#x2F;二叉查找树：左小右大，和树节点值的大小关联，和树的形状没关系</p>
 <p>3、平衡二叉树：二叉树中任意一个节点的左右子树的高度差不能超过1，节点值大小并没有什么特定的关系</p>
 <p>4、平衡二叉查找树：左小右大，和树节点值的大小关联，任意一个节点的左右子树的高度差不能超过1</p>
@@ -509,7 +511,7 @@
               
                 <a href="/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
