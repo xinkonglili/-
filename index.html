@@ -259,6 +259,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/06/%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/11/06/%E9%93%BE%E8%A1%A8/" itemprop="url">链表</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-06T20:09:14+08:00">
+                2023-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>给定一个头节点为 <code>head</code> 的链表用于记录一系列核心肌群训练项目编号，请查找并返回<strong>倒数第 <code>cnt</code> 个训练项目</strong>编号。—快慢指针</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">trainingPlan</span><span class="params">(head *ListNode, cnt <span class="type">int</span>)</span></span> *ListNode &#123;</span><br><span class="line">    <span class="comment">//快慢指针</span></span><br><span class="line">    slow,fast := head,head</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;cnt;i++&#123; <span class="comment">//注意这里提前走n步</span></span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> fast!=<span class="literal">nil</span>&#123;</span><br><span class="line">        slow = slow.Next</span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>回文链表</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isPalindrome</span><span class="params">(head *ListNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> head == <span class="literal">nil</span> || head.Next == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	slow, fast := head, head</span><br><span class="line">	<span class="keyword">for</span> fast != <span class="literal">nil</span> &amp;&amp; fast.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">		slow = slow.Next</span><br><span class="line">		fast = fast.Next.Next</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> newHead *ListNode</span><br><span class="line">	<span class="keyword">for</span> slow != <span class="literal">nil</span> &#123;</span><br><span class="line">		node := slow.Next</span><br><span class="line">		slow.Next = newHead</span><br><span class="line">		newHead = slow</span><br><span class="line">		slow = node</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> newHead != <span class="literal">nil</span> &amp;&amp; head != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> newHead.Val != head.Val &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">		&#125;</span><br><span class="line">		newHead = newHead.Next</span><br><span class="line">		head = head.Next</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/06/Go%E8%AF%AD%E8%A8%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -338,6 +465,12 @@
 <h5 id="Load：func-m-Map-Load-key-interface-value-interface-ok-bool"><a href="#Load：func-m-Map-Load-key-interface-value-interface-ok-bool" class="headerlink" title="Load：func (m *Map) Load(key interface{}) (value interface{}, ok bool)"></a>Load：func (m *Map) Load(key interface{}) (value interface{}, ok bool)</h5><p>Load方法用来加载sync.Map中的值，入参是key，返回值是对应的value以及value存在与否</p>
 <p>sync.Map更<strong>适合读多，更新多，而插入新值少</strong>的场景</p>
 <p>readOnly <strong>不适合反复插入，读取新值</strong>的场景，因为这种场景会频繁操作dirty，需要频繁加锁和更新read</p>
+<p>控制子协程的几种方式：</p>
+<ul>
+<li>Channel: 使用channel控制子协程</li>
+<li>WaitGroup : 使用信号量机制控制子协程</li>
+<li>Context: 使用上下文控制子协程</li>
+</ul>
 <h4 id="Context作用"><a href="#Context作用" class="headerlink" title="Context作用"></a>Context作用</h4><p>1、跨goroutine传递请求范围的值，这样可以避免使用全局变量或传递大量参数来实现数据共享</p>
 <p>2、取消信号传递：通过Context，可以向相关的goroutine传递信号(取消信号，中止信号)，这样可以避免因为某些操作超时或出现错误导致程序出现不必要的等待或者阻塞</p>
 <p>3、截止时间管理：Context还可以设置超时时间，控制某些goroutine的执行时间，执行超过时间，Context会自动发出取消的信号</p>
@@ -348,24 +481,65 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> signal = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//处理逻辑</span></span><br><span class="line">   <span class="built_in">close</span>(signal)</span><br><span class="line">&#125;()</span><br><span class="line">&lt;-signal  <span class="comment">//等待信号</span></span><br></pre></td></tr></table></figure>
 
 <hr>
-<p><strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33521184/article/details/131881189">比较好的golang面试题</a></strong></p>
-<ul>
-<li></li>
-</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33521184/article/details/131881189">比较好的golang面试题，以下文章来自这个链接的摘抄和自测</a></strong></p>
+<p>+:会对字符串进行遍历，计算并开辟一个新的空间来存储原来的两个字符串。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	fmt.Println(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>Sprintf</p>
+<p>Sprintf:必须要用反射获取值，因此有性能损耗</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	c := fmt.Sprintf(<span class="string">&quot;%s,%s&quot;</span>, a, b)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p> strings.Builder</p>
+<p> strings.Builder:它是直接把[]byte转换为string，从而避免变量拷贝</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Builder <span class="keyword">struct</span> &#123;</span><br><span class="line">    addr *Builder</span><br><span class="line">    buf  []<span class="type">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bulid strings.Builder</span><br><span class="line">	bulid.WriteString(a)</span><br><span class="line">	bulid.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bulid.WriteString(b)</span><br><span class="line">	c := bulid.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>bytes.Buffer</p>
+<p>bytes.BufferL:它是直接把[]byte转换为string，从而避免变量拷贝</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Buffer <span class="keyword">struct</span> &#123;</span><br><span class="line">    buf      []<span class="type">byte</span></span><br><span class="line">    off      <span class="type">int</span></span><br><span class="line">    lastRead readOp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bytes bytes.Buffer</span><br><span class="line">	bytes.WriteString(a)</span><br><span class="line">	bytes.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bytes.WriteString(b)</span><br><span class="line">	c := bytes.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>strings.Join</p>
+<p>strings.Join:自定义分隔符，适用对象[]string类型，因为我们传入切片长度固定，所以提前进行容量分配可以减少内存分配</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="type">string</span>&#123;<span class="string">&quot;nihao&quot;</span>, <span class="string">&quot;hello&quot;</span>&#125;</span><br><span class="line">	c := strings.Join(a, <span class="string">&quot;+&quot;</span>)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+<ul>
+<li><p>切片和数组的区别是什么？</p>
+<ul>
+<li>什么情况下使用切片，什么情况下使用数组？</li>
+</ul>
+</li>
+<li><p>切片的底层数据结构是什么？</p>
+</li>
+<li><p>如何扩容切片的容量？</p>
+</li>
+<li><p>切片的长度和容量有什么区别？</p>
+</li>
+<li><p>如何获取切片的长度和容量？</p>
+</li>
+<li><p>切片是否可比较？为什么？</p>
+</li>
+<li><p>不可使用&#x3D;&#x3D;来比较，可以循环遍历切片中的每个元素进行比较<br>如何判断两个切片是否相等？<br>如何在切片中插入和删除元素？：注意切片遵循左闭右开的原则<br>切片是否支持负索引？为什么？：不支持，负索引通常相对切片的末尾位置，go语言不支持</p>
+</li>
+<li><p>切片的追加操作会发生什么？如何避免在追加时重新分配底层数组内存？</p>
+</li>
+<li><p>如何遍历切片？有哪些方法可以遍历切片的元素？</p>
+</li>
+<li><p>切片在函数间传递时是传值还是传引用？</p>
+<ul>
+<li>切片是引用类型，在函数间传递的是引用，不是整个切片的拷贝</li>
+</ul>
+</li>
+<li><p>如何使用切片进行栈和队列的操作？<br>切片是否可以作为函数的参数和返回值？<br>切片的零值是什么？如何判断一个切片是否为nil？</p>
+<p>切片的零值是nil，一个未初始化的切片的值为nil，表示切片没有引用任何底层数组</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> mySlice == <span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;切片为nil&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>切片在并发编程中是否安全？</p>
+<ul>
+<li>是并发安全的，切片的操作不会影响到底层的数组的内存分布，但是多个goroutine中对同一个切片进行写操作时，需要加锁来保证并发安全</li>
+</ul>
+</li>
+<li><p>切片是否支持多维？如何创建多维切片？支持</p>
+</li>
+</ul>
 
           
         
@@ -1458,6 +1632,12 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">minDepth</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      leftTree := minDepth(root.Left)</span><br><span class="line">      rightTree := minDepth(root.Right)</span><br><span class="line">      <span class="keyword">if</span> leftTree == <span class="number">0</span> || rightTree ==<span class="number">0</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> leftTree + rightTree +<span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> leftTree &gt; rightTree&#123;</span><br><span class="line">          <span class="keyword">return</span> rightTree+<span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> leftTree+<span class="number">1</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+
+
+
+
+
           
         
       
@@ -1538,7 +1718,7 @@
               
                 <a href="/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
