@@ -1218,6 +1218,17 @@
 <p>7、order by</p>
 <p>子查询中：where 列名A in (select 列名A from table  where 条件)</p>
 <p>where后面的列名要和select中的列名一致 </p>
+<h4 id="索引什么时候需要"><a href="#索引什么时候需要" class="headerlink" title="索引什么时候需要"></a>索引什么时候需要</h4><ul>
+<li>字段有唯一性限制，比如身份证</li>
+<li>经常用于where查询条件的字段，给这样的字段加索引，可以提高表的查询速度，如果查询的不是一个字段，可以建立联合索引</li>
+<li>经常用于group by和order by字段，加了索引之后这样的字段就不用再去排序了，因为建立索引之后在B+树中的记录都是排序好的</li>
+</ul>
+<h4 id="索引什么时候不需要"><a href="#索引什么时候不需要" class="headerlink" title="索引什么时候不需要"></a>索引什么时候不需要</h4><ul>
+<li><strong>where，group by，order by里面用不到的字段</strong>，索引的价值是为了快速定位，<strong>起不到定位的字段通常就不需要建立索引</strong>，因为索引是会占用物理空间的</li>
+<li><strong>字段中存在大量重复的数据</strong>，不需要创建索引</li>
+<li><strong>表中的数据太少</strong>，不需要创建索引</li>
+<li><strong>字段修改频繁</strong>，要维护B+tree的有序性，需要频繁的重建索引，会影响数据库性能</li>
+</ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>找出每个部门薪资最高的那个人</span><br><span class="line"><span class="keyword">SELECT</span> d.department_id, d.department_name, e.employee_id, e.salary</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> (e.department_id, e.salary) <span class="keyword">IN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> department_id, <span class="built_in">MAX</span>(salary)</span><br><span class="line">    <span class="keyword">FROM</span> employees </span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> department_id</span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027145540750.png" alt="image-20231027145540750"></p>
