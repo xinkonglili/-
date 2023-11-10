@@ -1475,6 +1475,63 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http/httputil&quot;</span></span><br><span class="line">	<span class="string">&quot;net/url&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(writer http.ResponseWriter, request *http.Request)</span></span> &#123;</span><br><span class="line">		target, err := url.Parse(<span class="string">&quot;https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311052123028.png&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Println(err)</span><br><span class="line">		&#125;</span><br><span class="line">		proxy := httputil.NewSingleHostReverseProxy(target)</span><br><span class="line">		proxy.Director = <span class="function"><span class="keyword">func</span><span class="params">(request *http.Request)</span></span> &#123;</span><br><span class="line">			request.URL.Path = target.Path</span><br><span class="line">			request.URL.Scheme = target.Scheme</span><br><span class="line">			request.URL.Host = target.Host</span><br><span class="line">			request.Host = target.Host</span><br><span class="line">		&#125;</span><br><span class="line">		proxy.ServeHTTP(writer, request)</span><br><span class="line">		fmt.Println(<span class="string">&quot;ping&quot;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	http.ListenAndServe(<span class="string">&quot;:8090&quot;</span>, <span class="literal">nil</span>)<span class="comment">//不要忘记冒号</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
+
+<p>golang实现定时器</p>
+<h1 id="Linux-crontab-命令"><a href="#Linux-crontab-命令" class="headerlink" title="Linux crontab 命令"></a>Linux crontab 命令</h1><p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-command-manual.html"><img src="https://www.runoob.com/images/up.gif" alt="Linux 命令大全"> Linux 命令大全</a></p>
+<p>Linux <strong>crontab</strong> 是用来定期执行程序的命令。</p>
+<p>当安装完成操作系统之后，默认便会启动此任务调度命令。</p>
+<p><strong>crond</strong> 命令每分钟会定期检查是否有要执行的工作，如果有要执行的工作便会自动执行该工作。</p>
+<p><strong>注意：</strong>新创建的 cron 任务，不会马上执行，至少要过 2 分钟后才可以，当然你可以重启 cron 来马上执行。</p>
+<p>而 linux 任务调度的工作主要分为以下两类：</p>
+<ul>
+<li>1、系统执行的工作：系统周期性所要执行的工作，如备份系统数据、清理缓存</li>
+<li>2、个人执行的工作：某个用户定期要做的工作，例如每隔 10 分钟检查邮件服务器是否有新信，这些工作可由每个用户自行设置</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">执行时间</th>
+<th align="left">格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">每分钟定时执行一次</td>
+<td align="left">* * * * *</td>
+</tr>
+<tr>
+<td align="left">每小时定时执行一次</td>
+<td align="left">0 * * * *</td>
+</tr>
+<tr>
+<td align="left">每天定时执行一次</td>
+<td align="left">0 0 * * *</td>
+</tr>
+<tr>
+<td align="left">每周定时执行一次</td>
+<td align="left">0 0 * * 0</td>
+</tr>
+<tr>
+<td align="left">每秒定时执行一次</td>
+<td align="left">* * * * * *</td>
+</tr>
+<tr>
+<td align="left">每月定时执行一次</td>
+<td align="left">0 0 1 * *</td>
+</tr>
+<tr>
+<td align="left">每月最后一天定时执行一次</td>
+<td align="left">0 0 L * *</td>
+</tr>
+<tr>
+<td align="left">每年定时执行一次</td>
+<td align="left">0 0 1 1 *</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/robfig/cron/v3@v3.0.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/robfig/cron/v3&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	c := cron.New(cron.WithSeconds())</span><br><span class="line">	c.AddFunc(<span class="string">&quot;* * * * * *&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; <span class="comment">//每秒钟执行一次</span></span><br><span class="line">		fmt.Println(<span class="string">&quot;执行定时任务&quot;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	c.Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
           
         
       
