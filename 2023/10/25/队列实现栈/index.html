@@ -88,7 +88,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://www.runoob.com/images/up.gif">
 <meta property="article:published_time" content="2023-10-25T03:12:33.000Z">
-<meta property="article:modified_time" content="2023-11-10T07:56:03.245Z">
+<meta property="article:modified_time" content="2023-11-12T02:27:22.105Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Go语言学习集合">
 <meta name="twitter:card" content="summary">
@@ -392,6 +392,41 @@
 
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/robfig/cron/v3&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	c := cron.New(cron.WithSeconds())</span><br><span class="line">	c.AddFunc(<span class="string">&quot;* * * * * *&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; <span class="comment">//每秒钟执行一次</span></span><br><span class="line">		fmt.Println(<span class="string">&quot;执行定时任务&quot;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	c.Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+
+
+
+
+
+
+<p>在C语言中，对于内存的初始化和清零可以使用不同的方式。</p>
+<ol>
+<li><p><strong>初始化内存：</strong></p>
+<ul>
+<li><p>在C语言中，你可以使用赋值语句为内存分配空间并设置初始值。例如，使用<code>malloc</code>函数分配动态内存，并通过赋值语句进行初始化。这可能包括将内存设置为零或其他特定的初值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> *arr = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="number">5</span> * <span class="keyword">sizeof</span>(<span class="type">int</span>));  <span class="comment">// 分配5个整数的内存空间</span></span><br><span class="line">    <span class="comment">// 初始化内存，这里将所有元素设置为零</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">        arr[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用初始化后的内存...</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(arr);  <span class="comment">// 释放内存</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>清零（清0）：</strong></p>
+<ul>
+<li><p>在C语言中，你可以使用<code>memset</code>函数来将内存块的内容设置为指定的值，通常是零。这可以确保内存中的所有位都被设置为零。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">5</span>];</span><br><span class="line">    <span class="comment">// 使用memset清零整个数组</span></span><br><span class="line">    <span class="built_in">memset</span>(arr, <span class="number">0</span>, <span class="number">5</span> * <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用清零后的数组...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<p>初始化内存和清零（清0）是在计算机领域中两个相关但略有不同的概念。</p>
+<ol>
+<li><p><strong>初始化内存：</strong></p>
+<ul>
+<li>意味着为一块内存分配空间并设置初始值。<strong>这个初始值不一定是零</strong>。它可能是任何预定义的值，这取决于编程语言、分配内存的方式以及使用的库或函数。在某些情况下，初始化内存可能包含对所有位的设置，而不仅仅是将所有位设置为零。</li>
+</ul>
+</li>
+<li><p><strong>清零（清0）：</strong></p>
+<ul>
+<li>意味着将内存中的所有位都设置为零。这是一个特定的操作，通常是通过编程语言提供的函数或指令来执行的。清零可以是初始化内存的一部分，特别是在需要确保敏感信息不被泄漏的情况下。</li>
+</ul>
+</li>
+</ol>
+<p>在实际应用中，清零可能是初始化内存的一部分，但初始化内存不一定总是清零。清零通常用于确保敏感信息不被遗留在内存中，而初始化内存可能包括任何预定义的初始值。</p>
 
       
     </div>
