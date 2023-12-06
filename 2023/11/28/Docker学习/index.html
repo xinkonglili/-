@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1、查看所有的容器，包括已经退出的:docker  ps  -a 2、查看正在运行的容器**:docker ps**  3、创建容器 ： docker run -it root&#x2F;centos:6.7 &#x2F;bin&#x2F;bash   -i: 交互式操作。 -t: 终端。 ubuntu: ubuntu 镜像。 &#x2F;bin&#x2F;bash：放在镜像名后的是命令，这里我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习">
+<meta property="og:url" content="http://example.com/2023/11/28/Docker%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、查看所有的容器，包括已经退出的:docker  ps  -a 2、查看正在运行的容器**:docker ps**  3、创建容器 ： docker run -it root&#x2F;centos:6.7 &#x2F;bin&#x2F;bash   -i: 交互式操作。 -t: 终端。 ubuntu: ubuntu 镜像。 &#x2F;bin&#x2F;bash：放在镜像名后的是命令，这里我们">
+<meta property="og:locale">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281431269.png">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281433600.png">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281602042.png">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281603296.png">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281603414.png">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311301710129.png">
+<meta property="article:published_time" content="2023-11-28T06:29:48.000Z">
+<meta property="article:modified_time" content="2023-12-01T05:35:18.484Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281431269.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/11/28/Docker学习/"/>
+
+
+
+
+
+  <title>Docker学习 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/28/Docker%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-28T14:29:48+08:00">
+                2023-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1、查看所有的容器，包括已经退出的:<strong>docker  ps  -a</strong></p>
+<p>2、查看正在运行的容器**:docker ps**</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281431269.png" alt="image-20231128143100396"></p>
+<p>3、创建容器 ： docker run -it <strong>root&#x2F;centos:6.7</strong> &#x2F;bin&#x2F;bash</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281433600.png" alt="image-20231128143222175"></p>
+<ul>
+<li><strong>-i</strong>: 交互式操作。</li>
+<li><strong>-t</strong>: 终端。</li>
+<li><strong>ubuntu</strong>: ubuntu 镜像。</li>
+<li><strong>&#x2F;bin&#x2F;bash</strong>：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 &#x2F;bin&#x2F;bash。</li>
+</ul>
+<p>4、创建某个镜像的容器：docker run -d -p 5000:5000  training&#x2F;webapp</p>
+<p>5、创建镜像</p>
+<p>a、从docker hub拉取：docker pull training&#x2F;webapp, </p>
+<p>​      从docker hub查找，有没有:docker search httpd</p>
+<p>​         docker commit -m&#x3D;”has update” -a&#x3D;”jinli” 0bbc5fb277fd jinli&#x2F;ubuntu:v2</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281602042.png" alt="image-20231128160219579"></p>
+<p>b、编写dockerfile</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">/bin/echo 是一个命令，用于在终端输出指定的文本内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">FROM    centos:6.7</span><br><span class="line">MAINTAINER      Fisher &quot;fisher@sudops.com&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/bin/echo <span class="string">&#x27;root:123456&#x27;</span>这个命令，制作成命令</span></span><br><span class="line">RUN     /bin/echo &#x27;root:123456&#x27; |chpasswd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加某个用户</span></span><br><span class="line">RUN     useradd runoob</span><br><span class="line"></span><br><span class="line">RUN     /bin/echo &#x27;runoob:123456&#x27; |chpasswd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">通过使用 &gt; 重定向操作符，将命令 /bin/echo -e <span class="string">&quot;LANG=\&quot;en_US.UTF-8\&quot;&quot;</span> 的输出结果（即字符串 <span class="string">&quot;LANG=\&quot;en_US.UTF-8\&quot;&quot;</span>）写入文件 /etc/default/local。这样就在容器中创建了一个名为 /etc/default/local 的文件，并将字符串 <span class="string">&quot;LANG=\&quot;en_US.UTF-8\&quot;&quot;</span> 写入该文件</span></span><br><span class="line"></span><br><span class="line">RUN     /bin/echo -e &quot;LANG=\&quot;en_US.UTF-8\&quot;&quot; &gt;/etc/default/local</span><br><span class="line"></span><br><span class="line">EXPOSE  22  #声明容器将会监听并暴露22号端口，用于SSH访问</span><br><span class="line">EXPOSE  80  #声明容器将会监听并暴露22号端口，用于http访问</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">CMD命令会导致docker run的时候后面的命令进行覆盖，ENDERPOINT 不会</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">定义容器启动后默认执行的命令，这里是启动SSH服务。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">/usr/sbin/sshd 是一个可执行文件，它是 OpenSSH 服务器的守护进程（daemon）</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">-D 参数告诉 SSH 守护进程以前台模式运行，即在终端窗口中显示日志输出，而不是作为后台进程运行。</span></span><br><span class="line">CMD     /usr/sbin/sshd -D</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281603296.png" alt="image-20231128160311721"></p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281603414.png" alt="image-20231128160342601"></p>
+<ul>
+<li><strong>docker load -i ccenv-modified.tar :拉取本地镜像</strong></li>
+<li><strong>docker run -d -it –name ccenv-modified  ccenv-modified &#x2F;bin&#x2F;bash</strong></li>
+<li><strong>docker stop d0  &#x2F;&#x2F;停止一个容器</strong></li>
+<li><strong>docker rm d0  &#x2F;&#x2F;删除一个容器</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker stop d0  //停止一个容器</span><br><span class="line">d0</span><br><span class="line">[root@localhost ~]# docker rm d0  //删除一个容器</span><br><span class="line">d0</span><br><span class="line">//更改容器的名字NAMES</span><br><span class="line">[root@localhost ~]# docker run -d -it --name ccenv-modified  ccenv-modified /bin/bash</span><br><span class="line">280b16673f32943f368bdea94ff0aaab45da63a1e958e00d7648e9d42d9d72fe</span><br><span class="line">[root@localhost ~]# docker ps</span><br><span class="line">CONTAINER ID   IMAGE             COMMAND           CREATED         STATUS         PORTS                                         NAMES</span><br><span class="line">280b16673f32   ccenv-modified    &quot;/bin/bash&quot;       4 seconds ago   Up 4 seconds                                                 ccenv-modified</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311301710129.png" alt="image-20231130170958272" style="zoom: 67%;" />
+
+
+
+<p><strong>docker run -p  8080:80:将主机的8080端口映射到容器的80端口上</strong></p>
+<p>expose 80 80 ：暴露80端口，容器内的应用程序可能会同时监听并提供两个相同的端口号，以便处理更多的连接或流量</p>
+<p><strong>docker ps -a</strong></p>
+<h4 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h4><p>prof of work</p>
+<p>sha256</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//缺点：因为类型转换带来了内存分配，这产生了一个新的字符串，并且类型转换需要大量的计算，不仅耗时多了，而且还分配了内存</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   s := <span class="string">&quot;GO 你好啊&quot;</span></span><br><span class="line">   runes := []<span class="type">rune</span>(s)</span><br><span class="line">   fmt.Println(<span class="type">string</span>(runes[<span class="number">0</span>:<span class="number">3</span>]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要将最新版本的IPFS与IPFS 0.8.0兼容并在同一集群中实现数据共享，您需要进行以下步骤：</p>
+<ol>
+<li><p>升级IPFS：首先，您需要将IPFS 0.8.0升级到最新版本。请从IPFS官方网站（<a target="_blank" rel="noopener" href="https://ipfs.io)下载并安装最新版本的ipfs./">https://ipfs.io）下载并安装最新版本的IPFS。</a></p>
+</li>
+<li><p>更新配置文件：在升级完成后，您需要更新IPFS节点的配置文件以确保兼容性。请打开IPFS节点的配置文件（通常位于<code>~/.ipfs/config</code>）并进行以下更改：</p>
+<ul>
+<li>将配置文件中的<code>API</code>和<code>Gateway</code>端口更改为不与现有IPFS节点冲突的端口。确保每个节点具有唯一的端口配置。</li>
+<li>确保<code>Swarm</code>部分的<code>Addresses</code>列表中包含新版本IPFS节点的地址，以便节点可以连接到集群。</li>
+</ul>
+</li>
+<li><p>启动新节点：使用更新后的配置文件启动新版本的IPFS节点。确保每个节点都在不同的机器上运行，并且具有唯一的节点ID。</p>
+</li>
+<li><p>加入集群：在新版本的IPFS节点上运行以下命令，使其加入到IPFS 0.8.0节点所在的集群中：</p>
+<pre><code>ipfs-cluster-ctl peers add /ip4/&lt;旧节点IP地址&gt;/tcp/&lt;旧节点Swarm端口&gt;/ipfs/&lt;旧节点ID&gt;
+```
+
+将`&lt;旧节点IP地址&gt;`替换为IPFS 0.8.0节点的IP地址，`&lt;旧节点Swarm端口&gt;`替换为旧节点的Swarm端口，`&lt;旧节点ID&gt;`替换为旧节点的节点ID。
+</code></pre>
+</li>
+<li><p>数据共享：一旦新节点成功加入到集群中，您就可以使用IPFS的数据共享功能了。将文件添加到其中一个节点上，它将自动在整个集群中进行复制和分发。</p>
+</li>
+</ol>
+<p>请注意，尽管最新版本的IPFS可能与0.8.0版本兼容，但具体的功能和行为可能会有所不同。在进行任何更改之前，请确保备份重要数据，并在测试环境中进行充分测试，                                                                                                                                                                                                                  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/11/23/linux%E6%8A%A5%E9%94%99%E6%80%BB%E7%BB%93/" rel="next" title="linux报错总结">
+                <i class="fa fa-chevron-left"></i> linux报错总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/11/29/%E5%A5%BD%E7%94%A8%E7%9A%84windows%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%A4%9A%E7%89%88%E6%9C%ACgo%E7%8E%AF%E5%A2%83/" rel="prev" title="好用的windows本地管理多版本go环境">
+                好用的windows本地管理多版本go环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE"><span class="nav-number">1.</span> <span class="nav-text">区块链</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -259,6 +259,580 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/29/%E5%A5%BD%E7%94%A8%E7%9A%84windows%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%A4%9A%E7%89%88%E6%9C%ACgo%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/11/29/%E5%A5%BD%E7%94%A8%E7%9A%84windows%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%A4%9A%E7%89%88%E6%9C%ACgo%E7%8E%AF%E5%A2%83/" itemprop="url">好用的windows本地管理多版本go环境</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-29T10:04:57+08:00">
+                2023-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;d:</span><br><span class="line"></span><br><span class="line">D:\&gt;cd g</span><br><span class="line"></span><br><span class="line">D:\g&gt;g ls</span><br><span class="line">No version installed yet</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">D:\g&gt;g ls-remote stable</span><br><span class="line">  1.20.11</span><br><span class="line">  1.21.4</span><br><span class="line"></span><br><span class="line">D:\g&gt;g install 1.19.2</span><br><span class="line">Downloading 100% [===============] (156/156 MB, 3.6 MB/s)</span><br><span class="line">Computing checksum with SHA256</span><br><span class="line">Checksums matched</span><br><span class="line">Now using go1.19.2</span><br><span class="line"></span><br><span class="line">D:\g&gt;g ls-remote stable</span><br><span class="line">  1.20.11</span><br><span class="line">  1.21.4</span><br><span class="line"></span><br><span class="line">D:\g&gt;g ls</span><br><span class="line">* 1.19.2</span><br><span class="line">//切换golang的环境</span><br><span class="line">D:\g&gt;g use 1.19.2</span><br><span class="line">go version go1.19.2 windows/amd64</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>环境变量的配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">G_EXPERIMENTAL=true</span><br><span class="line">G_HOME=D:\g</span><br><span class="line">G_MIRROR=https://golang.google.cn/dl/</span><br><span class="line">GOPATH=D:\自己的gopath路径</span><br><span class="line">GOROOT=%G_HOME%\go</span><br></pre></td></tr></table></figure>
+
+<p>将%G_HOME%、 %GOROOT%\bin、 %GOPATH%\bin添加到PATH环境变量中</p>
+<p>我的安装路径:D:\g</p>
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311291006646.png" alt="image-20231129100631159" style="zoom:80%;" />
+
+
+
+
+
+<p>如果go run main.go老是报错，<strong>看一下set GO111MODULE&#x3D;off，有没有开启</strong>，我还以为是g这个版本管理工具的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ go run main.go</span><br><span class="line">builddocker\builddocker.go:19:2: cannot find package &quot;github.com/docker/docker/api/types&quot; in any of:</span><br><span class="line">        D:\g\go\src\github.com\docker\docker\api\types (from $GOROOT)</span><br><span class="line">        D:\softenvironment\GoWorks\src\github.com\docker\docker\api\types (from $GOPATH)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="golang的快捷键"><a href="#golang的快捷键" class="headerlink" title="golang的快捷键"></a>golang的快捷键</h4><p>ctrl+Alt+r :替换</p>
+<p>ctrl+Alt+f:查找</p>
+<h4 id="windows桌面快捷键"><a href="#windows桌面快捷键" class="headerlink" title="windows桌面快捷键"></a>windows桌面快捷键</h4><p>win+D：快速退回到桌面</p>
+<h4 id="如何导入本地的某个包"><a href="#如何导入本地的某个包" class="headerlink" title="如何导入本地的某个包"></a>如何导入本地的某个包</h4><p>把文件传到项目下，然后import  项目名&#x2F;文件夹名称</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312042220275.png" alt="image-20231204222042805"></p>
+<h4 id="关于使用vendor，爆红"><a href="#关于使用vendor，爆红" class="headerlink" title="关于使用vendor，爆红"></a>关于使用vendor，爆红</h4><p>在setting中Go module勾选去掉</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312051342312.png" alt="image-20231205134210664"></p>
+<p>注意看代码的切换分支：注意切换的项目</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/28/Docker%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/11/28/Docker%E5%AD%A6%E4%B9%A0/" itemprop="url">Docker学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-28T14:29:48+08:00">
+                2023-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1、查看所有的容器，包括已经退出的:<strong>docker  ps  -a</strong></p>
+<p>2、查看正在运行的容器**:docker ps**</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281431269.png" alt="image-20231128143100396"></p>
+<p>3、创建容器 ： docker run -it <strong>root&#x2F;centos:6.7</strong> &#x2F;bin&#x2F;bash</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281433600.png" alt="image-20231128143222175"></p>
+<ul>
+<li><strong>-i</strong>: 交互式操作。</li>
+<li><strong>-t</strong>: 终端。</li>
+<li><strong>ubuntu</strong>: ubuntu 镜像。</li>
+<li><strong>&#x2F;bin&#x2F;bash</strong>：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 &#x2F;bin&#x2F;bash。</li>
+</ul>
+<p>4、创建某个镜像的容器：docker run -d -p 5000:5000  training&#x2F;webapp</p>
+<p>5、创建镜像</p>
+<p>a、从docker hub拉取：docker pull training&#x2F;webapp, </p>
+<p>​      从docker hub查找，有没有:docker search httpd</p>
+<p>​         docker commit -m&#x3D;”has update” -a&#x3D;”jinli” 0bbc5fb277fd jinli&#x2F;ubuntu:v2</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281602042.png" alt="image-20231128160219579"></p>
+<p>b、编写dockerfile</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">/bin/echo 是一个命令，用于在终端输出指定的文本内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">FROM    centos:6.7</span><br><span class="line">MAINTAINER      Fisher &quot;fisher@sudops.com&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/bin/echo <span class="string">&#x27;root:123456&#x27;</span>这个命令，制作成命令</span></span><br><span class="line">RUN     /bin/echo &#x27;root:123456&#x27; |chpasswd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">添加某个用户</span></span><br><span class="line">RUN     useradd runoob</span><br><span class="line"></span><br><span class="line">RUN     /bin/echo &#x27;runoob:123456&#x27; |chpasswd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">通过使用 &gt; 重定向操作符，将命令 /bin/echo -e <span class="string">&quot;LANG=\&quot;en_US.UTF-8\&quot;&quot;</span> 的输出结果（即字符串 <span class="string">&quot;LANG=\&quot;en_US.UTF-8\&quot;&quot;</span>）写入文件 /etc/default/local。这样就在容器中创建了一个名为 /etc/default/local 的文件，并将字符串 <span class="string">&quot;LANG=\&quot;en_US.UTF-8\&quot;&quot;</span> 写入该文件</span></span><br><span class="line"></span><br><span class="line">RUN     /bin/echo -e &quot;LANG=\&quot;en_US.UTF-8\&quot;&quot; &gt;/etc/default/local</span><br><span class="line"></span><br><span class="line">EXPOSE  22  #声明容器将会监听并暴露22号端口，用于SSH访问</span><br><span class="line">EXPOSE  80  #声明容器将会监听并暴露22号端口，用于http访问</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">CMD命令会导致docker run的时候后面的命令进行覆盖，ENDERPOINT 不会</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">定义容器启动后默认执行的命令，这里是启动SSH服务。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">/usr/sbin/sshd 是一个可执行文件，它是 OpenSSH 服务器的守护进程（daemon）</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">-D 参数告诉 SSH 守护进程以前台模式运行，即在终端窗口中显示日志输出，而不是作为后台进程运行。</span></span><br><span class="line">CMD     /usr/sbin/sshd -D</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281603296.png" alt="image-20231128160311721"></p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311281603414.png" alt="image-20231128160342601"></p>
+<ul>
+<li><strong>docker load -i ccenv-modified.tar :拉取本地镜像</strong></li>
+<li><strong>docker run -d -it –name ccenv-modified  ccenv-modified &#x2F;bin&#x2F;bash</strong></li>
+<li><strong>docker stop d0  &#x2F;&#x2F;停止一个容器</strong></li>
+<li><strong>docker rm d0  &#x2F;&#x2F;删除一个容器</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker stop d0  //停止一个容器</span><br><span class="line">d0</span><br><span class="line">[root@localhost ~]# docker rm d0  //删除一个容器</span><br><span class="line">d0</span><br><span class="line">//更改容器的名字NAMES</span><br><span class="line">[root@localhost ~]# docker run -d -it --name ccenv-modified  ccenv-modified /bin/bash</span><br><span class="line">280b16673f32943f368bdea94ff0aaab45da63a1e958e00d7648e9d42d9d72fe</span><br><span class="line">[root@localhost ~]# docker ps</span><br><span class="line">CONTAINER ID   IMAGE             COMMAND           CREATED         STATUS         PORTS                                         NAMES</span><br><span class="line">280b16673f32   ccenv-modified    &quot;/bin/bash&quot;       4 seconds ago   Up 4 seconds                                                 ccenv-modified</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311301710129.png" alt="image-20231130170958272" style="zoom: 67%;" />
+
+
+
+<p><strong>docker run -p  8080:80:将主机的8080端口映射到容器的80端口上</strong></p>
+<p>expose 80 80 ：暴露80端口，容器内的应用程序可能会同时监听并提供两个相同的端口号，以便处理更多的连接或流量</p>
+<p><strong>docker ps -a</strong></p>
+<h4 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h4><p>prof of work</p>
+<p>sha256</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//缺点：因为类型转换带来了内存分配，这产生了一个新的字符串，并且类型转换需要大量的计算，不仅耗时多了，而且还分配了内存</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   s := <span class="string">&quot;GO 你好啊&quot;</span></span><br><span class="line">   runes := []<span class="type">rune</span>(s)</span><br><span class="line">   fmt.Println(<span class="type">string</span>(runes[<span class="number">0</span>:<span class="number">3</span>]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要将最新版本的IPFS与IPFS 0.8.0兼容并在同一集群中实现数据共享，您需要进行以下步骤：</p>
+<ol>
+<li><p>升级IPFS：首先，您需要将IPFS 0.8.0升级到最新版本。请从IPFS官方网站（<a target="_blank" rel="noopener" href="https://ipfs.io)下载并安装最新版本的ipfs./">https://ipfs.io）下载并安装最新版本的IPFS。</a></p>
+</li>
+<li><p>更新配置文件：在升级完成后，您需要更新IPFS节点的配置文件以确保兼容性。请打开IPFS节点的配置文件（通常位于<code>~/.ipfs/config</code>）并进行以下更改：</p>
+<ul>
+<li>将配置文件中的<code>API</code>和<code>Gateway</code>端口更改为不与现有IPFS节点冲突的端口。确保每个节点具有唯一的端口配置。</li>
+<li>确保<code>Swarm</code>部分的<code>Addresses</code>列表中包含新版本IPFS节点的地址，以便节点可以连接到集群。</li>
+</ul>
+</li>
+<li><p>启动新节点：使用更新后的配置文件启动新版本的IPFS节点。确保每个节点都在不同的机器上运行，并且具有唯一的节点ID。</p>
+</li>
+<li><p>加入集群：在新版本的IPFS节点上运行以下命令，使其加入到IPFS 0.8.0节点所在的集群中：</p>
+<pre><code>ipfs-cluster-ctl peers add /ip4/&lt;旧节点IP地址&gt;/tcp/&lt;旧节点Swarm端口&gt;/ipfs/&lt;旧节点ID&gt;
+```
+
+将`&lt;旧节点IP地址&gt;`替换为IPFS 0.8.0节点的IP地址，`&lt;旧节点Swarm端口&gt;`替换为旧节点的Swarm端口，`&lt;旧节点ID&gt;`替换为旧节点的节点ID。
+</code></pre>
+</li>
+<li><p>数据共享：一旦新节点成功加入到集群中，您就可以使用IPFS的数据共享功能了。将文件添加到其中一个节点上，它将自动在整个集群中进行复制和分发。</p>
+</li>
+</ol>
+<p>请注意，尽管最新版本的IPFS可能与0.8.0版本兼容，但具体的功能和行为可能会有所不同。在进行任何更改之前，请确保备份重要数据，并在测试环境中进行充分测试，                                                                                                                                                                                                                  </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/23/linux%E6%8A%A5%E9%94%99%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/11/23/linux%E6%8A%A5%E9%94%99%E6%80%BB%E7%BB%93/" itemprop="url">linux报错总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-23T16:07:24+08:00">
+                2023-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="centos安装git"><a href="#centos安装git" class="headerlink" title="centos安装git"></a>centos安装git</h4><h4 id="1、Another-app-is-currently-holding-the-yum-lock-waiting-for-it-to-exit…-The-other-application-is-yum-Memory-26-M-RSS-963-MB-VSZ-Started-Thu-Nov-23-15-46-24-2023-04-32-ago-State-Traced-Stopped-pid-2084"><a href="#1、Another-app-is-currently-holding-the-yum-lock-waiting-for-it-to-exit…-The-other-application-is-yum-Memory-26-M-RSS-963-MB-VSZ-Started-Thu-Nov-23-15-46-24-2023-04-32-ago-State-Traced-Stopped-pid-2084" class="headerlink" title="1、Another app is currently holding the yum lock; waiting for it to exit… The other application is: yum Memory : 26 M RSS (963 MB VSZ) Started: Thu Nov 23 15:46:24 2023 - 04:32 ago State : Traced&#x2F;Stopped, pid: 2084"></a>1、Another app is currently holding the yum lock; waiting for it to exit… The other application is: yum Memory : 26 M RSS (963 MB VSZ) Started: Thu Nov 23 15:46:24 2023 - 04:32 ago State : Traced&#x2F;Stopped, pid: 2084</h4><p>有正在运行的yum进程，杀死即可</p>
+<p>安装命令：git install yum</p>
+<h4 id="fatal-unable-to-access-‘https-github-com-‘-Encountered-end-of-file"><a href="#fatal-unable-to-access-‘https-github-com-‘-Encountered-end-of-file" class="headerlink" title="fatal: unable to access ‘https://github.com/‘: Encountered end of file"></a>fatal: unable to access ‘<a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a>‘: Encountered end of file</h4><p>You have new mail in &#x2F;var&#x2F;spool&#x2F;mail&#x2F;root</p>
+<h4 id="centos更换国内镜像"><a href="#centos更换国内镜像" class="headerlink" title="centos更换国内镜像"></a>centos更换国内镜像</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7146884369951490078">https://juejin.cn/post/7146884369951490078</a></p>
+<p>export HTTP_PROXY&#x3D;<a target="_blank" rel="noopener" href="http://107.172.141.152:31734/">http://107.172.141.152:31734</a><br>export HTTPS_PROXY&#x3D;<a target="_blank" rel="noopener" href="http://107.172.141.152:31734/">http://107.172.141.152:31734</a></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GOPROXY=https://mirrors.aliyun.com/goproxy/</span><br></pre></td></tr></table></figure>
+
+<p>go version go1.19.8 windows&#x2F;amd64<br>bin&#x2F;check_go_version 1.18<br>D:\softenvironment\GoWorks\src\kubo\bin\check_go_version: line 30: .&#x2F;check_version: No such file or directory<br>make: *** [mk&#x2F;golang.mk:80: check_go_version] Error 1</p>
+<p>安装go环境-linux</p>
+<p>1、博客：<a target="_blank" rel="noopener" href="https://learnku.com/go/wikis/26455">https://learnku.com/go/wikis/26455</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>、解压：tar -C /usr/local -xzf go1<span class="number">.12</span><span class="number">.7</span>.linux-amd64.tar.gz</span><br><span class="line"><span class="number">3</span>、添加<span class="string">`/usr/loacl/go/bin`</span>目录到PATH变量中。添加到<span class="string">`/etc/profile`</span> 或<span class="string">`$HOME/.profile`</span>都可以</span><br><span class="line"><span class="number">4</span>、vim /etc/profile</span><br><span class="line">    # 在最后一行添加</span><br><span class="line">    export GOROOT=/usr/local/<span class="keyword">go</span></span><br><span class="line">    export PATH=$PATH:$GOROOT/bin</span><br><span class="line">#保存退出后source一下</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">//ipfs构建exe文件</span></span><br><span class="line"> <span class="built_in">make</span> build GOOS=windows GOARCH=amd64</span><br><span class="line"> <span class="built_in">make</span> build GOOS=linux GOARCH=amd64</span><br><span class="line"> <span class="comment">//本机使用系统</span></span><br><span class="line"> uname -p</span><br><span class="line"> ipfs --version</span><br></pre></td></tr></table></figure>
+
+<p>ubuntu@VM-16-6-ubuntu:&#x2F;etc$ sudo apt install golang<br>E: Type ‘rc’ is not known on line 15 in source list &#x2F;etc&#x2F;apt&#x2F;sources.list<br>E: The list of sources could not be read.<br>E: Type ‘rc’ is not known on line 15 in source list &#x2F;etc&#x2F;apt&#x2F;sources.list<br>E: The list of sources could not be read.</p>
+<h4 id="go-mod-文件中指定了特定版本（例如-v1-20），而在运行-make-build-时仍然发生下载操作，可能有以下几种原因："><a href="#go-mod-文件中指定了特定版本（例如-v1-20），而在运行-make-build-时仍然发生下载操作，可能有以下几种原因：" class="headerlink" title="go mod 文件中指定了特定版本（例如 v1.20），而在运行 make build 时仍然发生下载操作，可能有以下几种原因："></a><code>go mod</code> 文件中指定了特定版本（例如 <code>v1.20</code>），而在运行 <code>make build</code> 时仍然发生下载操作，可能有以下几种原因：</h4><ol>
+<li><p><strong>缓存问题：</strong> 有时，Go 模块会将依赖项缓存到 <code>$GOPATH/pkg/mod</code> 目录下。如果缓存中不存在或者被损坏，Go 可能会尝试重新下载依赖项。你可以尝试清理模块缓存：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go clean -modcache</span><br></pre></td></tr></table></figure>
+
+<p>然后再次运行 <code>make build</code>。</p>
+</li>
+<li><p><strong>代理设置：</strong> 如果你的网络环境需要通过代理连接，可能需要设置 Go 的代理环境变量。尝试设置 <code>GOPROXY</code> 环境变量为一个可以正常访问的代理地址：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GOPROXY=https://proxy.golang.org</span><br><span class="line"><span class="built_in">export</span> GOPROXY=https://proxy.golang.org,direct</span><br></pre></td></tr></table></figure>
+
+<p>然后再运行 <code>make build</code>。</p>
+</li>
+<li><p><strong>Go 版本不匹配：</strong> 确保你的 Go 版本与 <code>go.mod</code> 文件中指定的版本一致。如果 <code>go.mod</code> 文件中指定了 <code>v1.20</code>，你的 Go 版本也应该是 1.20。</p>
+</li>
+<li><p><strong>项目内部逻辑：</strong> 有时，<code>make build</code> 中的逻辑可能包含了特定版本的下载命令，即使 <code>go.mod</code> 文件中已经指定了版本。检查 <code>makefile</code> 或构建脚本，确保其中的下载命令没有覆盖 <code>go.mod</code> 中的版本。</p>
+</li>
+</ol>
+<p>ps -f -p 80500</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf go1.14.13.linux-amd64.tar.gz &amp;&amp; mv /usr/local/go /usr/local/go.14.13</span><br><span class="line">tar -C /testtar/ -xzf test.zip</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="今日份恶心问题之tar命令"><a href="#今日份恶心问题之tar命令" class="headerlink" title="今日份恶心问题之tar命令"></a>今日份恶心问题之tar命令</h4><p>起因：在服务器安装go环境时候，下载的是go1.14.13.linux-amd64.tar.gz的包，因为go的版本很多，就下载了很多版本，根据网上的教程使用命令&#96;&#96;&#96;tar -C &#x2F;usr&#x2F;local -xzf  go1.14.13.linux-amd64.tar.gz&#96;&#96;,运行完，你的&#x2F;usr&#x2F;local的文件夹下面会多一个go文件夹，里面就是你的环境，然后我切换版本，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf  go1.15.13.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><strong>重点来了:tar命令，-x：从压缩的文件中提取文件，-z：支持gzip解压文件，-f指定压缩文件，此命令并不会删除原先&#x2F;usr&#x2F;local文件夹里原先go1.14.13.linux-amd64.tar.gz有的文件，而go1.15.13.linux-amd64.tar.gz没有的文件，导致make build的时候频繁出现，版本不兼容，要么多包，要么少包的情况</strong></p>
+<p><strong>解决办法：</strong></p>
+<p><strong>方法1：可以解压到不同的文件夹下面，这个最简单，但是有的时候就要解压到相同的文件夹呢</strong></p>
+<p><strong>方法2：</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -tzf go1<span class="number">.12</span><span class="number">.7</span>.linux-amd64.tar.gz | xargs rm -rf</span><br><span class="line">tar -C /usr/local -xzf go1<span class="number">.12</span><span class="number">.7</span>.linux-amd64.tar.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个命令组合实现了以下步骤：</p>
+<figure class="highlight plaintext"><figcaption><span>-C</span><a href="/usr/local">-tzf go1.12.7.linux-amd64.tar.gz```：通过 tar 命令的 -t 选项和 -z 选项，列出压缩文件 go1.12.7.linux-amd64.tar.gz 中的所有文件。然后，通过管道将文件列表传递给下一个命令。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```xargs rm -rf```：使用 xargs 命令结合 rm -rf 命令，从上一步的文件列表中删除所有文件和目录。</span><br><span class="line"></span><br><span class="line">```tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz```：使用 tar 命令将 go1.12.7.linux-amd64.tar.gz 文件解压缩到 /usr/local 目录中。</span><br><span class="line"></span><br><span class="line">这样，除了 go1.12.7.linux-amd64.tar.gz 文件本身，/usr/local 目录中的其他文件和目录将被删除，并被解压缩后的文件替换。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">一些小知识：</span><br><span class="line"></span><br><span class="line">```text</span><br><span class="line">-c 建立新的压缩文件</span><br><span class="line">-r 添加文件到已经压缩的文件</span><br><span class="line">-u 添加改变了和现有的文件到已经存在的压缩文件</span><br><span class="line">-x 从压缩的文件中提取文件</span><br><span class="line">-t 显示压缩文件的内容</span><br><span class="line">-z 支持gzip解压文件</span><br><span class="line">-j 支持bzip2解压文件</span><br><span class="line">-v 显示操作过程</span><br><span class="line">-k 保留源有文件不覆盖</span><br><span class="line">-C 切换到指定目录</span><br><span class="line">-f 指定压缩文件</span><br><span class="line"></span><br><span class="line">--delete            删除包中文件</span><br><span class="line">--strip-components  去除目录</span><br><span class="line">--add-file          向包中添加文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf go1<span class="number">.14</span><span class="number">.13</span>.linux-amd64.tar.gz &amp;&amp; mv /usr/local/<span class="keyword">go</span> /usr/local/<span class="keyword">go</span><span class="number">.14</span><span class="number">.13</span>  <span class="comment">//修改解压后的文件名</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>df -h    &#x2F;&#x2F;查看磁盘使用情况</strong></p>
+<h4 id="ipfs和pprof的安装使用"><a href="#ipfs和pprof的安装使用" class="headerlink" title="ipfs和pprof的安装使用"></a>ipfs和pprof的安装使用</h4><p><strong>1、ipfs daemon</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//上传文件</span><br><span class="line">$ vim upchain.txt</span><br><span class="line"></span><br><span class="line">$ ipfs add upchain.txt</span><br><span class="line">added QmRGwCxvdajhfDTPEPsgnHoJkmQKFRdRSFM4iTYXBKxpZQ upchain.txt</span><br><span class="line"> 19 B / 19 B  100.00%</span><br><span class="line"></span><br><span class="line">$ ipfs cat  QmRGwCxvdajhfDTPEPsgnHoJkmQKFRdRSFM4iTYXBKxpZQ</span><br><span class="line">&quot;你好，hello“</span><br><span class="line"></span><br><span class="line">ipfs daemon  //启动ipfs</span><br><span class="line">http://127.0.0.1:5001/webui</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、浏览器启动ipfs后台：<a target="_blank" rel="noopener" href="http://127.0.0.1:5001/webui">http://127.0.0.1:5001/webui</a></strong></p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271721856.png" alt="image-20231127172027384"></p>
+<p><strong>看进程的cpu，进程的一些内存，函数运行时间</strong></p>
+<p><strong>网址：</strong></p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271720598.png" alt="image-20231127172004490"></p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271701774.png" alt="image-20231127170123070"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">go</span> tool pprof http:<span class="comment">//127.0.0.1:5001/debug/pprof/profile</span></span><br><span class="line">Fetching profile over HTTP from http:<span class="comment">//127.0.0.1:5001/debug/pprof/profile</span></span><br><span class="line">Saved profile in C:\Users\wllwo\pprof\pprof.ipfs.exe.samples.cpu<span class="number">.001</span>.pb.gz</span><br><span class="line">File: ipfs.exe</span><br><span class="line">Build ID: D:\softenvironment\GoWorks\bin\ipfs.exe2023<span class="number">-11</span><span class="number">-23</span> <span class="number">20</span>:<span class="number">10</span>:<span class="number">10.0792554</span> +<span class="number">0800</span> CST</span><br><span class="line">Type: cpu</span><br><span class="line">Time: Nov <span class="number">27</span>, <span class="number">2023</span> at <span class="number">4</span>:<span class="number">55</span>pm (CST)</span><br><span class="line">Duration: <span class="number">30.18</span>s, Total samples = <span class="number">9.69</span>s (<span class="number">32.11</span>%)</span><br><span class="line">Entering interactive mode (<span class="keyword">type</span> <span class="string">&quot;help&quot;</span> <span class="keyword">for</span> commands, <span class="string">&quot;o&quot;</span> <span class="keyword">for</span> options)</span><br><span class="line">(pprof) web</span><br><span class="line">failed to execute dot. Is Graphviz installed? Error: exec: <span class="string">&quot;dot&quot;</span>: executable file not found in %PATH%</span><br><span class="line">(pprof)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> tool pprof http:<span class="comment">//localhost:9909/debug/pprof/profile?seconds=6</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>1、使用命令看： go tool pprof <a target="_blank" rel="noopener" href="http://localhost:5001/debug/pprof/profile?seconds=6">http://localhost:5001/debug/pprof/profile?seconds=6</a></p>
+<p>我们看下面图片，命令执行后，过了6秒钟进入交互式控制台，我输入了top6，代表意思是显示前6个消耗CPU较多的方法，图中的flat，sum，cum是什么含义呢，接下来解释一下。</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271714203.png" alt="image-20231127171409691"></p>
+<ul>
+<li><strong>flat</strong>：给定函数上的运行耗时</li>
+<li><strong>flat%</strong> ：给定函数上的CPU运行耗时占比</li>
+<li><strong>sum%</strong> ：给定函数累积使用CPU总比例</li>
+<li><strong>cum</strong> ：当前函数加上它之前的调用运行总耗时</li>
+<li><strong>cum%</strong> ：当前函数加上他之前的调用CPU运行耗时占比</li>
+</ul>
+<p>2、使用可视化界面监控pprof</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:5001/debug/pprof/profile &gt; 1-heap.out</span><br><span class="line">go tool pprof -http=0.0.0.0:8088 1-heap.out</span><br><span class="line">访问:http://192.168.31.160(运行的服务器ip):8088</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="docker部署Go语言项目"><a href="#docker部署Go语言项目" class="headerlink" title="docker部署Go语言项目"></a>docker部署Go语言项目</h4><p><a target="_blank" rel="noopener" href="https://www.51cto.com/article/706381.html">https://www.51cto.com/article/706381.html</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/go.1.17.5/go/bin:/home/gopath/src/kubo-0.8.0/cmd/ipfs</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="ipfs升级新版本"><a href="#ipfs升级新版本" class="headerlink" title="ipfs升级新版本"></a>ipfs升级新版本</h4><p>如果您希望将之前版本的 IPFS 数据兼容同步到新版本的 IPFS，您可以按照以下步骤进行操作：</p>
+<ol>
+<li><p>备份旧版本的 IPFS 数据：首先，确保您对旧版本的 IPFS 数据进行备份，以防止意外数据丢失。您可以复制保存旧版本的 IPFS 数据存储库的目录，通常默认位于 <code>~/.ipfs</code> 或 <code>/var/lib/ipfs</code>。将其保存在安全的位置，以便在需要时进行恢复。</p>
+</li>
+<li><p>升级到新版本的 IPFS：下载并安装新版本的 IPFS。您可以访问 IPFS 官方网站或使用适用于您的操作系统的包管理器来获取最新的 IPFS 版本。</p>
+</li>
+<li><p>初始化新版本的 IPFS：使用新版本的 IPFS 初始化新的数据存储库。运行以下命令来初始化新的 IPFS 存储库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipfs init</span><br></pre></td></tr></table></figure>
+
+<p>这将创建一个新的 IPFS 存储库，并生成一个新的配置文件和密钥。</p>
+</li>
+<li><p>迁移旧版本数据到新版本：将旧版本 IPFS 数据迁移到新版本的存储库中。为此，您需要将旧版本的存储库中的特定目录和文件复制到新版本的存储库中。具体来说，您需要将旧版本存储库的以下目录和文件复制到新存储库的相应位置：</p>
+<ul>
+<li><code>blocks</code> 目录：包含 IPFS 文件块数据的目录。</li>
+<li><code>datastore</code> 目录：包含 IPFS 数据库的目录。</li>
+<li><code>config</code> 文件：旧版本 IPFS 的配置文件。</li>
+</ul>
+<p>请注意，确保在复制过程中保持目录结构和文件权限。</p>
+</li>
+<li><p>启动新版本的 IPFS：运行以下命令来启动新版本的 IPFS：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipfs daemon</span><br></pre></td></tr></table></figure>
+
+<p>这将启动新版本的 IPFS 守护进程，并开始同步和提供 IPFS 服务。</p>
+</li>
+</ol>
+<p>通过执行上述步骤，您应该能够将旧版本的 IPFS 数据兼容同步到新版本的 IPFS。请记住，根据新版本的 IPFS 版本和配置更改，可能还需要进行其他调整和配置。确保在升级过程中参考新版本的 IPFS 文档和发行说明，并根据需要进行相应的配置更改。</p>
+<p>find . -type f -exec grep -l “usjfisdifsjfnsnfksnfksnkfnsknk” {} +</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-ipfs]# ipfs init</span><br><span class="line">generating ED25519 keypair...done</span><br><span class="line">peer identity: 12D3KooWA8ZPan4ebqa7tYyV8YWHL9dfcYjMcFNMfRyoB2j3DA5z</span><br><span class="line">initializing IPFS node at /root/.ipfs</span><br><span class="line">to get started, enter:</span><br><span class="line"></span><br><span class="line">	ipfs cat /ipfs/QmQPeNsJPyVWPFDVHb77w8G42Fvo15z4bG2X8D2GhfbSXc/readme</span><br><span class="line"></span><br><span class="line">[root@localhost go-ipfs]# ipfs bootstrap list</span><br><span class="line">/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN</span><br><span class="line">/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa</span><br><span class="line">/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb</span><br><span class="line">/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt</span><br><span class="line">/ip4/104.131.131.82/tcp/4001/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ</span><br><span class="line">/ip4/104.131.131.82/udp/4001/quic/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>scp [需要拷贝的文件路径] root@[ip地址]:[文件夹]</p>
+<p>scp go-ipfs_v0.8.0_linux-amd64.tar.gz <a href="mailto:&#x72;&#x6f;&#111;&#x74;&#x40;&#49;&#x39;&#50;&#46;&#49;&#x36;&#56;&#46;&#49;&#48;&#46;&#x32;&#x31;&#x32;">&#x72;&#x6f;&#111;&#x74;&#x40;&#49;&#x39;&#50;&#46;&#49;&#x36;&#56;&#46;&#49;&#48;&#46;&#x32;&#x31;&#x32;</a>:&#x2F;root&#x2F;kubo0.8.0</p>
+<p>查看本地bootstrap节点：</p>
+<p>ipfs bootstrap list<br>&#x2F;dnsaddr&#x2F;bootstrap.libp2p.io&#x2F;p2p&#x2F;QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN<br>&#x2F;dnsaddr&#x2F;bootstrap.libp2p.io&#x2F;p2p&#x2F;QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa<br>&#x2F;dnsaddr&#x2F;bootstrap.libp2p.io&#x2F;p2p&#x2F;QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb<br>&#x2F;dnsaddr&#x2F;bootstrap.libp2p.io&#x2F;p2p&#x2F;QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt<br>&#x2F;ip4&#x2F;104.131.131.82&#x2F;tcp&#x2F;4001&#x2F;p2p&#x2F;QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ<br>&#x2F;ip4&#x2F;104.131.131.82&#x2F;udp&#x2F;4001&#x2F;quic&#x2F;p2p&#x2F;QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ</p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312041014865.png" alt="image-20231204101444785"></p>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/ipfs/ipfs-cluster.git">https://github.com/ipfs/ipfs-cluster.git</a> $GOPATH&#x2F;src ipfs-cluster<br>make install</p>
+<p>ipfs bootstrap add &#x2F;ip4&#x2F;192.168.31.160&#x2F;tcp&#x2F;4001&#x2F;p2p&#x2F;ipfs bootstrap add &#x2F;ip4&#x2F;104.131.131.82&#x2F;tcp&#x2F;4001&#x2F;p2p&#x2F;12D3KooWRiq6Gr4RcWMSvfz8krvLbzSRm6HGNQxxgekdZx28R9wX</p>
+<p> ipfs bootstrap add &#x2F;ip4&#x2F;192.168.31.160&#x2F;tcp&#x2F;4001&#x2F;p2p&#x2F;12D3KooWEUhBjvxWSQ8nZST7zHLTGFEvAUMt6ziXm7q7YAotaHFH</p>
+<p>[root@localhost system]# sudo systemctl daemon-reload<br>[root@localhost system]# sudo systemctl start ipfs.service</p>
+<p>systemctl restart ipfs.service</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/06/%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -571,6 +1145,49 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">t2</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">runtime.GOMAXPROCS(<span class="number">1</span>)</span><br><span class="line">wg:=sync.WaitGroup&#123;&#125;</span><br><span class="line">wg.Add(<span class="number">20</span>)</span><br><span class="line"><span class="comment">//step 1</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">10</span> ;i++  &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;i&quot;</span>,i)</span><br><span class="line">        wg.Done()</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;--------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//step 2</span></span><br><span class="line"><span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;<span class="number">10</span> ;j++  &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(j <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;j&quot;</span>,j)</span><br><span class="line">        wg.Done()</span><br><span class="line">    &#125;(j)</span><br><span class="line">&#125;</span><br><span class="line">wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangh571354026/article/details/124359368">https://blog.csdn.net/zhangh571354026/article/details/124359368</a></p>
+<p>map中不能充当键的类型：函数，切片，还有包含引用字段的结构体，这种slice1&#x3D;&#x3D;slice2比较的是地址，而不是值</p>
+<p>map遍历输出是无序的，如果想让key有序的输出，需要给key进行排序，就可以按序输出，sort(key)，或者可以使用reflect.DeepEqual(slice1，slice2)来实现</p>
+<p>map里面不能出现相同的key，map里面的key是唯一的，channel可以充当map的key，但是channel也是引用的类型，比较的还是地址是不是相等</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="comment">/*//m := make(map[int]int)</span></span><br><span class="line"><span class="comment">   m := map[int]int&#123;</span></span><br><span class="line"><span class="comment">      1: 5,</span></span><br><span class="line"><span class="comment">      2: 6,</span></span><br><span class="line"><span class="comment">      3: 7,</span></span><br><span class="line"><span class="comment">      4: 8,</span></span><br><span class="line"><span class="comment">   &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   i, exit := m[7]</span></span><br><span class="line"><span class="comment">   if exit &#123;</span></span><br><span class="line"><span class="comment">      fmt.Println(i)</span></span><br><span class="line"><span class="comment">   &#125; else &#123;</span></span><br><span class="line"><span class="comment">      fmt.Println(&quot;不存在&quot;)</span></span><br><span class="line"><span class="comment">   &#125;*/</span></span><br><span class="line"></span><br><span class="line">   m := <span class="built_in">make</span>(<span class="keyword">map</span>[[<span class="number">2</span>]<span class="type">int</span>]<span class="type">int</span>)</span><br><span class="line">   ch1 := [<span class="number">2</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>&#125;</span><br><span class="line">   fmt.Println(ch1)</span><br><span class="line">   ch2 := [<span class="number">2</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>&#125;</span><br><span class="line">   fmt.Println(ch2)</span><br><span class="line">   <span class="keyword">if</span> ch1 == ch2 &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;equail&quot;</span>)</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;not equail&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   m[ch1] = <span class="number">9</span></span><br><span class="line">   m[ch2] = <span class="number">10</span></span><br><span class="line">   <span class="keyword">if</span> ch1 == ch2 &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;equail&quot;</span>)</span><br><span class="line">      fmt.Println(m[ch1])</span><br><span class="line">      fmt.Println(m[ch2])</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;not equail&quot;</span>)</span><br><span class="line">      fmt.Println(m[ch1])</span><br><span class="line">      fmt.Println(m[ch2])</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output：</span><br><span class="line">[<span class="number">1</span> <span class="number">3</span>]</span><br><span class="line">[<span class="number">1</span> <span class="number">3</span>]</span><br><span class="line">equail</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意下面，虽然 m[ch1] = 9 ，m[ch2] = 10，但是他们是相等的，因为ch1和ch2是相同的数组，在map里面不能出现相同的key，map里面的key是唯一的</span></span><br><span class="line">equail  </span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="init函数知识点"><a href="#init函数知识点" class="headerlink" title="init函数知识点"></a>init函数知识点</h4><p>1、对同一个go文件的<code>init()</code>调用顺序是从上到下的。</p>
+<p>2、对同一个package中不同文件是按文件名字符串比较“从小到大”顺序调用各文件中的<code>init()</code>函数</p>
+<p><a target="_blank" rel="noopener" href="https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Init%E5%87%BD%E6%95%B0%E5%92%8Cmain%E5%87%BD%E6%95%B0.html">https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Init%E5%87%BD%E6%95%B0%E5%92%8Cmain%E5%87%BD%E6%95%B0.html</a></p>
+<p>go语言中<code>init</code>函数用于包<code>(package)</code>的初始化，该函数是go语言的一个重要特性。</p>
+<p>有下面的特征：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1 init函数是用于程序执行前做包的初始化的函数，比如初始化包里的变量等</span><br><span class="line"></span><br><span class="line">2 每个包可以拥有多个init函数</span><br><span class="line"></span><br><span class="line">3 包的每个源文件也可以拥有多个init函数</span><br><span class="line"></span><br><span class="line">4 同一个包中多个init函数的执行顺序go语言没有明确的定义(说明)</span><br><span class="line"></span><br><span class="line">5 不同包的init函数按照包导入的依赖关系决定该初始化函数的执行顺序</span><br><span class="line"></span><br><span class="line">6 init函数不能被其他函数调用，而是在main函数执行之前，自动被调用</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isValid</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">	stack := <span class="built_in">make</span>([]<span class="type">rune</span>, <span class="number">0</span>)</span><br><span class="line">	mapping := <span class="keyword">map</span>[<span class="type">rune</span>]<span class="type">rune</span>&#123;</span><br><span class="line">		<span class="string">&#x27;)&#x27;</span>: <span class="string">&#x27;(&#x27;</span>,</span><br><span class="line">		<span class="string">&#x27;&#125;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">		<span class="string">&#x27;]&#x27;</span>: <span class="string">&#x27;[&#x27;</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, char := <span class="keyword">range</span> s &#123;</span><br><span class="line">		<span class="keyword">if</span> char == <span class="string">&#x27;(&#x27;</span> || char == <span class="string">&#x27;&#123;&#x27;</span> || char == <span class="string">&#x27;[&#x27;</span> &#123;</span><br><span class="line">			stack = <span class="built_in">append</span>(stack, char)</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> char == <span class="string">&#x27;)&#x27;</span> || char == <span class="string">&#x27;&#125;&#x27;</span> || char == <span class="string">&#x27;]&#x27;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(stack) == <span class="number">0</span> || stack[<span class="built_in">len</span>(stack)<span class="number">-1</span>] != mapping[char] &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">			&#125;</span><br><span class="line">			stack = stack[:<span class="built_in">len</span>(stack)<span class="number">-1</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(stack) == <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">&quot;()&quot;</span></span><br><span class="line">	fmt.Println(isValid(s)) <span class="comment">// 输出: true</span></span><br><span class="line"></span><br><span class="line">	s = <span class="string">&quot;()[]&#123;&#125;&quot;</span></span><br><span class="line">	fmt.Println(isValid(s)) <span class="comment">// 输出: true</span></span><br><span class="line"></span><br><span class="line">	s = <span class="string">&quot;(]&quot;</span></span><br><span class="line">	fmt.Println(isValid(s)) <span class="comment">// 输出: false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><code>&quot;attachment; filename=%s&quot;</code>，它告诉浏览器将响应体的内容作为附件下载，并将下载的文件保存为指定的文件名。<code>%s</code> 会被替换为 <code>image_id</code>。这样用户在下载文件时，浏览器通常会使用 <code>image_id</code> 作为默认文件名。</p>
+<p>具体来说，通过 <code>file.Stat()</code> 方法获得的 <code>fileStat</code> 包含了以下信息：</p>
+<ul>
+<li><strong>文件大小 (<code>Size</code>):</strong> 通过 <code>fileStat.Size()</code> 可以获取文件的大小，以字节为单位。</li>
+<li><strong>修改时间 (<code>ModTime</code>):</strong> 通过 <code>fileStat.ModTime()</code> 可以获取文件的最后修改时间</li>
+</ul>
+<p>通过设置Content-Length，可以告诉浏览器不要分块传输，可以一次性传输，或者传输Content-Length设置的字节，使用<code>fileStat.Size()</code>得知文件的大小</p>
+<p>application&#x2F;octet-stream：浏览器一般不会自动执行或询问执行。 浏览器会像对待，设置了HTTP头Content-Disposition值为attachment的文件一样来对待这类文件，即浏览器会触发下载行为</p>
+<p>file.Seek(2,0),相对于文件的开头，文件的指针向后移动2个字节</p>
+<p>file.Seek(2,1)，相对于文件指针的当前的位置，文件的指针向后移动2个字节</p>
+<p>file.Seek(2,2)，相对于文件的尾部，文件的指针向后移动2个字节</p>
+<p>func ReplaceAll(s, old, new string) string</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;io/ioutil&quot;</span></span><br><span class="line">	<span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 读取 Dockerfile 内容</span></span><br><span class="line">	dockerfileContent, err := ioutil.ReadFile(<span class="string">&quot;path/to/your/Dockerfile&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Error reading Dockerfile:&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 定义 Dockerfile 参数</span></span><br><span class="line">	fromVersion := <span class="string">&quot;base-image:latest&quot;</span></span><br><span class="line">	chaincodeName := <span class="string">&quot;my-chaincode&quot;</span></span><br><span class="line">	version := <span class="string">&quot;1.0&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 替换 Dockerfile 中的变量</span></span><br><span class="line">	updatedDockerfile := replaceVariables(<span class="type">string</span>(dockerfileContent), <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;</span><br><span class="line">		<span class="string">&quot;FromVersion&quot;</span>:   fromVersion,</span><br><span class="line">		<span class="string">&quot;ChaincodeName&quot;</span>: chaincodeName,</span><br><span class="line">		<span class="string">&quot;Version&quot;</span>:       version,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 打印更新后的 Dockerfile</span></span><br><span class="line">	fmt.Println(updatedDockerfile)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 替换 Dockerfile 中的变量</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">replaceVariables</span><span class="params">(dockerfileContent <span class="type">string</span>, variables <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">for</span> key, value := <span class="keyword">range</span> variables &#123;</span><br><span class="line">		placeholder := fmt.Sprintf(<span class="string">&quot;&#123;&#123;%s&#125;&#125;&quot;</span>, key)</span><br><span class="line">		dockerfileContent = strings.ReplaceAll(dockerfileContent, placeholder, value)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dockerfileContent</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>在Go 中，<strong>可以使用 strconv 包将字符串转换为整数</strong>。 具体而言，可以使用 strconv.Atoi() 函数将字符串转换为整数。 Atoi 是 ASCII to integer 的缩写，其返回值是一个整数和一个错误。 如果转换成功，错误为 nil ；如果转换失败，错误则不为 nil </p>
 
           
         
@@ -732,6 +1349,7 @@
 <p>Docker</p>
 <p><em>:docker exec</em> docker exec是一个非常常用的命令,可以在正在运行的容器中执行命令</p>
 <p><code>docker exec -it &lt;容器名或容器id&gt;</code>  可以进入正在运行的docker容器</p>
+<p>hexo g -d</p>
 
           
         
@@ -1866,7 +2484,7 @@
               
                 <a href="/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
