@@ -259,6 +259,128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/06/Goland%E7%BC%96%E8%BE%91%E5%99%A8%E8%B0%83%E8%AF%95%E6%8A%A5%E9%94%99-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/12/06/Goland%E7%BC%96%E8%BE%91%E5%99%A8%E8%B0%83%E8%AF%95%E6%8A%A5%E9%94%99-md/" itemprop="url">Goland编辑器调试报错.md</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-06T17:20:08+08:00">
+                2023-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>断点进不去，无法调试</p>
+<p>报错：WARNING: undefined behavior - version of Delve is too old for Go version 1.21.0 (maximum supported version 1.19)</p>
+<p>出现原因golang的版本原因，要把版本调到1.19</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/06/%E6%AF%8F%E6%97%A5%E7%AE%97%E6%B3%95%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2164,220 +2286,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/25/%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/10/25/%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/" itemprop="url">golang实现反向代理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-10-25T11:12:33+08:00">
-                2023-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="golang实现反向代理"><a href="#golang实现反向代理" class="headerlink" title="golang实现反向代理"></a>golang实现反向代理</h4><p><strong>httputil.NewSingleHostReverseProxy</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http/httputil&quot;</span></span><br><span class="line">	<span class="string">&quot;net/url&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(writer http.ResponseWriter, request *http.Request)</span></span> &#123;</span><br><span class="line">		target, err := url.Parse(<span class="string">&quot;https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311052123028.png&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			fmt.Println(err)</span><br><span class="line">		&#125;</span><br><span class="line">		proxy := httputil.NewSingleHostReverseProxy(target)</span><br><span class="line">		proxy.Director = <span class="function"><span class="keyword">func</span><span class="params">(request *http.Request)</span></span> &#123;</span><br><span class="line">			request.URL.Path = target.Path</span><br><span class="line">			request.URL.Scheme = target.Scheme</span><br><span class="line">			request.URL.Host = target.Host</span><br><span class="line">			request.Host = target.Host</span><br><span class="line">		&#125;</span><br><span class="line">		proxy.ServeHTTP(writer, request)</span><br><span class="line">		fmt.Println(<span class="string">&quot;ping&quot;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	http.ListenAndServe(<span class="string">&quot;:8090&quot;</span>, <span class="literal">nil</span>)<span class="comment">//不要忘记冒号</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>golang实现定时器</p>
-<h1 id="Linux-crontab-命令"><a href="#Linux-crontab-命令" class="headerlink" title="Linux crontab 命令"></a>Linux crontab 命令</h1><p><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-command-manual.html"><img src="https://www.runoob.com/images/up.gif" alt="Linux 命令大全"> Linux 命令大全</a></p>
-<p>Linux <strong>crontab</strong> 是用来定期执行程序的命令。</p>
-<p>当安装完成操作系统之后，默认便会启动此任务调度命令。</p>
-<p><strong>crond</strong> 命令每分钟会定期检查是否有要执行的工作，如果有要执行的工作便会自动执行该工作。</p>
-<p><strong>注意：</strong>新创建的 cron 任务，不会马上执行，至少要过 2 分钟后才可以，当然你可以重启 cron 来马上执行。</p>
-<p>而 linux 任务调度的工作主要分为以下两类：</p>
-<ul>
-<li>1、系统执行的工作：系统周期性所要执行的工作，如备份系统数据、清理缓存</li>
-<li>2、个人执行的工作：某个用户定期要做的工作，例如每隔 10 分钟检查邮件服务器是否有新信，这些工作可由每个用户自行设置</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="left">执行时间</th>
-<th align="left">格式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">每分钟定时执行一次</td>
-<td align="left">* * * * *</td>
-</tr>
-<tr>
-<td align="left">每小时定时执行一次</td>
-<td align="left">0 * * * *</td>
-</tr>
-<tr>
-<td align="left">每天定时执行一次</td>
-<td align="left">0 0 * * *</td>
-</tr>
-<tr>
-<td align="left">每周定时执行一次</td>
-<td align="left">0 0 * * 0</td>
-</tr>
-<tr>
-<td align="left">每秒定时执行一次</td>
-<td align="left">* * * * * *</td>
-</tr>
-<tr>
-<td align="left">每月定时执行一次</td>
-<td align="left">0 0 1 * *</td>
-</tr>
-<tr>
-<td align="left">每月最后一天定时执行一次</td>
-<td align="left">0 0 L * *</td>
-</tr>
-<tr>
-<td align="left">每年定时执行一次</td>
-<td align="left">0 0 1 1 *</td>
-</tr>
-</tbody></table>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/robfig/cron/v3@v3.0.0</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/robfig/cron/v3&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	c := cron.New(cron.WithSeconds())</span><br><span class="line">	c.AddFunc(<span class="string">&quot;* * * * * *&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; <span class="comment">//每秒钟执行一次</span></span><br><span class="line">		fmt.Println(<span class="string">&quot;执行定时任务&quot;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	c.Run()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-<p>在C语言中，对于内存的初始化和清零可以使用不同的方式。</p>
-<ol>
-<li><p><strong>初始化内存：</strong></p>
-<ul>
-<li><p>在C语言中，你可以使用赋值语句为内存分配空间并设置初始值。例如，使用<code>malloc</code>函数分配动态内存，并通过赋值语句进行初始化。这可能包括将内存设置为零或其他特定的初值。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> *arr = (<span class="type">int</span>*)<span class="built_in">malloc</span>(<span class="number">5</span> * <span class="keyword">sizeof</span>(<span class="type">int</span>));  <span class="comment">// 分配5个整数的内存空间</span></span><br><span class="line">    <span class="comment">// 初始化内存，这里将所有元素设置为零</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">        arr[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用初始化后的内存...</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(arr);  <span class="comment">// 释放内存</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>清零（清0）：</strong></p>
-<ul>
-<li><p>在C语言中，你可以使用<code>memset</code>函数来将内存块的内容设置为指定的值，通常是零。这可以确保内存中的所有位都被设置为零。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">5</span>];</span><br><span class="line">    <span class="comment">// 使用memset清零整个数组</span></span><br><span class="line">    <span class="built_in">memset</span>(arr, <span class="number">0</span>, <span class="number">5</span> * <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用清零后的数组...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<p>初始化内存和清零（清0）是在计算机领域中两个相关但略有不同的概念。</p>
-<ol>
-<li><p><strong>初始化内存：</strong></p>
-<ul>
-<li>意味着为一块内存分配空间并设置初始值。<strong>这个初始值不一定是零</strong>。它可能是任何预定义的值，这取决于编程语言、分配内存的方式以及使用的库或函数。在某些情况下，初始化内存可能包含对所有位的设置，而不仅仅是将所有位设置为零。</li>
-</ul>
-</li>
-<li><p><strong>清零（清0）：</strong></p>
-<ul>
-<li>意味着将内存中的所有位都设置为零。这是一个特定的操作，通常是通过编程语言提供的函数或指令来执行的。清零可以是初始化内存的一部分，特别是在需要确保敏感信息不被泄漏的情况下。</li>
-</ul>
-</li>
-</ol>
-<p>在实际应用中，清零可能是初始化内存的一部分，但初始化内存不一定总是清零。清零通常用于确保敏感信息不被遗留在内存中，而初始化内存可能包括任何预定义的初始值。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2428,7 +2336,7 @@
               
                 <a href="/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
