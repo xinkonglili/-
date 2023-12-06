@@ -259,6 +259,659 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/26/%E5%85%B3%E4%BA%8Ehttp%E7%9A%84%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/10/26/%E5%85%B3%E4%BA%8Ehttp%E7%9A%84%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url">关于http的面试知识点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-10-26T14:19:02+08:00">
+                2023-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E8%80%83%E7%82%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">网络面试考点</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="http的udp协议字段组成？"><a href="#http的udp协议字段组成？" class="headerlink" title="http的udp协议字段组成？"></a>http的udp协议字段组成？</h4><p>udp由8字节+数据组成：</p>
+<p>16位源端口号+16位目的端口号+16位包长度+16位校验和</p>
+<p>16位源端口号+16位目的端口号：告诉udp协议应该把报文发给哪几个进程</p>
+<p>16位包长度：保存了udp首部的长度跟数据的长度之和</p>
+<p>16位校验和：为了提供可靠的udp首部和数据设计的，防止收到在网络传输中受损的udp包</p>
+<h4 id="http和https有哪些区别"><a href="#http和https有哪些区别" class="headerlink" title="http和https有哪些区别"></a>http和https有哪些区别</h4><p>http是明文传输：存在风险，会发生内容<strong>纂改</strong>（纂改请假内容），<strong>冒充</strong>(冒充请假签名)，切听的风险</p>
+<p>https:加入了ssl&#x2F;tls安全协议，三次握手之后还要进行ssl&#x2F;tls握手过程，才可以进行加密报文的传输</p>
+<p>http：80端口，https:443</p>
+<p>https协议要向CA(证书权威机构)申请数字证书，来保证服务器的身份是可信的</p>
+<p>私钥和公钥一般要去CA机构申请，一般是服务器端会拿着公钥去CA机构注册数字证书，然后把数字证书发给客户端，数字证书里面包含公钥，客户端拿着公钥把要发送的数据进行加密，服务器端使用私钥来解密</p>
+<p>对称加密：加密解密用同一个公钥</p>
+<p>非对称加密：加密用私钥，解密用公钥</p>
+<h4 id="http为什么一定是三次握手，不能是四次或者二次"><a href="#http为什么一定是三次握手，不能是四次或者二次" class="headerlink" title="http为什么一定是三次握手，不能是四次或者二次"></a>http为什么一定是三次握手，不能是四次或者二次</h4><ul>
+<li><p>三次握手才可以阻止<strong>旧的重复历史连接初始化</strong>（主要原因），防止历史连接初始化了连接，2次握手的情况下，第一次握手的时候可能就之间建立了连接，服务端需要接收到RST报文才会断开连接，当正确的SYN报文到达的时候，又会进行一次连接的初始化</p>
+<p><strong>场景：</strong></p>
+<p>服务器发送一个SYN报文之后，出现宕机，或者这个时候网络阻塞，过后服务器又重新启动了，再次发了一个新的SYN报文，但是旧的SYN报文先到达了(这里注意两次发的SYN报文的序列号是不同的)，服务端发了ACK确认，客户端发现seq不是自己想要的，于是发了RST报文，中断连接，这个就是历史连接，但是此时二者并没有建立分配资源的连接建立，2次握手的话就会出现连接重复，浪费资源</p>
+</li>
+<li><p>三次握手才可以同步双方的初始化序列号</p>
+<p>​	<strong>序列号是可靠传输的关键</strong></p>
+<ul>
+<li>接收方可以<strong>去除重复的数据</strong></li>
+<li>接收方可以根据数据包的序列号，<strong>按序接收</strong></li>
+<li>可以标识发送出去的数据包，<strong>哪些数据包是已经被对方收到的</strong></li>
+</ul>
+</li>
+<li><p><strong>三次握手才可以避免浪费资源</strong></p>
+</li>
+</ul>
+<h4 id="Tcp四次挥手，可以是三次吗"><a href="#Tcp四次挥手，可以是三次吗" class="headerlink" title="Tcp四次挥手，可以是三次吗"></a>Tcp四次挥手，可以是三次吗</h4><p>可以是三次，当开启Tcp延迟确认机制的时候，服务器的Fin和ACk会一起发送，比如我们使用tcpdump抓包的时候会出现3次握手的情况</p>
+<p>Tcp延迟确认机制：</p>
+<h4 id="长连接和短连接什么意思"><a href="#长连接和短连接什么意思" class="headerlink" title="长连接和短连接什么意思"></a>长连接和短连接什么意思</h4><p>http协议采用了请求应答的模式，客户端发起请求，服务端才会返回响应、</p>
+<p>http是基于tcp协议传输的，客户端要和服务端进行http通信前，需要建立tcp连接，然后客户端发送http请求，服务端收到响应返回，请求应答模式完成，随后释放tcp连接</p>
+<p>http每次请求都要经历：建立Tcp连接–&gt;请求资源–&gt;响应资源–&gt;释放连接  （这种称为Http短连接）</p>
+<p>一次连接只能请求一次资源，这样频繁操作，实在太重复，能不能在第一次http请求之后不断开连接，让后续的http请求，继续走上一个tcp连接？</p>
+<p>答案：可以，使用Keep-Alive</p>
+<p>http1.0默认是关闭的:Connection:close</p>
+<p>http1.1默认开启：Connection:Keep-Alive，还可以设置keeplive_timeout参数来设置http请求再次发起的时间，如果在keeplive_timeout内还没有另外的http请求再次发起，那么就触发回调函数，断开tcp连接</p>
+<h4 id="http-1-1，http-2，http-3演变"><a href="#http-1-1，http-2，http-3演变" class="headerlink" title="http&#x2F;1.1，http&#x2F;2，http&#x2F;3演变"></a>http&#x2F;1.1，http&#x2F;2，http&#x2F;3演变</h4><p>第一点，HTTP&#x2F;2 没使用常见的 gzip 压缩方式来压缩头部，而是使用<strong>HPACK来压缩头部</strong>，里面用了 Huffman 编码<strong>的方式，将体积压缩了近一半，而且针对后续的请求头部，还可以建立</strong>动态表**，将体积压缩近 90%，大大提高了编码效率，同时节约了带宽资源。</p>
+<p>HTTP&#x2F;2 为高频出现在头部的字符串和字段建立了一张<strong>静态表</strong></p>
+<p>HTTP&#x2F;2 头部由于基于<strong>二进制编码</strong></p>
+<p>HTTP&#x2F;2 厉害的地方在于将 HTTP&#x2F;1 的文本格式改成二进制格式传输数据，极大提高了 HTTP 传输效率，而且二进制数据使用位运算能高效解析。</p>
+<p>第二点：<strong>实现了 Stream 并发</strong></p>
+<p>在 HTTP&#x2F;2 连接上，<strong>不同 Stream 的帧是可以乱序发送的（因此可以并发不同的 Stream ）</strong>，因为每个帧的头部会携带 Stream ID 信息，所以接收端可以通过 Stream ID 有序组装成 HTTP 消息，而<strong>同一 Stream 内部的帧必须是严格有序的</strong></p>
+<p>第三点：<strong>服务器支持主动推送资源</strong>，大大提升了消息的传输性能，服务器推送资源时，会先发送 PUSH_PROMISE 帧，告诉客户端接下来在哪个 Stream 发送资源，然后用偶数号 Stream 发送资源给客户端。</p>
+<p>HTTP&#x2F;2 通过 Stream 的并发能力，解决了 HTTP&#x2F;1 队头阻塞的问题，看似很完美了，但是 HTTP&#x2F;2 还是存在“队头阻塞”的问题，只不过问题不是在 HTTP 这一层面，而是在 TCP 这一层。‘’</p>
+<p><strong>HTTP&#x2F;2 是基于 TCP 协议来传输数据的，TCP 是字节流协议，TCP 层必须保证收到的字节数据是完整且连续的，这样内核才会将缓冲区里的数据返回给 HTTP 应用，那么当「前 1 个字节数据」没有到达时，后收到的字节数据只能存放在内核缓冲区里，只有等到这 1 个字节数据到达时，HTTP&#x2F;2 应用层才能从内核中拿到数据，这就是 HTTP&#x2F;2 队头阻塞问题。</strong></p>
+<h4 id="udp和tcp的应用场景"><a href="#udp和tcp的应用场景" class="headerlink" title="udp和tcp的应用场景"></a>udp和tcp的应用场景</h4><p>tcp：</p>
+<p>1、<strong>面向连接</strong>（一对一，不能一对多），</p>
+<p>2、<strong>可靠</strong>（无论链路上出现怎样的链路变化，Tcp都可以保证一个报文一定能够到达接收端，超时重传，拥塞控制，滑动窗口）</p>
+<p>3、<strong>传输字节流 ** (消息可能会被操作系统分组成多个TCP报文，如果接收方不知道消息的边界，是无法读出一个有效的用户消息，</strong>并且TCP报文是有序的，如果无序，即使先收到后面的报文，也会选择丢弃**)  </p>
+<p>（Ftp文件，电子邮件(【smtp发送邮件协议】,和【pop3接收邮件协议】通常也是基于tcp)传输，远程登陆，web网页浏览比如：http&#x2F;https）</p>
+<p>udp：面向无连接，可以随时发送数据，udp处理简单高效（包总量较少的通信，DNS(将域名转换成ip)，视频，音频，广播等多媒体通信）</p>
+<h4 id="tcp四元组可以唯一确定一个Tcp连接"><a href="#tcp四元组可以唯一确定一个Tcp连接" class="headerlink" title="tcp四元组可以唯一确定一个Tcp连接"></a>tcp四元组可以唯一确定一个Tcp连接</h4><p>源地址  源端口  目的地址  目的端口</p>
+<h4 id="什么是Tcp连接"><a href="#什么是Tcp连接" class="headerlink" title="什么是Tcp连接"></a>什么是Tcp连接</h4><p>用于保证可靠性和流量控制，维护的某些状态信息，这些信息的组合就称为连接，</p>
+<p>组合的信息就是：socket(ip+端口) ，序列号(用来解决乱序问题)，窗口大小(用来做流量控制)</p>
+<p>查看TCP状态：netstat -napt</p>
+<h4 id="Tcp的超时重传，快速重传，滑动窗口"><a href="#Tcp的超时重传，快速重传，滑动窗口" class="headerlink" title="Tcp的超时重传，快速重传，滑动窗口"></a>Tcp的超时重传，快速重传，滑动窗口</h4><p>1、超时重传：超时重传时间RTT，比如服务器的ACK包在发送的过程中由于网络阻塞等原因，.发生丢包，那么客户端没有收到ACK，且RTT(数据包往返的时间)时间大于RTO(超时重传的时间)之后，客户端会重新传数据包</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193953097.png" alt="image-20231027193953097"></p>
+<p>2、快速重传：不需要等必须到RTT这个时间才可以重传，当接收方收到3个连续的ACK，这个时候客户端就会重新发数据包给服务端，服务端收到之后，发ACK包的时候同时会带着发SACK（代表之前的数据包，我已经收到了，只是我传输给你的ACK包丢失了），即使丢失了，他也可以根据SACK只重传那些丢失的数据包，DSACK可以知道哪些数据被重复接收了</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193913970.png" alt="image-20231027193913970"></p>
+<p>3、滑动窗口：相当于一段缓存，如果服务端没有及时给应答，客户端可以一直发数据，服务端会把数据缓存下来，即使某个ACK丢失，也是可以通过累计应答，让之前的数据不需要重复发</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027193851135.png" alt="image-20231027193851135"></p>
+<h4 id="Goroutine的GMP模型"><a href="#Goroutine的GMP模型" class="headerlink" title="Goroutine的GMP模型"></a>Goroutine的GMP模型</h4><p>Goroutine调度是一个很复杂的机制，尽管Go源码中提供了大量的注释，但对其原理没有一个好的理解的情况下去读源码收获不会很大。下面尝试用简单的语言描述一下Goroutine调度机制，在此基础上再去研读源码效果可能更好一些。</p>
+<h4 id="1-线程池的缺陷"><a href="#1-线程池的缺陷" class="headerlink" title="1. 线程池的缺陷"></a>1. 线程池的缺陷</h4><p>我们知道，在高并发应用中<strong>频繁创建线程会造成不必要的开销，所以有了线程池</strong>。线程池中预先保存一定数量的线程，而新任务将不再以创建线程的方式去执行，而是将任务发布到任务队列，线程池中的线程不断地从任务队列中取出任务并执行，可以有效的减少线程创建和销毁所带来的开销。</p>
+<p>下图展示一个典型的线程池：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_b499f154d0135854b725ce27a6b7a009_r.png" alt="null"></p>
+<p>为了方便下面的叙述，我们把任务队列中的每一个任务称作G，而G往往代表一个函数。<br>线程池中的worker线程不断地从任务队列中取出任务并执行。而worker线程的调度则交给操作系统进行调度。</p>
+<p>如果worker线程执行的G任务中发生系统调用，则操作系统会将该线程置为阻塞状态，也意味着该线程在怠工，也意味着消费任务队列的worker线程变少了，也就是说线程池消费任务队列的能力变弱了。</p>
+<p>如果任务队列中的大部分任务都会进行系统调用，则会让这种状态恶化，大部分worker线程进入阻塞状态，从而任务队列中的任务产生堆积。</p>
+<p>解决这个问题的一个思路就是重新审视线程池中线程的数量，增加线程池中线程数量可以一定程度上提高消费能力，但随着线程数量增多，由于过多线程争抢CPU，消费能力会有上限，甚至出现消费能力下降。 如下图所示：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_fa5c2be587f99cf1120b126f0c563055_r.png" alt="null"></p>
+<h4 id="2-Goroutine调度器"><a href="#2-Goroutine调度器" class="headerlink" title="2. Goroutine调度器"></a>2. Goroutine调度器</h4><p>线程数过多，意味着操作系统会不断地切换线程，频繁的上下文切换就成了性能瓶颈。<br>Go提供一种机制，可以在线程中自己实现调度，上下文切换更轻量，从而达到了线程数少，而并发数并不少的效果。而线程中调度的就是Goroutine.</p>
+<p>早期Go版本，比如1.9.2版本的源码注释中有关于调度器的解释。<br>Goroutine 调度器的工作就是把“ready-to-run”的goroutine分发到线程中。</p>
+<p>Goroutine主要概念如下：</p>
+<ul>
+<li>G（Goroutine）: 即Go协程，每个go关键字都会创建一个协程。</li>
+<li>M（Machine）： 工作线程，在Go中称为Machine。</li>
+<li>P(Processor): 处理器（Go中定义的一个摡念，不是指CPU），包含运行Go代码的必要资源，也有调度goroutine的能力。</li>
+</ul>
+<p>M必须拥有P才可以执行G中的代码，P含有一个包含多个G的队列，P可以调度G交由M执行。其关系如下图所示：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_274ee3af62bab4ad8f74a6753d6969cf_r.png" alt="null"></p>
+<p>图中M是交给操作系统调度的线程，M持有一个P，P将G调度进M中执行。P同时还维护着一个包含G的队列（图中灰色部分），可以按照一定的策略将G调度到M中执行。</p>
+<p>P的个数在程序启动时决定，默认情况下等同于CPU的核数，由于M必须持有一个P才可以运行Go代码，所以同时运行的M个数，也即线程数一般等同于CPU的个数，以达到尽可能的使用CPU而又不至于产生过多的线程切换开销。</p>
+<p>程序中可以使用<code>runtime.GOMAXPROCS()</code>设置P的个数，在某些IO密集型的场景下可以在一定程度上提高性能。这个后面再详细介绍。</p>
+<p><strong>锁有线程锁和进程锁：</strong></p>
+<p><strong>线程锁」则是保证同一段代码在同一时间只有一个线程在执行，一般各语言本身或类库会提供实现方式，go语言里面协程是怎么保证的，有哪些锁呢</strong></p>
+<p>在Go语言中，可以使用<code>sync</code>包提供的锁来实现线程安全的访问共享资源。以下是一些常用的锁：</p>
+<ol>
+<li><p><strong>互斥锁（Mutex）</strong>：<code>sync.Mutex</code> 是一个最基本的互斥锁。通过 <code>Lock()</code> 和 <code>Unlock()</code> 方法来保护临界区，只允许一个goroutine进入临界区。</p>
+</li>
+<li><p><strong>读写锁（RWMutex）</strong>：<code>sync.RWMutex</code> 是一种更复杂的锁，允许多个goroutine同时访问共享资源，但在写操作时会进行互斥锁定。</p>
+</li>
+<li><p><strong>等待组（WaitGroup）</strong>：<code>sync.WaitGroup</code> 允许等待一组goroutine的结束。</p>
+</li>
+<li><p><strong>条件变量（Cond）</strong>：<code>sync.Cond</code> 允许一个或多个goroutine等待特定条件的发生。</p>
+</li>
+<li><p><strong>原子操作（atomic）</strong>：<code>sync/atomic</code> 包提供了一些原子操作函数，可以对共享变量进行原子操作，不需要加锁。</p>
+</li>
+<li><p><strong>单次执行（Once）</strong>：<code>sync.Once</code> 可以确保某个操作只执行一次，常用于初始化。</p>
+</li>
+<li><p><strong>通道（Channel）</strong>：通过通道可以实现goroutine之间的同步和通信，可以用于替代锁的使用。</p>
+</li>
+<li><p><strong>上下文（Context）</strong>：<code>context.Context</code> 可以用于管理goroutine的生命周期和传递取消信号。</p>
+</li>
+</ol>
+<p>Go语言的并发模型使用goroutine和通道来实现，避免了传统线程锁带来的复杂性和性能开销。通常情况下，使用通道来实现goroutine之间的通信和同步，而避免显式地使用锁。</p>
+<p>在Go中，推荐尽量避免使用显式锁，而是使用通道和<code>select</code>语句来实现并发控制，这种方式更符合Go语言的设计理念。只有在必要的情况下才使用锁，而且要根据具体情况选择适合的锁类型。</p>
+<h1 id="3-Goroutine调度策略"><a href="#3-Goroutine调度策略" class="headerlink" title="3. Goroutine调度策略"></a>3. Goroutine调度策略</h1><h2 id="3-1-队列轮转"><a href="#3-1-队列轮转" class="headerlink" title="3.1 队列轮转"></a>3.1 队列轮转</h2><p>上图中可见每个P维护着一个包含G的队列，不考虑G进入系统调用或IO操作的情况下，P周期性的将G调度到M中执行，执行一小段时间，将上下文保存下来，然后将G放到队列尾部，然后从队列中重新取出一个G进行调度。</p>
+<p>除了每个P维护的G队列以外，还有一个全局的队列，每个P会周期性地查看全局队列中是否有G待运行并将其调度到M中执行，全局队列中G的来源，主要有从系统调用中恢复的G。之所以P会周期性地查看全局队列，也是为了防止全局队列中的G被饿死。</p>
+<h2 id="3-2-系统调用"><a href="#3-2-系统调用" class="headerlink" title="3.2 系统调用"></a>3.2 系统调用</h2><p>上面说到P的个数默认等于CPU核数，每个M必须持有一个P才可以执行G，一般情况下M的个数会略大于P的个数，这多出来的M将会在G产生系统调用时发挥作用。类似线程池，Go也提供一个M的池子，需要时从池子中获取，用完放回池子，不够用时就再创建一个。</p>
+<p>当M运行的某个G产生系统调用时，如下图所示：</p>
+<p><img src="https://www.topgoer.cn/uploads/gozhuanjia/images/m_fd748bf1364411aa7929b84c155ef67a_r.png" alt="null"></p>
+<p>如图所示，当G0即将进入系统调用时，M0将释放P，进而某个空闲的M1获取P，继续执行P队列中剩下的G。而M0由于陷入系统调用而进被阻塞，M1接替M0的工作，只要P不空闲，就可以保证充分利用CPU。</p>
+<p>M1的来源有可能是M的缓存池，也可能是新建的。当G0系统调用结束后，根据M0是否能获取到P，将会将G0做不同的处理：</p>
+<ol>
+<li>如果有空闲的P，则获取一个P，继续执行G0。</li>
+<li>如果没有空闲的P，则将G0放入全局队列，等待被其他的P调度。然后M0将进入缓存池睡眠。</li>
+</ol>
+<p>快速排序的情况比较棘手，在最糟情况下，其运行时间为O(n2)。。在平均情况下，快速排序的运行时间为O(nlogn)。</p>
+<p>快排思想:</p>
+<p>1、找个基准元素，比如刚开始取nums[0],左右指针分别指向最左边和最右边</p>
+<p>2、从最右边开始，将右指针所指的元素和基准比较，如果比基准小，那么就把该位置的元素拿到坑位上，右边的位置成为了坑位，左指针向前移动，左指针上的元素再和基准元素比较，比基准大，就移动到坑位上，然后空出来的位置变成了坑位，依次执行下去直到最后一个坑位，把基准元素填入</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quick_sort</span><span class="params">(l,r <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> l&gt;r&#123; <span class="comment">//这个临界条件不写，会导致栈溢出</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    i,j:= l<span class="number">-1</span>,r+<span class="number">1</span></span><br><span class="line">    x := q[(l+r)/<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">for</span> i&lt;j&#123;</span><br><span class="line">        <span class="keyword">for</span>&#123;</span><br><span class="line">            i++</span><br><span class="line">            <span class="keyword">if</span> q[i]&gt;=x&#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>&#123;</span><br><span class="line">            j--</span><br><span class="line">            <span class="keyword">if</span> q[j]&lt;=x&#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> i&gt;j&#123;</span><br><span class="line">            q[i],q[j] = q[j],q[i]</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(l,j)</span><br><span class="line">    quick_sork(j+<span class="number">1</span>,r)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    q := []<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>&#125;</span><br><span class="line">    quick_sort(<span class="number">0</span>,<span class="built_in">len</span>(q)<span class="number">-1</span>)</span><br><span class="line">    fmt.Println(q)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>冒泡思想：2层循环：外层循环遍历整个数组，每次找出一个最大的，内层循环随着找出的最大的值，循环的次数不断减小，次数为了<code>len(nu)-i-1</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main </span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;   </span><br><span class="line">    nu := []<span class="type">int</span>&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>&#125;   </span><br><span class="line">    ints := b(nu)   </span><br><span class="line">    fmt.Println(ints) </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">b</span><span class="params">(nu []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;   </span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(nu); i++ &#123;      </span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="built_in">len</span>(nu)-i<span class="number">-1</span>; j++ &#123;         </span><br><span class="line">            <span class="keyword">if</span> nu[j] &gt; nu[j+<span class="number">1</span>] &#123;            </span><br><span class="line">                nu[j], nu[j+<span class="number">1</span>] = nu[j+<span class="number">1</span>], nu[j]         </span><br><span class="line">            &#125;      </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;   </span><br><span class="line">    <span class="keyword">return</span> nu </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>文件格式检查：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">jsonCmp</span><span class="params">(json3, json4 []<span class="type">byte</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> json3 == <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//前端传来的数据形式为[&#123;sturct&#125;&#123;sturct&#125;],改为&#123;&quot;a&quot;:[&#123;sturct&#125;&#123;sturct&#125;]&#125;</span></span><br><span class="line">   json1 := []<span class="type">byte</span>(<span class="string">`&#123;&quot;a&quot;:`</span>)</span><br><span class="line">   json1 = <span class="built_in">append</span>(json1, json3...)</span><br><span class="line">   j1 := []<span class="type">byte</span>(<span class="string">`&#125;`</span>)</span><br><span class="line">   json1 = <span class="built_in">append</span>(json1, j1...)</span><br><span class="line">   json2 := []<span class="type">byte</span>(<span class="string">`&#123;&quot;a&quot;:`</span>)</span><br><span class="line">   j2 := []<span class="type">byte</span>(<span class="string">`&#125;`</span>)</span><br><span class="line">   json2 = <span class="built_in">append</span>(json2, json4...)</span><br><span class="line">   json2 = <span class="built_in">append</span>(json2, j2...)</span><br><span class="line">   <span class="comment">//解析json到map</span></span><br><span class="line">   <span class="keyword">var</span> map1, map2 <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">   <span class="keyword">if</span> err := json.Unmarshal(json1, &amp;map1); err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> err := json.Unmarshal(json2, &amp;map2); err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//递归调用，每次仅比较最外层json</span></span><br><span class="line">   <span class="keyword">return</span> jsonRecur(map1, map2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">jsonRecur</span><span class="params">(map1, map2 <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">   <span class="comment">//取map中的最外层key，按名称排序</span></span><br><span class="line">   getMapKey := <span class="function"><span class="keyword">func</span><span class="params">(m <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span></span> []<span class="type">string</span> &#123;</span><br><span class="line">      keys := <span class="built_in">make</span>([]<span class="type">string</span>, <span class="number">0</span>, <span class="built_in">len</span>(m))</span><br><span class="line">      <span class="keyword">for</span> k := <span class="keyword">range</span> m &#123;</span><br><span class="line">         keys = <span class="built_in">append</span>(keys, k)</span><br><span class="line">      &#125;</span><br><span class="line">      sort.Strings(keys)</span><br><span class="line">      <span class="keyword">return</span> keys</span><br><span class="line">   &#125;</span><br><span class="line">   key1 := getMapKey(map1) <span class="comment">//map的key的切片</span></span><br><span class="line">   key2 := getMapKey(map2)</span><br><span class="line">   <span class="comment">//对比key长度</span></span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(key1) != <span class="built_in">len</span>(key2) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//对比key内容</span></span><br><span class="line">   <span class="keyword">for</span> i, k := <span class="keyword">range</span> key1 &#123;</span><br><span class="line">      <span class="keyword">if</span> k != key2[i] &#123; <span class="comment">//key值不相等</span></span><br><span class="line">         <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">      maps1, ok1 := map1[k].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;) <span class="comment">//判断是否是内嵌的结构体</span></span><br><span class="line">      maps2, ok2 := map2[k].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">      <span class="keyword">if</span> ok1 &amp;&amp; ok2 &#123; <span class="comment">//key值相等，内容均为map，则递归</span></span><br><span class="line">         <span class="keyword">return</span> jsonRecur(maps1, maps2)</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ok1 || ok2 &#123; <span class="comment">//key值相等，内容不均为map</span></span><br><span class="line">         <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> !ok1 &amp;&amp; !ok2 &#123;</span><br><span class="line">         <span class="keyword">if</span> isArray(map1[k]) == isArray(map2[k]) &#123;</span><br><span class="line">            <span class="keyword">if</span> isArray(map1[k]) &#123; <span class="comment">//相等且为true</span></span><br><span class="line">               <span class="comment">//双方都是数组，进来判断数组里面的类型</span></span><br><span class="line">               <span class="comment">//数组不为空，取第一个元素比较</span></span><br><span class="line">               <span class="keyword">if</span> <span class="built_in">len</span>(map1[k].([]<span class="keyword">interface</span>&#123;&#125;)) != <span class="number">0</span> &#123;</span><br><span class="line">                  maps10, ok10 := map1[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">                  maps20, ok20 := map2[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">                  <span class="keyword">if</span> ok10 &amp;&amp; ok20 &#123; <span class="comment">//key值相等，内容均为map，则递归</span></span><br><span class="line">                     <span class="keyword">return</span> jsonRecur(maps10, maps20)</span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> ok10 || ok20 &#123; <span class="comment">//key值相等，内容不均为map</span></span><br><span class="line">                     <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">                  &#125; <span class="keyword">else</span> <span class="keyword">if</span> !ok10 &amp;&amp; !ok20 &#123;</span><br><span class="line">                     <span class="keyword">if</span> reflect.TypeOf(map1[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>]) != reflect.TypeOf(map2[k].([]<span class="keyword">interface</span>&#123;&#125;)[<span class="number">0</span>]) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">                     &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">//双方都不是数组</span></span><br><span class="line">               <span class="keyword">if</span> reflect.TypeOf(map1[k]) != reflect.TypeOf(map2[k]) &#123;</span><br><span class="line">                  <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> reflect.TypeOf(map1[k]) != reflect.TypeOf(map2[k]) &#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isArray</span><span class="params">(data <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">   typeOf := reflect.TypeOf(data)</span><br><span class="line">   <span class="keyword">return</span> typeOf.Kind() == reflect.Slice</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="阻塞式接口，处理阻塞式接口的办法-context-WithTimeout设置超时机制"><a href="#阻塞式接口，处理阻塞式接口的办法-context-WithTimeout设置超时机制" class="headerlink" title="阻塞式接口，处理阻塞式接口的办法(context.WithTimeout设置超时机制)"></a>阻塞式接口，处理阻塞式接口的办法(context.WithTimeout设置超时机制)</h4><h5 id="阻塞式接口"><a href="#阻塞式接口" class="headerlink" title="阻塞式接口"></a>阻塞式接口</h5><p>描述：调用某个方法时，如果没有拿到返回时，会一直等待，直到拿到返回值为止</p>
+<p>但是一直死等的话会消耗cpu的资源，所以设置超时机制来结束该进程</p>
+<p><strong>在Go语言中，可以使用 <code>context</code> 包来实现超时机制</strong>。</p>
+<p>具体步骤如下：</p>
+<ol>
+<li>导入 <code>context</code> 包：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;context&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建一个带有超时的 <code>context</code>：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctx, cancel := context.WithTimeout(context.Background(), </span><br><span class="line">                                   time.Duration(timeout) * time.Second)</span><br><span class="line"><span class="keyword">defer</span> cancel()</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>timeout</code> 是超时时间的秒数。</p>
+<ol start="3">
+<li>在执行阻塞式操作之前，将创建的 <code>ctx</code> 传递给相应的操作：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">resultChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这里执行阻塞式操作，比如读取数据</span></span><br><span class="line">    <span class="comment">// 如果超时会立即返回</span></span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">        resultChan &lt;- <span class="number">-1</span> <span class="comment">// 超时处理</span></span><br><span class="line">    <span class="keyword">case</span> data := &lt;-dataChan:</span><br><span class="line">        resultChan &lt;- data</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>使用 <code>select</code> 语句来等待结果：</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line"><span class="keyword">case</span> data := &lt;-resultChan:</span><br><span class="line">    <span class="comment">// 处理结果</span></span><br><span class="line"><span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">    <span class="comment">// 处理超时</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，如果阻塞式操作在超时时间内没有完成，<code>ctx.Done()</code> 会接收到信号，可以在 <code>case &lt;-ctx.Done()</code> 中进行超时处理。</p>
+<p>这样，通过使用 <code>context</code> 包，可以实现对阻塞式操作的超时控制。</p>
+<h4 id="读取文件的几种方式"><a href="#读取文件的几种方式" class="headerlink" title="读取文件的几种方式"></a>读取文件的几种方式</h4><p><code>1、</code><strong>ioutil.ReadAll</strong>—一次性的读取和写入文件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file, err := os.Open(<span class="string">&quot;file/test&quot;</span>)<span class="string">`</span></span><br><span class="line"><span class="string">ackBody, err := ioutil.ReadAll(file)   //ackBody(字节数组)</span></span><br></pre></td></tr></table></figure>
+
+<p>2、<strong>ioutil.ReadFile</strong>—一次性的读取和写入文件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ReadFile</span><span class="params">(filename <span class="type">string</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> os.ReadFile(filename)</span><br><span class="line">&#125;</span><br><span class="line">fileName := <span class="string">&quot;file/test2&quot;</span></span><br><span class="line">file,err :=ioutil.ReadFile(fileName)</span><br></pre></td></tr></table></figure>
+
+<p>3、<strong>使用 bufio.NewWriter 写文件</strong>—-加了一层缓冲区，把ioutil库的按字节读取转成按行读取</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewWriter</span><span class="params">(w io.Writer)</span></span> *Writer &#123;</span><br><span class="line">	<span class="keyword">return</span> NewWriterSize(w, defaultBufSize)</span><br><span class="line">&#125;</span><br><span class="line">file, err3 := os.Create(fileName) <span class="comment">//创建文件</span></span><br><span class="line">writer := bufio.NewWriter(file) <span class="comment">//创建新的 Writer 对象</span></span><br><span class="line">    _, err := writer.WriteString(<span class="string">&quot;bufferedn&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="几个文件库的对比"><a href="#几个文件库的对比" class="headerlink" title="几个文件库的对比"></a>几个文件库的对比</h4><p><strong>io.Reader&#x2F;Writer,有几个常用的实现：</strong></p>
+<p>net.Conn: 网络<br>os.Stdin, os.Stdout, os.Stderr: console终端标准输出,err<br>os.File: 网络,标准输入输出,文件的流读取<br>strings.Reader: 把字符串抽象成Reader<br>bytes.Reader: 把[]byte抽象成Reader<br>bytes.Buffer: 把[]byte抽象成Reader和Writer<br>bufio.Reader&#x2F;Writer: 抽象成带缓冲的流读取（比如按行读写）</p>
+<p><strong>io库</strong><br>io 库属于底层接口定义库。它的作用主要是定义个 I&#x2F;O 的基本接口和个基本常量，并解释这些接口的功能。在实际编写代码做 I&#x2F;O 操作时，这个库一般只用来调用它的常量和接口定义，比如用 io.EOF 判断是否已经读取完，用 io.Reader 做变量的类型声明。</p>
+<p><strong>os 库</strong><br>os 库主要是处理操作系统操作的，它作为<strong>Go程序和操作系统交互的桥梁</strong>。创建文件、打开或者关闭文件、Socket等等这些操作和都是和操作系统挂钩的，所以都通过 os 库来执行。</p>
+<p><strong>ioutil库</strong><br>ioutil 库是一个有工具包，它提供了很多使用的 IO 工具函数，例如 ReadAll、ReadFile、WriteFile、ReadDir。唯一需要注意的是它们都是一次性读取和一次性写入，所以使用时，尤其是把数据从文件里一次性读到内存中时需要注意文件的大小。</p>
+<p><strong>bufio库</strong><br>bufio，可以理解为在 io 库的基础上额外封装加了一个缓存层，它提供了很多按行进行读写的函数，从io库的按字节读写变为按行读写对写代码来说还是方便了不少。</p>
+<p><strong>bytes 和 strings 库</strong><br>bytes 和 strings 库里的 bytes.Reader 和string.Reader，它们都实现了 io.Reader 接口，也都提供了NewReader方法用来从 []byte 或者 string 类型的变量直接构建出相应的Reader实现。</p>
+<h4 id="redis的数据结构"><a href="#redis的数据结构" class="headerlink" title="redis的数据结构"></a>redis的数据结构</h4><p>string：密码，用户认证的token信息</p>
+<p>List: 使用双端链表</p>
+<p>hash：用户的结构体信息</p>
+<p>set:存的string类型，但是数据不能重复，无序</p>
+<p>zset：存的有序数据</p>
+<h4 id="defer语句的总结"><a href="#defer语句的总结" class="headerlink" title="defer语句的总结"></a>defer语句的总结</h4><p>defer是go中一种延迟调用机制，defer后面的函数只有在当前函数执行完毕后才能执行。</p>
+<p>多个defer出现的时候，它会把defer之后的函数压入一个栈中延迟执行，也就是先进后出。</p>
+<p>defer后面的函数值在入栈的时候就决定了。</p>
+<p>defer 最大的功能是 panic 后依然有效,我们可以在defer中进行recover，如果defer中包含recover，则程序将不会再进行panic，实现try catch机制。</p>
+<p>例如：</p>
+<p>recover 通常用于处理 panic 异常，它能够阻止程序直接崩溃，并允许你在异常情况下进行一些恢复性的操作。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> r := <span class="built_in">recover</span>(); r != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Println(<span class="string">&quot;Recovered:&quot;</span>, r)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">	<span class="built_in">panic</span>(<span class="string">&quot;This is a panic!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，当程序执行到 panic 时，会触发一个 panic，但因为在 defer 中包含了 recover，程序会继续执行 recover 中的逻辑，打印出 “Recovered: This is a panic!”。这样就防止了程序直接崩溃。</p>
+<p>需要注意的是，recover 只在 defer 中直接调用才会生效，否则它会返回 nil。此外，recover 只能用于处理 panic，如果在没有 panic 的情况下调用 recover，它会返回 nil。</p>
+<p>总的来说，recover 是用于恢复程序在发生 panic 时的处理机制，使得程序能够在出现异常情况下继续执行下去</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/10/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url">数据库面试总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-10-25T11:16:20+08:00">
+                2023-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>桌面的 <code>chat ai</code> 是什么？自己的 ChatGPT 是怎么搭建的？还有没有做过和<code>ai</code>相关的应用？</li>
+<li>说一下链表是什么？有没有实际用过？然后就引到了算法题 :sob:</li>
+<li>手撕：一个数组，奇数放前面，偶数放后面。力扣 <a target="_blank" rel="noopener" href="https://gw-c.nowcoder.com/api/sparta/jump/link?link=https://leetcode.cn/problems/sort-array-by-parity/description/">905. *******</a></li>
+<li>手撕 时间空间复杂度，我的空间复杂度是 O(n), 面试官说<strong>怎么优化</strong>？</li>
+<li>了解过哪些排序算法？讲一下冒泡的算法思想，复杂度？快排的思想，复杂度？</li>
+<li>MySQL 的索引 ？B+树？</li>
+<li>sql题：分别有员工表和部门表两张表，关联字段是部门id，求每个部门薪资最高的员工的信息，薪资最高有多个人需要全部输出。</li>
+<li>随口一句<code>mysql</code>用的比较多，问我具体用在哪里？</li>
+<li>选品库是怎么设计的？并发度是多少？</li>
+<li>实习项目选品库的难点在哪里？索引怎么设计的？联合索引限制长度吧？</li>
+</ul>
+<h2 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h2><p>面试前收到税友HR面，通过offer。所以迟到了几分钟 :sob: 第一次遇上女面试官哈哈哈，自我介绍说我是不是照着念的哈哈哈，整体的氛围就是哈哈哈。面试前看了大佬们的面经，没想到很多题都遇到了，包括手撕和<code>sql</code>，所以说明交流很重要，欢迎大家一起交流，一起OC！！手撕的优化还是自己傻逼了，面试官通过快排来引导我，面试之后就想出来了。</p>
+<p>然后就是学会引导面试官吧，有时候随口的一句话可能就引入了另一个面试点，所以可以去刻意的引导！</p>
+<p>欢迎大佬们指教！</p>
+<h2 id="面试详解"><a href="#面试详解" class="headerlink" title="面试详解"></a>面试详解</h2><ul>
+<li><p>了解过哪些排序算法？讲一下冒泡的算法思想，复杂度？快排的思想，复杂度？</p>
+</li>
+<li><p>sql题：分别有员工表和部门表两张表，关联字段是部门id，求每个部门薪资最高的员工的信息，薪资最高有多个人需要全部输出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参考链接：https://www.cnblogs.com/hi3254014978/p/17179682.html</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>随口一句<code>mysql</code>用的比较多，问我具体用在哪里？</p>
+</li>
+<li><p>选品库是怎么设计的？并发度是多少？</p>
+</li>
+<li><p>实习项目选品库的难点在哪里？索引怎么设计的？联合索引限制长度吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url 字段比较长，可以用前缀索引进行优化</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h4 id="Mysql的汇总数据函数"><a href="#Mysql的汇总数据函数" class="headerlink" title="Mysql的汇总数据函数"></a>Mysql的汇总数据函数</h4><p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027103629774.png" alt="image-20231027103629774"></p>
+<p>AVG:基本对特定的<strong>列</strong>进行操作，返回指定列的平均值，也可以用来对所有列计算平均值，或者特定行的平均值</p>
+<p>MAX: 对特定的<strong>列</strong>进行操作，返回指定列中的最大值，要求指定列名</p>
+<p>MIN:对特定的<strong>列</strong>进行操作，返回指定列中的最小值，要求指定列名</p>
+<p>COUNT(*)：<strong>注意操作的是行</strong>，对表中行的数目进行计数，不忽略null值</p>
+<p>COUNT()：对指定<strong>列</strong>计数，忽略null值</p>
+<p>SUM：返回指定列的总和，也可用来合计计算值（多个列做乘除加减），ex:SUM(countPrice*countNumber)</p>
+<p>Group by子句必须出现在where子句之后，order by(排序)子句之前</p>
+<p>Group by可以包含任意数目的列，为分组提供更加细致的控制</p>
+<p>where子句过滤的是指定的行，而不是分组</p>
+<p>Having用来过滤分组</p>
+<p>mysql语句的先后执行顺序：</p>
+<p>1、from</p>
+<p>2、where</p>
+<p>3、group by</p>
+<p>4、having</p>
+<p>5、select</p>
+<p>6、distinct</p>
+<p>7、order by</p>
+<p>子查询中：where 列名A in (select 列名A from table  where 条件)</p>
+<p>where后面的列名要和select中的列名一致 </p>
+<h4 id="索引什么时候需要"><a href="#索引什么时候需要" class="headerlink" title="索引什么时候需要"></a>索引什么时候需要</h4><ul>
+<li>字段有唯一性限制，比如身份证</li>
+<li>经常用于where查询条件的字段，给这样的字段加索引，可以提高表的查询速度，如果查询的不是一个字段，可以建立联合索引</li>
+<li>经常用于group by和order by字段，加了索引之后这样的字段就不用再去排序了，因为建立索引之后在B+树中的记录都是排序好的</li>
+</ul>
+<h4 id="索引什么时候不需要"><a href="#索引什么时候不需要" class="headerlink" title="索引什么时候不需要"></a>索引什么时候不需要</h4><ul>
+<li><strong>where，group by，order by里面用不到的字段</strong>，索引的价值是为了快速定位，<strong>起不到定位的字段通常就不需要建立索引</strong>，因为索引是会占用物理空间的</li>
+<li><strong>字段中存在大量重复的数据</strong>，不需要创建索引</li>
+<li><strong>表中的数据太少</strong>，不需要创建索引</li>
+<li><strong>字段修改频繁</strong>，要维护B+tree的有序性，需要频繁的重建索引，会影响数据库性能</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>找出每个部门薪资最高的那个人</span><br><span class="line"><span class="keyword">SELECT</span> d.department_id, d.department_name, e.employee_id, e.salary</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> (e.department_id, e.salary) <span class="keyword">IN</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> department_id, <span class="built_in">MAX</span>(salary)</span><br><span class="line">    <span class="keyword">FROM</span> employees </span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> department_id</span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027145540750.png" alt="image-20231027145540750"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span><span class="operator">/</span>找出it部门薪资最高的三个人</span><br><span class="line"><span class="keyword">SELECT</span> d.department_id, d.department_name, e.employee_id, e.salary</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> d.department_name <span class="operator">=</span> &quot;it&quot; </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> e.salary <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231027145513743.png" alt="image-20231027145513743"></p>
+<h4 id="Mysql索引"><a href="#Mysql索引" class="headerlink" title="Mysql索引"></a>Mysql索引</h4><p>1、mysql和myisam都使用B+树作为索引结构</p>
+<p>2、作用：加快查询数据的速度</p>
+<h4 id="B树和B-树区别"><a href="#B树和B-树区别" class="headerlink" title="B树和B+树区别"></a>B树和B+树区别</h4><p>1、B树的非叶子和叶子节点都是存关键字和指针(地址)，查找关键字额外的数据，需要二次回访地址查找</p>
+<p>2、B+的非叶子节点只存关键字，叶子节点存储完整的数据，B+树不存指针；叶子节点之间可以</p>
+<h4 id="几种树的分类"><a href="#几种树的分类" class="headerlink" title="几种树的分类"></a>几种树的分类</h4><p>1、完全二叉树：只对树的形状有要求，对树的内容没要求，最后一层叶子节点都靠左排列，除了最后一层，</p>
+<p>其余层次的叶子都是满的</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192545870.png" alt="image-20231030192545870"></p>
+<p>应用实例堆，但是堆里面的数据大小很有讲究，分为大根堆（根节点最大），小根堆（根节点最小）</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231030192803257.png" alt="image-20231030192803257"></p>
+<p>2、二叉搜索树&#x2F;二叉查找树：左小右大，和树节点值的大小关联，和树的形状没关系</p>
+<p>3、平衡二叉树：二叉树中任意一个节点的左右子树的高度差不能超过1，节点值大小并没有什么特定的关系</p>
+<p>4、平衡二叉查找树：左小右大，和树节点值的大小关联，任意一个节点的左右子树的高度差不能超过1</p>
+<p>二叉树的最小深度</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">minDepth</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">   left :=  minDepth(root.Left)</span><br><span class="line">   right := minDepth(root.Right)</span><br><span class="line">   <span class="keyword">if</span> left==<span class="number">0</span>||right==<span class="number">0</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> left+right+<span class="number">1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> left &gt;right&#123;</span><br><span class="line">       <span class="keyword">return</span> right+<span class="number">1</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> left+<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二叉树的最大深度&#x2F;深度</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxDepth</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    left := maxDepth(root.Left)</span><br><span class="line">    right := maxDepth(root.Right)</span><br><span class="line">    <span class="keyword">if</span> left &gt; right&#123;</span><br><span class="line">        <span class="keyword">return</span> left+<span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> right+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二叉树的中序遍历</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">inorderTraversal</span><span class="params">(root *TreeNode)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">var</span> tree []<span class="type">int</span></span><br><span class="line">   <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> tree</span><br><span class="line">   &#125;</span><br><span class="line">   tree = <span class="built_in">append</span>(tree,inorderTraversal(root.Left)...)</span><br><span class="line">   tree = <span class="built_in">append</span>(tree,root.Val)</span><br><span class="line">   tree = <span class="built_in">append</span>(tree,inorderTraversal(root.Right)...)</span><br><span class="line">   <span class="keyword">return</span> tree</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>冒泡</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bub</span><span class="params">(number []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(number); i++ &#123;</span><br><span class="line">      <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; <span class="built_in">len</span>(number)-i<span class="number">-1</span>; j++ &#123;</span><br><span class="line">         <span class="keyword">if</span> number[j] &gt; number[j+<span class="number">1</span>] &#123;</span><br><span class="line">            number[j+<span class="number">1</span>], number[j] = number[j], number[j+<span class="number">1</span>]</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   mp := []<span class="type">int</span>&#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">1</span>&#125;</span><br><span class="line">   fmt.Println(bub(mp))</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>快排</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> q []<span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quick_sort</span><span class="params">(l, r <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">if</span> l &gt;= r &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   i := l - <span class="number">1</span></span><br><span class="line">   j := r + <span class="number">1</span></span><br><span class="line">   x := q[(r+l)/<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> i &lt; j &#123;</span><br><span class="line">      <span class="keyword">for</span> &#123;</span><br><span class="line">         i++</span><br><span class="line">         <span class="keyword">if</span> q[i] &gt;= x &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> &#123;</span><br><span class="line">         j--</span><br><span class="line">         <span class="keyword">if</span> q[j] &lt;= x &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> i &lt;= j &#123;</span><br><span class="line">         q[i], q[j] = q[j], q[i]</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   quick_sort(l, j)</span><br><span class="line">   quick_sort(j+<span class="number">1</span>, r)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   q = []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line">   quick_sort(<span class="number">0</span>, <span class="built_in">len</span>(q)<span class="number">-1</span>)</span><br><span class="line">   fmt.Println(q)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>奇偶排序</p>
+<p><strong>使用容器</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortArrayByParity</span><span class="params">(nums []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">	left, right := <span class="number">0</span>,<span class="built_in">len</span>(nums)<span class="number">-1</span></span><br><span class="line">    numP := <span class="built_in">make</span>([]<span class="type">int</span>,<span class="built_in">len</span>(nums))</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(nums);i++&#123;</span><br><span class="line">        <span class="keyword">if</span> nums[i]%<span class="number">2</span>==<span class="number">0</span>&#123;</span><br><span class="line">            numP[left] = nums[i]</span><br><span class="line">            left++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[i]%<span class="number">2</span>!=<span class="number">0</span>&#123;</span><br><span class="line">            numP[right] = nums[i]</span><br><span class="line">            right--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> numP</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>使用双指针</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortArrayByParity</span><span class="params">(nums []<span class="type">int</span>)</span></span> []<span class="type">int</span> &#123;</span><br><span class="line">	left,right := <span class="number">0</span>,<span class="built_in">len</span>(nums)<span class="number">-1</span></span><br><span class="line">    <span class="keyword">for</span> left &lt;right&#123;</span><br><span class="line">        <span class="keyword">if</span> nums[left] %<span class="number">2</span>!=<span class="number">0</span>&amp;&amp;nums[right]%<span class="number">2</span>==<span class="number">0</span>&#123;</span><br><span class="line">           nums[left],nums[right] = nums[right],nums[left] </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[left]%<span class="number">2</span>==<span class="number">0</span>&#123;</span><br><span class="line">            left++</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[right]%<span class="number">2</span>!=<span class="number">0</span>&#123;</span><br><span class="line">            right--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>用栈实现队列：先进先出，不用交换，直接压，只是pop和peek的时候麻烦</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MyQueue <span class="keyword">struct</span> &#123;</span><br><span class="line">   Stack1 []<span class="type">int</span></span><br><span class="line">   Stack2 []<span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span></span> MyQueue &#123;</span><br><span class="line">   <span class="keyword">return</span> MyQueue&#123;</span><br><span class="line">      Stack1: <span class="literal">nil</span>,</span><br><span class="line">      Stack2: <span class="literal">nil</span>,</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 规定stack1为队尾，stack2为队头</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Push(x <span class="type">int</span>) &#123;</span><br><span class="line">   queue.Stack1 = <span class="built_in">append</span>(queue.Stack1, x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 先对stack2的长度判空，是空的就把stack1弹到stack2中，这有stack2的长度就会大于0，然后把len(queue.Stack2)-1弹出</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Pop() <span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(queue.Stack2) == <span class="number">0</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> <span class="built_in">len</span>(queue.Stack1) != <span class="number">0</span> &#123;</span><br><span class="line">         queue.Stack2 = <span class="built_in">append</span>(queue.Stack2, queue.Stack1[<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>])</span><br><span class="line">         queue.Stack1 = queue.Stack1[:<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>]</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(queue.Stack2) &gt; <span class="number">0</span> &#123;</span><br><span class="line">      val := queue.Stack2[<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">      queue.Stack2 = queue.Stack2[:<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Peek() <span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> <span class="built_in">len</span>(queue.Stack2) != <span class="number">0</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> queue.Stack2[<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> <span class="built_in">len</span>(queue.Stack1) != <span class="number">0</span> &#123;</span><br><span class="line">         queue.Stack2 = <span class="built_in">append</span>(queue.Stack2, queue.Stack1[<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>])</span><br><span class="line">         queue.Stack1 = queue.Stack1[:<span class="built_in">len</span>(queue.Stack1)<span class="number">-1</span>]</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> queue.Stack2[<span class="built_in">len</span>(queue.Stack2)<span class="number">-1</span>]</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(queue *MyQueue)</span></span> Empty() <span class="type">bool</span> &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="built_in">len</span>(queue.Stack1) == <span class="number">0</span> &amp;&amp; <span class="built_in">len</span>(queue.Stack2) == <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyQueue object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * obj := Constructor();</span></span><br><span class="line"><span class="comment"> * obj.Push(x);</span></span><br><span class="line"><span class="comment"> * param_2 := obj.Pop();</span></span><br><span class="line"><span class="comment"> * param_3 := obj.Peek();</span></span><br><span class="line"><span class="comment"> * param_4 := obj.Empty();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>用队列实现栈：先进后出，压入的时候做交换</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用队列实现栈</span></span><br><span class="line"><span class="keyword">type</span> MyStack <span class="keyword">struct</span> &#123;</span><br><span class="line">	Queue1 []<span class="type">int</span></span><br><span class="line">	Queue2 []<span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span></span> MyStack &#123;</span><br><span class="line">	<span class="keyword">return</span> MyStack&#123;</span><br><span class="line">		Queue1: <span class="literal">nil</span>,</span><br><span class="line">		Queue2: <span class="literal">nil</span>,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Push(x <span class="type">int</span>) &#123;</span><br><span class="line">	this.Queue2 = <span class="built_in">append</span>(this.Queue2, x)</span><br><span class="line">	<span class="keyword">for</span> <span class="built_in">len</span>(this.Queue1) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		this.Queue2 = <span class="built_in">append</span>(this.Queue2, this.Queue1[<span class="number">0</span>])</span><br><span class="line">		this.Queue1 = this.Queue1[<span class="number">1</span>:]</span><br><span class="line">	&#125;</span><br><span class="line">	this.Queue1, this.Queue2 = this.Queue2, this.Queue1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Pop() <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(this.Queue1) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		val := this.Queue1[<span class="number">0</span>]</span><br><span class="line">		this.Queue1 = this.Queue1[<span class="number">1</span>:]</span><br><span class="line">		<span class="keyword">return</span> val</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Top() <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(this.Queue1) != <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> this.Queue1[<span class="number">0</span>]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyStack)</span></span> Empty() <span class="type">bool</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(this.Queue1) == <span class="number">0</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="给定一个头节点为-head-的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第-cnt-个训练项目编号。—快慢指针"><a href="#给定一个头节点为-head-的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第-cnt-个训练项目编号。—快慢指针" class="headerlink" title="给定一个头节点为 head 的链表用于记录一系列核心肌群训练项目编号，请查找并返回倒数第 cnt 个训练项目编号。—快慢指针"></a>给定一个头节点为 <code>head</code> 的链表用于记录一系列核心肌群训练项目编号，请查找并返回<strong>倒数第 <code>cnt</code> 个训练项目</strong>编号。—快慢指针</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">trainingPlan</span><span class="params">(head *ListNode, cnt <span class="type">int</span>)</span></span> *ListNode &#123;</span><br><span class="line">    <span class="comment">//快慢指针</span></span><br><span class="line">    slow,fast := head,head</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;cnt;i++&#123; </span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> fast!=<span class="literal">nil</span>&#123;</span><br><span class="line">        slow = slow.Next</span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="环形链表：如果链表中存在环-，则返回-true-。-否则，返回-false"><a href="#环形链表：如果链表中存在环-，则返回-true-。-否则，返回-false" class="headerlink" title="环形链表：如果链表中存在环 ，则返回 true 。 否则，返回 false"></a>环形链表：<em>如果链表中存在环</em> ，则返回 <code>true</code> 。 否则，返回 <code>false</code></h4><p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102222455603.png" alt="image-20231102222455603"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hasCycle</span><span class="params">(head *ListNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    visited := <span class="built_in">make</span>(<span class="keyword">map</span>[*ListNode]<span class="type">bool</span>)</span><br><span class="line">    cir := <span class="literal">false</span></span><br><span class="line">    <span class="keyword">for</span> head != <span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> visited[head]&#123;</span><br><span class="line">            cir = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">return</span> cir</span><br><span class="line">        &#125;</span><br><span class="line">        visited[head] = <span class="literal">true</span></span><br><span class="line">        head = head.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>数组中第k个最大元素</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findKthLargest</span><span class="params">(nums []<span class="type">int</span>, k <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">   <span class="keyword">for</span> i:= <span class="number">0</span>;i&lt;<span class="built_in">len</span>(nums);i++&#123;</span><br><span class="line">       min := i</span><br><span class="line">       <span class="keyword">for</span> j:=i+<span class="number">1</span>;j&lt;<span class="built_in">len</span>(nums);j++&#123;</span><br><span class="line">           <span class="keyword">if</span> nums[min] &gt; nums[j]&#123;</span><br><span class="line">               min = j</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> min != i&#123;</span><br><span class="line">           nums[i],nums[min] = nums[min],nums[i]</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> nums[<span class="built_in">len</span>(nums)-k]</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<p>二叉树的路径</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">var</span> paths []<span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">binaryTreePaths</span><span class="params">(root *TreeNode)</span></span> []<span class="type">string</span> &#123;</span><br><span class="line">	paths = []<span class="type">string</span>&#123;&#125;</span><br><span class="line">	Dfs(root, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	<span class="keyword">return</span> paths</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Dfs</span><span class="params">(node *TreeNode, path <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> node == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	path += strconv.Itoa(node.Val)</span><br><span class="line">	<span class="keyword">if</span> node.Left == <span class="literal">nil</span> &amp;&amp; node.Right == <span class="literal">nil</span> &#123;</span><br><span class="line">		paths = <span class="built_in">append</span>(paths, path)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	path += <span class="string">&quot;-&gt;&quot;</span></span><br><span class="line">	Dfs(node.Left, path)</span><br><span class="line">	Dfs(node.Right, path)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>对称二叉树(镜像二叉树)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isSymmetric</span><span class="params">(root *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> root==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isMirror(root.Left,root.Right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isMirror</span><span class="params">(left *TreeNode, right *TreeNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> left == <span class="literal">nil</span> &amp;&amp; right ==<span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> left == <span class="literal">nil</span> || right == <span class="literal">nil</span> ||left.Val != right.Val&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isMirror(left.Left,right.Right)&amp;&amp; isMirror(left.Right,right.Left)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+
+<p>在Go语言中，可以使用<code>sync</code>包提供的锁来实现线程安全的访问共享资源。以下是一些常用的锁：</p>
+<ol>
+<li><strong>互斥锁（Mutex）</strong>：<code>sync.Mutex</code> 是一个最基本的互斥锁。通过 <code>Lock()</code> 和 <code>Unlock()</code> 方法来保护临界区，只允许一个goroutine进入临界区。</li>
+<li><strong>读写锁（RWMutex）</strong>：<code>sync.RWMutex</code> 是一种更复杂的锁，允许多个goroutine同时访问共享资源，但在写操作时会进行互斥锁定。</li>
+<li><strong>等待组（WaitGroup）</strong>：<code>sync.WaitGroup</code> 允许等待一组goroutine的结束。</li>
+<li><strong>条件变量（Cond）</strong>：<code>sync.Cond</code> 允许一个或多个goroutine等待特定条件的发生。</li>
+<li><strong>原子操作（atomic）</strong>：<code>sync/atomic</code> 包提供了一些原子操作函数，可以对共享变量进行原子操作，不需要加锁。</li>
+<li><strong>单次执行（Once）</strong>：<code>sync.Once</code> 可以确保某个操作只执行一次，常用于初始化。</li>
+<li><strong>通道（Channel）</strong>：通过通道可以实现goroutine之间的同步和通信，可以用于替代锁的使用。</li>
+<li><strong>上下文（Context）</strong>：<code>context.Context</code> 可以用于管理goroutine的生命周期和传递取消信号。</li>
+</ol>
+<p>DFS,BFS:查找树的路径多少条</p>
+<p>go语言垃圾回收机制</p>
+<p>1，2，3，4，5，6，7，8     怎么优化复杂度</p>
+<p>16个cpu，我开了32个处理器，性能方面怎么样</p>
+<p>写屏障</p>
+<p>golang里面值传递还是引用传递</p>
+<h4 id="面试必问垃圾回收"><a href="#面试必问垃圾回收" class="headerlink" title="面试必问垃圾回收"></a>面试必问垃圾回收</h4><p>定义：回收程序中<strong>不再使用的</strong>内存资源进行<strong>自动回收</strong>的操作</p>
+<p>1、常见的垃圾回收算法</p>
+<ul>
+<li><p>引用计数：每个对象维护一个引用计数，当被引用对象被创建或被赋值给其他对象时引用计数自动+1；</p>
+<p>如果这个对象被销毁，则计数-1，当计数为0，回收该对象</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113050124.png" alt="image-20231102113050124"></p>
+</li>
+</ul>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113042224.png" alt="image-20231102113042224"></p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113058523.png" alt="image-20231102113058523"></p>
+<p>处理器是p，p的数量一定会等于GOMAXPROCS设置的数量，p会绑定到不同的内核线程上</p>
+<p><img src="C:/Users/wllwo/AppData/Roaming/Typora/typora-user-images/image-20231102113609968.png" alt="image-20231102113609968"></p>
+<p>![image-20231102113626401](C:&#x2F;Users&#x2F;wllwo&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;image-20231102113626401.png</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/25/%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -698,7 +1351,7 @@
               
                 <a href="/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
