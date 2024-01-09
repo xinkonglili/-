@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="测试环境接口1234kubectl get podrancher kubectl -n 项目命名空间 get 服务名（如sr开头的所有服务）kubectl -n 项目命名空间 logs --tail -n 200 服务名">
+<meta name="description" content="测试环境接口1234kubectl get podrancher kubectl -n 项目命名空间 get 服务名（如sr开头的所有服务）kubectl -n 项目命名空间 logs --tail -n 200 服务名            1  编写pvc 1  创建存储类：kubectl apply -f nfs-storageclass.yaml 123456[root@hanyu-210">
 <meta property="og:type" content="article">
 <meta property="og:title" content="K8S常用命令">
 <meta property="og:url" content="http://example.com/2023/12/06/K8S%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="测试环境接口1234kubectl get podrancher kubectl -n 项目命名空间 get 服务名（如sr开头的所有服务）kubectl -n 项目命名空间 logs --tail -n 200 服务名">
+<meta property="og:description" content="测试环境接口1234kubectl get podrancher kubectl -n 项目命名空间 get 服务名（如sr开头的所有服务）kubectl -n 项目命名空间 logs --tail -n 200 服务名            1  编写pvc 1  创建存储类：kubectl apply -f nfs-storageclass.yaml 123456[root@hanyu-210">
 <meta property="og:locale">
+<meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312281143125.png">
 <meta property="article:published_time" content="2023-12-06T10:52:25.000Z">
-<meta property="article:modified_time" content="2023-12-06T10:58:01.648Z">
+<meta property="article:modified_time" content="2023-12-28T03:50:18.089Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312281143125.png">
 
 
 
@@ -331,6 +333,34 @@
       
         <h4 id="测试环境接口"><a href="#测试环境接口" class="headerlink" title="测试环境接口"></a>测试环境接口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br><span class="line">rancher kubectl -n 项目命名空间 get 服务名（如sr开头的所有服务）</span><br><span class="line">kubectl -n 项目命名空间 logs --tail -n 200 服务名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312281143125.png" alt="image-20231228114336938" style="zoom: 80%;" />
+
+
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>编写pvc</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>创建存储类：kubectl apply -f nfs-storageclass.yaml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hanyu-210 k8s_nfs]# cat nfs-storageclass.yaml</span><br><span class="line">apiVersion: storage.k8s.io/v1</span><br><span class="line">kind: StorageClass</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-storageclass</span><br><span class="line">provisioner: nfs-provisioner</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>编写pvc</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@hanyu-210 k8s_nfs]# cat nfs-pvc.yaml</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-pvc</span><br><span class="line">spec:</span><br><span class="line">  accessModes:</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  storageClassName: nfs-storageclass</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 1Mi</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>创建应用使用nfs-pvc：kubectl apply -f busybox-deployment.yaml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[root@hanyu-210 k8s_nfs]# cat busybox-deployment.yaml</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: busybox-deployment</span><br><span class="line">spec:</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      name: busybox-deployment</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        name: busybox-deployment</span><br><span class="line">    spec:</span><br><span class="line">      serviceAccount: nfs-provisioner</span><br><span class="line">      containers:</span><br><span class="line">      - image: busybox</span><br><span class="line">        command:</span><br><span class="line">        - sh</span><br><span class="line">        - -c</span><br><span class="line">        - &#x27;while true; do date &gt; /mnt/index.html; hostname &gt;&gt; /mnt/index.html; sleep $(($RANDOM % 5 + 5)); done&#x27;</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">        name: busybox</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: nfs</span><br><span class="line">          mountPath: /mnt</span><br><span class="line">      volumes:</span><br><span class="line">      - name: nfs</span><br><span class="line">        persistentVolumeClaim:</span><br><span class="line">          claimName: nfs-pvc</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -444,7 +474,7 @@
               
                 <a href="/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -466,7 +496,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -519,7 +549,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

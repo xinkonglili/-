@@ -259,6 +259,603 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/12/%E5%85%B3%E4%BA%8E%E6%97%A5%E6%9C%9F%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/12/12/%E5%85%B3%E4%BA%8E%E6%97%A5%E6%9C%9F%E9%82%A3%E4%BA%9B%E4%BA%8B/" itemprop="url">关于日期那些事</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-12T16:50:19+08:00">
+                2023-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义两个日期</span></span><br><span class="line">	startDate := time.Date(<span class="number">2023</span>, time.December, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, time.UTC)</span><br><span class="line">	endDate := time.Date(<span class="number">2023</span>, time.December, <span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, time.UTC)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 计算日期差值</span></span><br><span class="line">	days := endDate.Sub(startDate).Hours() / <span class="number">24</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 输出结果</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;日期差值为：%d 天\n&quot;</span>, <span class="type">int</span>(days))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>搜索区间的概念：</p>
+<p>1、注意：请看下面注释</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">( number []<span class="type">int</span>,target <span class="type">int</span>)</span></span> <span class="type">int</span>&#123;</span><br><span class="line">	left := <span class="number">0</span></span><br><span class="line">	right := <span class="built_in">len</span>(number) <span class="number">-1</span> <span class="comment">//这里区间为[left,right]</span></span><br><span class="line">	<span class="keyword">for</span> left &lt;= right&#123;<span class="comment">//这里[left，left]和[right，right]也是一种情况</span></span><br><span class="line">        mod := left + (right - left) /<span class="number">2</span> <span class="comment">//防止溢出</span></span><br><span class="line">		<span class="keyword">if</span> number[mod] == target&#123;</span><br><span class="line">			<span class="keyword">return</span> mod </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> number[mod]&lt;target&#123;</span><br><span class="line">            left = mod +<span class="number">1</span>   <span class="comment">//注意这里已经在上面判断mod的情况，所以区间是[mod+1，right]</span></span><br><span class="line">            <span class="comment">//有的时候也会写做 left = mod</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> number[mod]&gt;target&#123;</span><br><span class="line">            right = mod - <span class="number">1</span>  <span class="comment">//同理也会写成right = mod</span></span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> left</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>一个很全面的sql慢查询博客：</p>
+<p><a target="_blank" rel="noopener" href="https://www.51cto.com/article/618217.html">https://www.51cto.com/article/618217.html</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> processlist</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> ;</span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+-----------------+--------+---------+-------+----------+------------------+</span></span><br><span class="line"><span class="operator">|</span> Id <span class="operator">|</span> <span class="keyword">User</span> <span class="operator">|</span> Host            <span class="operator">|</span> db     <span class="operator">|</span> Command <span class="operator">|</span> <span class="type">Time</span>  <span class="operator">|</span> State    <span class="operator">|</span> Info             <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+-----------------+--------+---------+-------+----------+------------------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> root <span class="operator">|</span> localhost:<span class="number">60573</span> <span class="operator">|</span> mpc_db <span class="operator">|</span> Sleep   <span class="operator">|</span> <span class="number">14152</span> <span class="operator">|</span>          <span class="operator">|</span> <span class="keyword">NULL</span>             <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">3</span> <span class="operator">|</span> root <span class="operator">|</span> localhost:<span class="number">60618</span> <span class="operator">|</span> mpc_db <span class="operator">|</span> Sleep   <span class="operator">|</span> <span class="number">14183</span> <span class="operator">|</span>          <span class="operator">|</span> <span class="keyword">NULL</span>             <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">4</span> <span class="operator">|</span> root <span class="operator">|</span> localhost:<span class="number">63184</span> <span class="operator">|</span> <span class="keyword">NULL</span>   <span class="operator">|</span> Query   <span class="operator">|</span>     <span class="number">0</span> <span class="operator">|</span> starting <span class="operator">|</span> <span class="keyword">show</span> processlist <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+-----------------+--------+---------+-------+----------+------------------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> slow_query_log <span class="operator">=</span> <span class="keyword">on</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> ;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> long_query_time <span class="operator">=</span> <span class="number">0.01</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">global</span> variables <span class="keyword">like</span> &quot;datadir&quot;;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name <span class="operator">|</span> <span class="keyword">Value</span>                                                           <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> datadir       <span class="operator">|</span> D:\software\Mysql\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\data\ <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span>, <span class="number">1</span> warning (<span class="number">0.01</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">global</span> variables <span class="keyword">like</span> &quot;slow_query_log_file&quot;;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+-----------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name       <span class="operator">|</span> <span class="keyword">Value</span>                                                                             <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+-----------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> slow_query_log_file <span class="operator">|</span> D:\software\Mysql\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\mysqllog\slow_query.log <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+-----------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span>, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">以下是 Kubernetes 中一些常用的命令和其功能的总结：</span><br><span class="line">Deployment（部署）是一种用于描述和管理应用程序副本的资源对象。它是 Kubernetes 中的一种高级抽象，用于简化应用程序的部署和更新</span><br><span class="line"></span><br><span class="line">创建和管理资源:</span><br><span class="line">kubectl create: 创建一个资源对象。</span><br><span class="line">kubectl apply: 应用配置文件或更改到集群。</span><br><span class="line">kubeectl apply - f deploymenty,yaml //把这个配置文件应用到当前的pod里面</span><br><span class="line">kubectl get pod: 显示在 Deployment 中创建的 Pod 列表。</span><br><span class="line">kubectl get deployment  该命令将显示所有的 Deployment 对象</span><br><span class="line">kubectl describe: 显示资源对象的详细信息。</span><br><span class="line">kubectl edit: 编辑资源对象的配置。</span><br><span class="line">kubectl delete: 删除资源对象。</span><br><span class="line">管理和调试应用程序:</span><br><span class="line"></span><br><span class="line">kubectl logs: 查看 Pod 中容器的日志。</span><br><span class="line">kubectl exec: 在 Pod 中的容器中执行命令。</span><br><span class="line">kubectl port-forward: 将本地端口与 Pod 中的端口进行转发。</span><br><span class="line">kubectl run: 在集群中创建一个新的 Pod。</span><br><span class="line">管理集群状态:</span><br><span class="line"></span><br><span class="line">kubectl cluster-info: 显示集群信息。</span><br><span class="line">kubectl get nodes: 获取集群中的节点信息。</span><br><span class="line">kubectl get pods: 获取正在运行的 Pod 列表。</span><br><span class="line">kubectl get services: 获取服务的列表和详细信息。</span><br><span class="line">kubectl get deployments: 获取部署的列表和详细信息。</span><br><span class="line">kubectl get namespaces: 获取命名空间的列表。</span><br><span class="line">扩展和自动化:</span><br><span class="line"></span><br><span class="line">kubectl scale: 调整副本数量。</span><br><span class="line">kubectl autoscale: 设置自动扩展规则。</span><br><span class="line">kubectl rollout: 管理应用程序的滚动更新。</span><br><span class="line">kubectl apply -f: 使用配置文件进行资源的声明式部署。</span><br><span class="line">调试和故障排除:</span><br><span class="line"></span><br><span class="line">kubectl describe pod: 查看 Pod 的详细信息，包括事件和容器状态。</span><br><span class="line">kubectl describe service: 查看服务的详细信息，包括端口映射和绑定的 Pod。</span><br><span class="line">kubectl get events: 查看集群中的事件日志。</span><br><span class="line">kubectl logs: 查看 Pod 或容器的日志。</span><br><span class="line">kubectl exec: 在容器中执行命令进行调试。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl run jinli_pod --image=nginx --port=80 expose --port=8080</span><br><span class="line">//expose：将该pod暴露为一个服务，指定容器的端口为80</span><br><span class="line">//创建一个pod，运行nginx镜像，将容器的80端口映射到主机端口的8080</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl describe deployment enterprise-server</span><br><span class="line">Name:                   enterprise-server</span><br><span class="line">Namespace:              default</span><br><span class="line">CreationTimestamp:      Mon, 27 Nov 2023 10:43:13 +0800</span><br><span class="line">Labels:                 &lt;none&gt;</span><br><span class="line">Annotations:            deployment.kubernetes.io/revision: 1</span><br><span class="line">Selector:               app=enterprise-server,project=enterprise-server</span><br><span class="line">Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable</span><br><span class="line">StrategyType:           RollingUpdate</span><br><span class="line">MinReadySeconds:        0</span><br><span class="line">RollingUpdateStrategy:  25% max unavailable, 25% max surge</span><br><span class="line">Pod Template:</span><br><span class="line">  Labels:  app=enterprise-server</span><br><span class="line">           project=enterprise-server</span><br><span class="line">  Containers:</span><br><span class="line">   enterprise-server:</span><br><span class="line">    Image:      192.168.30.127:5000/enterprise-server:v1</span><br><span class="line">    Port:       &lt;none&gt;</span><br><span class="line">    Host Port:  &lt;none&gt;</span><br><span class="line">    Environment:</span><br><span class="line">      SSO_LOGIN_URL:      192.168.30.127:30000/sso</span><br><span class="line">      SSO_ERROR_LOG_URL:  192.168.30.127:30000/sso-error</span><br><span class="line">      SSO_BACK_URL:       http://192.168.30.127:30001</span><br><span class="line">    Mounts:               &lt;none&gt;</span><br><span class="line">  Volumes:                &lt;none&gt;</span><br><span class="line">Conditions:</span><br><span class="line">  Type           Status  Reason</span><br><span class="line">  ----           ------  ------</span><br><span class="line">  Available      False   MinimumReplicasUnavailable</span><br><span class="line">  Progressing    False   ProgressDeadlineExceeded</span><br><span class="line">OldReplicaSets:  &lt;none&gt;</span><br><span class="line">NewReplicaSet:   enterprise-server-5c446d88c8 (1/1 replicas created)</span><br><span class="line">Events:          &lt;none&gt;</span><br><span class="line">[root@k8s-master ~]# </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>Go是否支持运算符重载</p>
+<p>今日份知识：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -x 指定方法名  请求的url -d  请求体body里面的内容 <span class="comment">//curl命令</span></span><br><span class="line">curl -x Get <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>/add/user -d jinli</span><br></pre></td></tr></table></figure>
+
+<p>curl如果不指定方法，默认使用get方法，在go里面，<strong>get方法到底可以不可以把内容数据写在body里面传递呢</strong></p>
+<p>其实是可以的，通常如果我们使用get方法，都是把参数写在url里面，是否支持这个需要看具体的浏览器是否支持，例如google好像就不支持，但是自己写个webui，然后使用curl -x  Get去获取body的话是可以获取到的，</p>
+<p>但是RFC7231不鼓励这样的方式，所以这样的方式还是有可能读不到的</p>
+<p>get方法是幂等性的，post不是幂等的</p>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>自旋锁（Spin Lock）是一种基本的同步机制，用于在多线程或多核处理器环境中保护共享资源。与传统的互斥锁不同，自旋锁不会让线程进入阻塞状态，而是使用循环（自旋）来等待锁的释放。</p>
+<p>自旋锁的基本思想是，当一个线程需要访问被自旋锁保护的共享资源时，它会反复检查锁的状态，直到锁被释放为止。这个检查锁状态的过程被称为自旋。如果锁被其他线程占用，那么当前线程会一直自旋等待，而不是进入阻塞状态。</p>
+<p>自旋锁的优点在于它避免了线程切换和阻塞带来的开销，因为线程在自旋期间仍然处于活跃状态，可以立即获得锁并继续执行。这对于保护临界区较小且锁竞争不频繁的情况非常有效，因为自旋的时间相对较短。</p>
+<p>然而，自旋锁的缺点是在锁竞争激烈时会导致大量的空转（spin），消耗大量的 CPU 资源。如果自旋锁不能在合理的时间内获得锁，线程可能会浪费大量的时间在自旋上，导致性能下降。因此，自旋锁通常适用于锁竞争较轻的情况。</p>
+<p>在实际编程中，自旋锁通常由硬件指令支持。在多核处理器上，自旋锁可以使用原子操作和特殊的处理器指令来实现。在编程语言中，如 C++ 和 Java，也提供了自旋锁的库实现。</p>
+<p>总而言之，自旋锁是一种基于循环自旋等待的同步机制，用于保护共享资源，避免线程阻塞和切换的开销。它在锁竞争较轻的情况下效果良好，但在锁竞争激烈时可能导致性能下降。</p>
+<p><strong>5.1 思考题</strong></p>
+<p>\1. golang 中 select 的多个 case 同时成立，那么选择的是哪一个?</p>
+<p>\2. golang 中除了使用 sync 锁，还可以如何保证并发安全? atomic 是什么？</p>
+<p>\3. sync.Map 对键的类型有什么要求么？</p>
+<p>\4. 如何避免死锁? golang 中如何检测死锁?</p>
+<p>阻塞和非阻塞是指单个线程的状态</p>
+<p>同步，异步是2个线程之间的关系</p>
+<h3 id="MYsql死锁：SELECT-id-FROM-t-order-WHERE-order-no-1007-FOR-UPDATE"><a href="#MYsql死锁：SELECT-id-FROM-t-order-WHERE-order-no-1007-FOR-UPDATE" class="headerlink" title="MYsql死锁：SELECT id FROM t_order WHERE order_no &#x3D; 1007 FOR UPDATE;"></a><strong>MYsql死锁：SELECT id FROM t_order WHERE order_no &#x3D; 1007 FOR UPDATE;</strong></h3><p>for update语句只是对t_order这个表的，order_no&#x3D;1007这条记录，锁住；</p>
+<p>防止在一个事务之中对其操作，会产生并发的问题，引起数据冲突，对选中的记录进行排他锁，并不会真的更新这条数据</p>
+<p><strong>发生的原因</strong>：update 更新语句，如果where语句字段没有加索引，会出现把整个表的所有的行都锁住，也就是表里的索引项都加锁，相当于锁了整张表，所以大家误以为加了表锁</p>
+<p><strong>避免这种情况的发生：</strong></p>
+<p>我们可以将 MySQL 里的 <code>sql_safe_updates</code> 参数设置为 1，开启安全更新模式</p>
+<p>update 语句必须满足如下条件之一才能执行成功：</p>
+<ul>
+<li>使用 where，并且 where 条件中必须有索引列；</li>
+<li>使用 limit；</li>
+<li>同时使用 where 和 limit，此时 where 条件中可以没有索引列</li>
+</ul>
+<p><strong>select * from performance_schema.data_locks\G</strong></p>
+<p><strong>间隙表的模拟：</strong>间隙表主要用来处理幻读</p>
+<p>考虑以下示例，假设我们有一个名为 <code>t_order</code> 的表，其中有一个列名为 <code>order_date</code>，表示订单日期：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+----+------------+</span><br><span class="line">| id | order_date |</span><br><span class="line">+----+------------+</span><br><span class="line">| 1  | 2022-01-01 |</span><br><span class="line">| 2  | 2022-01-03 |</span><br><span class="line">| 3  | 2022-01-05 |</span><br><span class="line">+----+------------+</span><br></pre></td></tr></table></figure>
+
+<p>如果我们执行以下查询语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_order WHERE order_date BETWEEN &#x27;2022-01-02&#x27; AND &#x27;2022-01-04&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>此查询将检索 <code>order_date</code> 在 ‘2022-01-02’ 和 ‘2022-01-04’ 之间的行。在这种情况下，数据库会锁定 ‘2022-01-02’ 和 ‘2022-01-04’ 之间的间隙，以防止其他事务在该范围内插入新的数据。</p>
+<p>在上面的示例中，实际上没有行的 <code>order_date</code> 值等于 ‘2022-01-02’ 或 ‘2022-01-04’。间隙锁的目的是确保在事务执行期间没有其他事务插入这些不存在的行，<strong>从而避免幻读的发生。</strong></p>
+<p><strong>表中的最后一个记录和查询的id之间的关系：</strong></p>
+<p>如果表中最后一个记录的 order_no 为 1005，那么等值查询 order_no &#x3D; 1006（不存在），就是 next key lock，如上面事务 A 的情况。</p>
+<p>如果表中最后一个记录的 order_no 为 1010，那么等值查询 order_no &#x3D; 1006（不存在），就是间隙锁</p>
+<p>间隙锁标志：</p>
+<p>LOCK_MODE为x：说明是x型的next-key锁</p>
+<p>LOCK_MODE为x,REC_NOT_GAP,说明是x型记录锁</p>
+<p>LOCK_MODE为x，GAP，说明是x型间隙锁</p>
+<h2 id="跨平台编译—-windows平台编译linux平台的适用版本"><a href="#跨平台编译—-windows平台编译linux平台的适用版本" class="headerlink" title="跨平台编译—-windows平台编译linux平台的适用版本"></a>跨平台编译—-windows平台编译linux平台的适用版本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set GOARCH=amd64</span><br><span class="line">set GOOS= linux</span><br><span class="line">SET CGO_ENABLED=0  //交叉编译不支持 CGO 所以要禁用它</span><br><span class="line">go build hello.go</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于linux命令的管道符的理解</p>
+<p>管道：是进程之间的一种通信方式，主要适用的典型类型：父子进程</p>
+<p>创建管道的函数c底层接口：int pipe(int f[2])   返回的int类型，f[1]代表写，f[0]代表读</p>
+<p>父进程使用fork函数创建副本子进程，之后父进程的读关闭，子进程的写关闭</p>
+<p>telnet 远程ip  端口</p>
+<p>netstat  -a</p>
+<p>在&#x2F;ect&#x2F;hosts里面可以看映射关系   ip地址和域名的映射</p>
+<p>md5sum  文件：看文件的MD5值判断文件是否一样</p>
+<p>stat 文件：看文件的操作日期</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/11/%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/12/11/%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E9%82%A3%E4%BA%9B%E4%BA%8B/" itemprop="url">关于日志那些事</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-11T13:46:59+08:00">
+                2023-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="日志写到文件"><a href="#日志写到文件" class="headerlink" title="日志写到文件"></a>日志写到文件</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">        <span class="string">&quot;log&quot;</span></span><br><span class="line">        <span class="string">&quot;os&quot;</span></span><br><span class="line">        <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">        file := <span class="string">&quot;./&quot;</span> +<span class="string">&quot;message&quot;</span>+ <span class="string">&quot;.txt&quot;</span></span><br><span class="line">       <span class="comment">//0766：6-可读可写</span></span><br><span class="line">        logFile, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, <span class="number">0766</span>)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="built_in">panic</span>(err)</span><br><span class="line">        &#125;</span><br><span class="line">        log.SetOutput(logFile) <span class="comment">// 将文件设置为log输出的文件</span></span><br><span class="line">        log.SetPrefix(<span class="string">&quot;[qSkipTool]&quot;</span>) <span class="comment">//设置日志输出的前缀</span></span><br><span class="line">        log.SetFlags(log.LstdFlags | log.Lshortfile | log.LUTC)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        log.Println(<span class="string">&quot;Hello Davis!&quot;</span>) <span class="comment">// log 还是可以作为输出的前缀</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="根据日期来命名"><a href="#根据日期来命名" class="headerlink" title="根据日期来命名"></a>根据日期来命名</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">        <span class="string">&quot;log&quot;</span></span><br><span class="line">        <span class="string">&quot;os&quot;</span></span><br><span class="line">        <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">var</span> loger *log.Logger</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">        file := <span class="string">&quot;./&quot;</span> + time.Now().Format(<span class="string">&quot;20180102&quot;</span>) + <span class="string">&quot;.txt&quot;</span></span><br><span class="line">        logFile, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, <span class="number">0766</span>)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="built_in">panic</span>(err)</span><br><span class="line">        &#125;</span><br><span class="line">        loger = log.New(logFile, <span class="string">&quot;[qSkiptool]&quot;</span>,log.LstdFlags | log.Lshortfile | log.LUTC) <span class="comment">// 将文件设置为loger作为输出</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        loger.Println(<span class="string">&quot;Hello:Davis!&quot;</span>) <span class="comment">// 使用的时候，需要采用loger作为输出的前缀</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="map的长度是会自动扩容的"><a href="#map的长度是会自动扩容的" class="headerlink" title="map的长度是会自动扩容的"></a>map的长度是会自动扩容的</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   m2 := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>, <span class="number">2</span>)</span><br><span class="line">   m2[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">   m2[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">   m2[<span class="number">2</span>] = <span class="number">3</span></span><br><span class="line">   m2[<span class="number">3</span>] = <span class="number">4</span></span><br><span class="line">   fmt.Println(m2, <span class="built_in">len</span>(m2))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">map</span>[<span class="number">0</span>:<span class="number">1</span> <span class="number">1</span>:<span class="number">2</span> <span class="number">2</span>:<span class="number">3</span> <span class="number">3</span>:<span class="number">4</span>] <span class="number">4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//即使传的不是引用，也可以改变map的值</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	m2 := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>, <span class="number">2</span>)</span><br><span class="line">	m2[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">	m2[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">	m2[<span class="number">2</span>] = <span class="number">3</span></span><br><span class="line">	m2[<span class="number">3</span>] = <span class="number">4</span></span><br><span class="line">	fmt.Println(m2, <span class="built_in">len</span>(m2))</span><br><span class="line">	m := changeMap(m2)</span><br><span class="line">	fmt.Println(<span class="string">&quot;------------------&quot;</span>)</span><br><span class="line">	fmt.Println(m)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeMap</span><span class="params">(m <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span>)</span></span> <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">int</span> &#123;</span><br><span class="line">	m[<span class="number">0</span>] = <span class="number">5</span></span><br><span class="line">	<span class="keyword">return</span> m</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">map</span>[<span class="number">0</span>:<span class="number">1</span> <span class="number">1</span>:<span class="number">2</span> <span class="number">2</span>:<span class="number">3</span> <span class="number">3</span>:<span class="number">4</span>] <span class="number">4</span></span><br><span class="line">------------------</span><br><span class="line"><span class="keyword">map</span>[<span class="number">0</span>:<span class="number">5</span> <span class="number">1</span>:<span class="number">2</span> <span class="number">2</span>:<span class="number">3</span> <span class="number">3</span>:<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="defer是在return之后执行的（也就是函数结束之前），defer其实也可以用来进行逆序输出："><a href="#defer是在return之后执行的（也就是函数结束之前），defer其实也可以用来进行逆序输出：" class="headerlink" title="defer是在return之后执行的（也就是函数结束之前），defer其实也可以用来进行逆序输出："></a>defer是在return之后执行的（也就是函数结束之前），defer其实也可以用来进行逆序输出：</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">		<span class="keyword">defer</span> fmt.Printf(<span class="string">&quot;%d &quot;</span>, i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">4</span> <span class="number">3</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//这个例子注意观察defer在i的位置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">a</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	<span class="keyword">defer</span> fmt.Println(i)</span><br><span class="line">	i++</span><br><span class="line">	<span class="keyword">defer</span> fmt.Println(i) <span class="comment">//这是在i ++之后，defer的值已经改变了</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="关于文件的操作"><a href="#关于文件的操作" class="headerlink" title="关于文件的操作"></a>关于文件的操作</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	file, err := os.Open(<span class="string">&quot;products2.txt&quot;</span>)</span><br><span class="line">	path := <span class="string">&quot;D:a/b.txt&quot;</span></span><br><span class="line">	filename := filepath.Base(path) <span class="comment">//filepath可以用来获取路径中的最后一个元素</span></span><br><span class="line">	fmt.Println(filename)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> file.Close()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> col1, col2, col3 []<span class="type">string</span></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="keyword">var</span> v1, v2, v3 <span class="type">string</span></span><br><span class="line">		_, err := fmt.Fscanln(file, &amp;v1, &amp;v2, &amp;v3)</span><br><span class="line">		<span class="comment">// scans until newline</span></span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		col1 = <span class="built_in">append</span>(col1, v1)</span><br><span class="line">		col2 = <span class="built_in">append</span>(col2, v2)</span><br><span class="line">		col3 = <span class="built_in">append</span>(col3, v3)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(col1)</span><br><span class="line">	fmt.Println(col2)</span><br><span class="line">	fmt.Println(col3)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/07/sql%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7%E5%92%8C%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/12/07/sql%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7%E5%92%8C%E4%BC%98%E5%8C%96/" itemprop="url">sql慢查询工具和优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-07T09:33:11+08:00">
+                2023-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">mysql net start </span><br><span class="line">//查看是否开启慢查询</span><br><span class="line">show variables like &#x27;show_query%&#x27;</span><br><span class="line">//查看慢查询设置成多少秒</span><br><span class="line">show variables like &#x27;long_query_%&#x27;</span><br><span class="line">SET GLOBAL slow_query_log = &#x27;ON&#x27;;</span><br><span class="line">SET GLOBAL slow_query_log_file = &#x27;D:\mysqllog&#x27;</span><br><span class="line">show variables like &#x27;slow_query_log&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312070934704.png" alt="image-20231207093410619"></p>
+<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312070937878.png" alt="image-20231207093730578"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;slow_query%&#x27;</span><br><span class="line">    -&gt; ;</span><br><span class="line">+---------------------+-------------------------------------------------------------------------------+</span><br><span class="line">| Variable_name       | Value                                                                         |</span><br><span class="line">+---------------------+-------------------------------------------------------------------------------+</span><br><span class="line">| slow_query_log      | OFF                                                                           |</span><br><span class="line">| slow_query_log_file | D:\software\Mysql\mysql-5.7.38-winx64\mysql-5.7.38-winx64\data\Jinli-slow.log |</span><br><span class="line">+---------------------+-------------------------------------------------------------------------------+</span><br><span class="line">2 rows in set, 1 warning (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;long_query_%&#x27;;</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| Variable_name   | Value     |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| long_query_time | 10.000000 |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SET GLOBAL slow_query_log = &#x27;ON&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SET GLOBAL slow_query_log_file = &#x27;D:\mysqllog&#x27;</span><br><span class="line">    -&gt; ;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;slow_query_log&#x27;;</span><br><span class="line">+----------------+-------+</span><br><span class="line">| Variable_name  | Value |</span><br><span class="line">+----------------+-------+</span><br><span class="line">| slow_query_log | ON    |</span><br><span class="line">+----------------+-------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/06/channel%E8%AF%BB%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/12/06/channel%E8%AF%BB%E5%86%99/" itemprop="url">channel读写</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-06T19:17:42+08:00">
+                2023-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="channel关闭的时候，再次读，写会发生什么"><a href="#channel关闭的时候，再次读，写会发生什么" class="headerlink" title="channel关闭的时候，再次读，写会发生什么"></a>channel关闭的时候，再次读，写会发生什么</h4><ol>
+<li>读已经关闭的channel无影响。 如果在关闭前，通道内部有元素，会正确读到元素的值；</li>
+<li>如果关闭前通道无元素，则会读取到通道内元素类型对应的零值。</li>
+<li>若遍历通道，如果通道未关闭，读完元素后，会报死锁的错误。</li>
+<li>通道一旦关闭，再对它写操作，就会引发panic。</li>
+<li>试图关闭一个已经关闭了的通道，也会引发panic</li>
+</ol>
+<h4 id="Channel底层原理：循环队列"><a href="#Channel底层原理：循环队列" class="headerlink" title="Channel底层原理：循环队列"></a>Channel底层原理：循环队列</h4><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312061922244.png" alt="image-20231206192222079" style="zoom:67%;" />
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/06/Beego%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0-0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -611,6 +1208,34 @@ golang.org/x/text@v0.14.0: is marked as explicit in vendor/modules.txt, but not 
         
           
             <h4 id="测试环境接口"><a href="#测试环境接口" class="headerlink" title="测试环境接口"></a>测试环境接口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br><span class="line">rancher kubectl -n 项目命名空间 get 服务名（如sr开头的所有服务）</span><br><span class="line">kubectl -n 项目命名空间 logs --tail -n 200 服务名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202312281143125.png" alt="image-20231228114336938" style="zoom: 80%;" />
+
+
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>编写pvc</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>创建存储类：kubectl apply -f nfs-storageclass.yaml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hanyu-210 k8s_nfs]# cat nfs-storageclass.yaml</span><br><span class="line">apiVersion: storage.k8s.io/v1</span><br><span class="line">kind: StorageClass</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-storageclass</span><br><span class="line">provisioner: nfs-provisioner</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>编写pvc</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@hanyu-210 k8s_nfs]# cat nfs-pvc.yaml</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-pvc</span><br><span class="line">spec:</span><br><span class="line">  accessModes:</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  storageClassName: nfs-storageclass</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 1Mi</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>创建应用使用nfs-pvc：kubectl apply -f busybox-deployment.yaml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[root@hanyu-210 k8s_nfs]# cat busybox-deployment.yaml</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: busybox-deployment</span><br><span class="line">spec:</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      name: busybox-deployment</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        name: busybox-deployment</span><br><span class="line">    spec:</span><br><span class="line">      serviceAccount: nfs-provisioner</span><br><span class="line">      containers:</span><br><span class="line">      - image: busybox</span><br><span class="line">        command:</span><br><span class="line">        - sh</span><br><span class="line">        - -c</span><br><span class="line">        - &#x27;while true; do date &gt; /mnt/index.html; hostname &gt;&gt; /mnt/index.html; sleep $(($RANDOM % 5 + 5)); done&#x27;</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">        name: busybox</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: nfs</span><br><span class="line">          mountPath: /mnt</span><br><span class="line">      volumes:</span><br><span class="line">      - name: nfs</span><br><span class="line">        persistentVolumeClaim:</span><br><span class="line">          claimName: nfs-pvc</span><br></pre></td></tr></table></figure>
 
 
           
@@ -1227,804 +1852,6 @@ golang.org/x/text@v0.14.0: is marked as explicit in vendor/modules.txt, but not 
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/23/linux%E6%8A%A5%E9%94%99%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/11/23/linux%E6%8A%A5%E9%94%99%E6%80%BB%E7%BB%93/" itemprop="url">linux报错总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-23T16:07:24+08:00">
-                2023-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="centos安装git"><a href="#centos安装git" class="headerlink" title="centos安装git"></a>centos安装git</h4><h4 id="1、Another-app-is-currently-holding-the-yum-lock-waiting-for-it-to-exit…-The-other-application-is-yum-Memory-26-M-RSS-963-MB-VSZ-Started-Thu-Nov-23-15-46-24-2023-04-32-ago-State-Traced-Stopped-pid-2084"><a href="#1、Another-app-is-currently-holding-the-yum-lock-waiting-for-it-to-exit…-The-other-application-is-yum-Memory-26-M-RSS-963-MB-VSZ-Started-Thu-Nov-23-15-46-24-2023-04-32-ago-State-Traced-Stopped-pid-2084" class="headerlink" title="1、Another app is currently holding the yum lock; waiting for it to exit… The other application is: yum Memory : 26 M RSS (963 MB VSZ) Started: Thu Nov 23 15:46:24 2023 - 04:32 ago State : Traced&#x2F;Stopped, pid: 2084"></a>1、Another app is currently holding the yum lock; waiting for it to exit… The other application is: yum Memory : 26 M RSS (963 MB VSZ) Started: Thu Nov 23 15:46:24 2023 - 04:32 ago State : Traced&#x2F;Stopped, pid: 2084</h4><p>有正在运行的yum进程，杀死即可</p>
-<p>安装命令：git install yum</p>
-<h4 id="fatal-unable-to-access-‘https-github-com-‘-Encountered-end-of-file"><a href="#fatal-unable-to-access-‘https-github-com-‘-Encountered-end-of-file" class="headerlink" title="fatal: unable to access ‘https://github.com/‘: Encountered end of file"></a>fatal: unable to access ‘<a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a>‘: Encountered end of file</h4><p>You have new mail in &#x2F;var&#x2F;spool&#x2F;mail&#x2F;root</p>
-<h4 id="centos更换国内镜像"><a href="#centos更换国内镜像" class="headerlink" title="centos更换国内镜像"></a>centos更换国内镜像</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7146884369951490078">https://juejin.cn/post/7146884369951490078</a></p>
-<p>export HTTP_PROXY&#x3D;<a target="_blank" rel="noopener" href="http://107.172.141.152:31734/">http://107.172.141.152:31734</a><br>export HTTPS_PROXY&#x3D;<a target="_blank" rel="noopener" href="http://107.172.141.152:31734/">http://107.172.141.152:31734</a></p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GOPROXY=https://mirrors.aliyun.com/goproxy/</span><br></pre></td></tr></table></figure>
-
-<p>go version go1.19.8 windows&#x2F;amd64<br>bin&#x2F;check_go_version 1.18<br>D:\softenvironment\GoWorks\src\kubo\bin\check_go_version: line 30: .&#x2F;check_version: No such file or directory<br>make: *** [mk&#x2F;golang.mk:80: check_go_version] Error 1</p>
-<p>安装go环境-linux</p>
-<p>1、博客：<a target="_blank" rel="noopener" href="https://learnku.com/go/wikis/26455">https://learnku.com/go/wikis/26455</a></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>、解压：tar -C /usr/local -xzf go1<span class="number">.12</span><span class="number">.7</span>.linux-amd64.tar.gz</span><br><span class="line"><span class="number">3</span>、添加<span class="string">`/usr/loacl/go/bin`</span>目录到PATH变量中。添加到<span class="string">`/etc/profile`</span> 或<span class="string">`$HOME/.profile`</span>都可以</span><br><span class="line"><span class="number">4</span>、vim /etc/profile</span><br><span class="line">    # 在最后一行添加</span><br><span class="line">    export GOROOT=/usr/local/<span class="keyword">go</span></span><br><span class="line">    export PATH=$PATH:$GOROOT/bin</span><br><span class="line">#保存退出后source一下</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">//ipfs构建exe文件</span></span><br><span class="line"> <span class="built_in">make</span> build GOOS=windows GOARCH=amd64</span><br><span class="line"> <span class="built_in">make</span> build GOOS=linux GOARCH=amd64</span><br><span class="line"> <span class="comment">//本机使用系统</span></span><br><span class="line"> uname -p</span><br><span class="line"> ipfs --version</span><br></pre></td></tr></table></figure>
-
-<p>ubuntu@VM-16-6-ubuntu:&#x2F;etc$ sudo apt install golang<br>E: Type ‘rc’ is not known on line 15 in source list &#x2F;etc&#x2F;apt&#x2F;sources.list<br>E: The list of sources could not be read.<br>E: Type ‘rc’ is not known on line 15 in source list &#x2F;etc&#x2F;apt&#x2F;sources.list<br>E: The list of sources could not be read.</p>
-<h4 id="go-mod-文件中指定了特定版本（例如-v1-20），而在运行-make-build-时仍然发生下载操作，可能有以下几种原因："><a href="#go-mod-文件中指定了特定版本（例如-v1-20），而在运行-make-build-时仍然发生下载操作，可能有以下几种原因：" class="headerlink" title="go mod 文件中指定了特定版本（例如 v1.20），而在运行 make build 时仍然发生下载操作，可能有以下几种原因："></a><code>go mod</code> 文件中指定了特定版本（例如 <code>v1.20</code>），而在运行 <code>make build</code> 时仍然发生下载操作，可能有以下几种原因：</h4><ol>
-<li><p><strong>缓存问题：</strong> 有时，Go 模块会将依赖项缓存到 <code>$GOPATH/pkg/mod</code> 目录下。如果缓存中不存在或者被损坏，Go 可能会尝试重新下载依赖项。你可以尝试清理模块缓存：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go clean -modcache</span><br></pre></td></tr></table></figure>
-
-<p>然后再次运行 <code>make build</code>。</p>
-</li>
-<li><p><strong>代理设置：</strong> 如果你的网络环境需要通过代理连接，可能需要设置 Go 的代理环境变量。尝试设置 <code>GOPROXY</code> 环境变量为一个可以正常访问的代理地址：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GOPROXY=https://proxy.golang.org</span><br><span class="line"><span class="built_in">export</span> GOPROXY=https://proxy.golang.org,direct</span><br></pre></td></tr></table></figure>
-
-<p>然后再运行 <code>make build</code>。</p>
-</li>
-<li><p><strong>Go 版本不匹配：</strong> 确保你的 Go 版本与 <code>go.mod</code> 文件中指定的版本一致。如果 <code>go.mod</code> 文件中指定了 <code>v1.20</code>，你的 Go 版本也应该是 1.20。</p>
-</li>
-<li><p><strong>项目内部逻辑：</strong> 有时，<code>make build</code> 中的逻辑可能包含了特定版本的下载命令，即使 <code>go.mod</code> 文件中已经指定了版本。检查 <code>makefile</code> 或构建脚本，确保其中的下载命令没有覆盖 <code>go.mod</code> 中的版本。</p>
-</li>
-</ol>
-<p>ps -f -p 80500</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf go1.14.13.linux-amd64.tar.gz &amp;&amp; mv /usr/local/go /usr/local/go.14.13</span><br><span class="line">tar -C /testtar/ -xzf test.zip</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="今日份恶心问题之tar命令"><a href="#今日份恶心问题之tar命令" class="headerlink" title="今日份恶心问题之tar命令"></a>今日份恶心问题之tar命令</h4><p>起因：在服务器安装go环境时候，下载的是go1.14.13.linux-amd64.tar.gz的包，因为go的版本很多，就下载了很多版本，根据网上的教程使用命令&#96;&#96;&#96;tar -C &#x2F;usr&#x2F;local -xzf  go1.14.13.linux-amd64.tar.gz&#96;&#96;,运行完，你的&#x2F;usr&#x2F;local的文件夹下面会多一个go文件夹，里面就是你的环境，然后我切换版本，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf  go1.15.13.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p><strong>重点来了:tar命令，-x：从压缩的文件中提取文件，-z：支持gzip解压文件，-f指定压缩文件，此命令并不会删除原先&#x2F;usr&#x2F;local文件夹里原先go1.14.13.linux-amd64.tar.gz有的文件，而go1.15.13.linux-amd64.tar.gz没有的文件，导致make build的时候频繁出现，版本不兼容，要么多包，要么少包的情况</strong></p>
-<p><strong>解决办法：</strong></p>
-<p><strong>方法1：可以解压到不同的文件夹下面，这个最简单，但是有的时候就要解压到相同的文件夹呢</strong></p>
-<p><strong>方法2：</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -tzf go1<span class="number">.12</span><span class="number">.7</span>.linux-amd64.tar.gz | xargs rm -rf</span><br><span class="line">tar -C /usr/local -xzf go1<span class="number">.12</span><span class="number">.7</span>.linux-amd64.tar.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这个命令组合实现了以下步骤：</p>
-<figure class="highlight plaintext"><figcaption><span>-C</span><a href="/usr/local">-tzf go1.12.7.linux-amd64.tar.gz```：通过 tar 命令的 -t 选项和 -z 选项，列出压缩文件 go1.12.7.linux-amd64.tar.gz 中的所有文件。然后，通过管道将文件列表传递给下一个命令。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```xargs rm -rf```：使用 xargs 命令结合 rm -rf 命令，从上一步的文件列表中删除所有文件和目录。</span><br><span class="line"></span><br><span class="line">```tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz```：使用 tar 命令将 go1.12.7.linux-amd64.tar.gz 文件解压缩到 /usr/local 目录中。</span><br><span class="line"></span><br><span class="line">这样，除了 go1.12.7.linux-amd64.tar.gz 文件本身，/usr/local 目录中的其他文件和目录将被删除，并被解压缩后的文件替换。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">一些小知识：</span><br><span class="line"></span><br><span class="line">```text</span><br><span class="line">-c 建立新的压缩文件</span><br><span class="line">-r 添加文件到已经压缩的文件</span><br><span class="line">-u 添加改变了和现有的文件到已经存在的压缩文件</span><br><span class="line">-x 从压缩的文件中提取文件</span><br><span class="line">-t 显示压缩文件的内容</span><br><span class="line">-z 支持gzip解压文件</span><br><span class="line">-j 支持bzip2解压文件</span><br><span class="line">-v 显示操作过程</span><br><span class="line">-k 保留源有文件不覆盖</span><br><span class="line">-C 切换到指定目录</span><br><span class="line">-f 指定压缩文件</span><br><span class="line"></span><br><span class="line">--delete            删除包中文件</span><br><span class="line">--strip-components  去除目录</span><br><span class="line">--add-file          向包中添加文件</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf go1<span class="number">.14</span><span class="number">.13</span>.linux-amd64.tar.gz &amp;&amp; mv /usr/local/<span class="keyword">go</span> /usr/local/<span class="keyword">go</span><span class="number">.14</span><span class="number">.13</span>  <span class="comment">//修改解压后的文件名</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>df -h    &#x2F;&#x2F;查看磁盘使用情况</strong></p>
-<h4 id="ipfs和pprof的安装使用"><a href="#ipfs和pprof的安装使用" class="headerlink" title="ipfs和pprof的安装使用"></a>ipfs和pprof的安装使用</h4><p><strong>1、ipfs daemon</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//上传文件</span><br><span class="line">$ vim upchain.txt</span><br><span class="line"></span><br><span class="line">$ ipfs add upchain.txt</span><br><span class="line">add  ed4iTYXBKxpZQ upchain.txt</span><br><span class="line"> 19 B / 19 B  100.00%</span><br><span class="line"></span><br><span class="line">$ ipfs cat  mQKFRdRSFM4iTYXBKxpZQ</span><br><span class="line">&quot;你好，hello“</span><br><span class="line"></span><br><span class="line">ipfs daemon  //启动ipfs</span><br><span class="line">http://127.0.0.1:5001/webui</span><br></pre></td></tr></table></figure>
-
-<p><strong>2、浏览器启动ipfs后台：<a target="_blank" rel="noopener" href="http://127.0.0.1:5001/webui">http://127.0.0.1:5001/webui</a></strong></p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271721856.png" alt="image-20231127172027384"></p>
-<p><strong>看进程的cpu，进程的一些内存，函数运行时间</strong></p>
-<p><strong>网址：</strong></p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271720598.png" alt="image-20231127172004490"></p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271701774.png" alt="image-20231127170123070"></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">go</span> tool pprof http:<span class="comment">//127.0.0.1:5001/debug/pprof/profile</span></span><br><span class="line">Fetching profile over HTTP from http:<span class="comment">//127.0.0.1:5001/debug/pprof/profile</span></span><br><span class="line">Saved profile in C:\Users\wllwo\pprof\pprof.ipfs.exe.samples.cpu<span class="number">.001</span>.pb.gz</span><br><span class="line">File: ipfs.exe</span><br><span class="line">Build ID: D:\softenvironment\GoWorks\bin\ipfs.exe2023<span class="number">-11</span><span class="number">-23</span> <span class="number">20</span>:<span class="number">10</span>:<span class="number">10.0792554</span> +<span class="number">0800</span> CST</span><br><span class="line">Type: cpu</span><br><span class="line">Time: Nov <span class="number">27</span>, <span class="number">2023</span> at <span class="number">4</span>:<span class="number">55</span>pm (CST)</span><br><span class="line">Duration: <span class="number">30.18</span>s, Total samples = <span class="number">9.69</span>s (<span class="number">32.11</span>%)</span><br><span class="line">Entering interactive mode (<span class="keyword">type</span> <span class="string">&quot;help&quot;</span> <span class="keyword">for</span> commands, <span class="string">&quot;o&quot;</span> <span class="keyword">for</span> options)</span><br><span class="line">(pprof) web</span><br><span class="line">failed to execute dot. Is Graphviz installed? Error: exec: <span class="string">&quot;dot&quot;</span>: executable file not found in %PATH%</span><br><span class="line">(pprof)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> tool pprof http:<span class="comment">//localhost:9909/debug/pprof/profile?seconds=6</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>1、使用命令看： go tool pprof <a target="_blank" rel="noopener" href="http://localhost:5001/debug/pprof/profile?seconds=6">http://localhost:5001/debug/pprof/profile?seconds=6</a></p>
-<p>我们看下面图片，命令执行后，过了6秒钟进入交互式控制台，我输入了top6，代表意思是显示前6个消耗CPU较多的方法，图中的flat，sum，cum是什么含义呢，接下来解释一下。</p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311271714203.png" alt="image-20231127171409691"></p>
-<ul>
-<li><strong>flat</strong>：给定函数上的运行耗时</li>
-<li><strong>flat%</strong> ：给定函数上的CPU运行耗时占比</li>
-<li><strong>sum%</strong> ：给定函数累积使用CPU总比例</li>
-<li><strong>cum</strong> ：当前函数加上它之前的调用运行总耗时</li>
-<li><strong>cum%</strong> ：当前函数加上他之前的调用CPU运行耗时占比</li>
-</ul>
-<p>2、使用可视化界面监控pprof</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:5001/debug/pprof/profile &gt; 1-heap.out</span><br><span class="line">go tool pprof -http=0.0.0.0:8088 1-heap.out</span><br><span class="line">访问:http://192.168.31.160(运行的服务器ip):8088</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="docker部署Go语言项目"><a href="#docker部署Go语言项目" class="headerlink" title="docker部署Go语言项目"></a>docker部署Go语言项目</h4><p><a target="_blank" rel="noopener" href="https://www.51cto.com/article/706381.html">https://www.51cto.com/article/706381.html</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/go.1.17.5/go/bin:/home/gopath/src/kubo-0.8.0/cmd/ipfs</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="ipfs升级新版本"><a href="#ipfs升级新版本" class="headerlink" title="ipfs升级新版本"></a>ipfs升级新版本</h4><p>如果您希望将之前版本的 IPFS 数据兼容同步到新版本的 IPFS，您可以按照以下步骤进行操作：</p>
-<ol>
-<li><p>备份旧版本的 IPFS 数据：首先，确保您对旧版本的 IPFS 数据进行备份，以防止意外数据丢失。您可以复制保存旧版本的 IPFS 数据存储库的目录，通常默认位于 <code>~/.ipfs</code> 或 <code>/var/lib/ipfs</code>。将其保存在安全的位置，以便在需要时进行恢复。</p>
-</li>
-<li><p>升级到新版本的 IPFS：下载并安装新版本的 IPFS。您可以访问 IPFS 官方网站或使用适用于您的操作系统的包管理器来获取最新的 IPFS 版本。</p>
-</li>
-<li><p>初始化新版本的 IPFS：使用新版本的 IPFS 初始化新的数据存储库。运行以下命令来初始化新的 IPFS 存储库：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipfs init</span><br></pre></td></tr></table></figure>
-
-<p>这将创建一个新的 IPFS 存储库，并生成一个新的配置文件和密钥。</p>
-</li>
-<li><p>迁移旧版本数据到新版本：将旧版本 IPFS 数据迁移到新版本的存储库中。为此，您需要将旧版本的存储库中的特定目录和文件复制到新版本的存储库中。具体来说，您需要将旧版本存储库的以下目录和文件复制到新存储库的相应位置：</p>
-<ul>
-<li><code>blocks</code> 目录：包含 IPFS 文件块数据的目录。</li>
-<li><code>datastore</code> 目录：包含 IPFS 数据库的目录。</li>
-<li><code>config</code> 文件：旧版本 IPFS 的配置文件。</li>
-</ul>
-<p>请注意，确保在复制过程中保持目录结构和文件权限。</p>
-</li>
-<li><p>启动新版本的 IPFS：运行以下命令来启动新版本的 IPFS：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipfs daemon</span><br></pre></td></tr></table></figure>
-
-<p>这将启动新版本的 IPFS 守护进程，并开始同步和提供 IPFS 服务。</p>
-</li>
-</ol>
-<p>通过执行上述步骤，您应该能够将旧版本的 IPFS 数据兼容同步到新版本的 IPFS。请记住，根据新版本的 IPFS 版本和配置更改，可能还需要进行其他调整和配置。确保在升级过程中参考新版本的 IPFS 文档和发行说明，并根据需要进行相应的配置更改。</p>
-<p>find . -type f -exec grep -l “usjfisdifsjfnsnfksnfksnkfnsknk” {} +</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost go-ipfs]# ipfs init</span><br><span class="line">generating ED25519 keypair...done</span><br><span class="line">peer identity: 12D3KooWA8ZPan4ebqa7tYyV8YWHL9dfcYjMcFNMfRyoB2j3DA5z</span><br><span class="line">initializing IPFS node at /root/.ipfs</span><br><span class="line">to get started, enter:</span><br><span class="line"></span><br><span class="line">	ipfs cat /ipfs/QmQPeNsJPyVWPFDVHb77w8G42Fvo15z4bG2X8D2GhfbSXc/readme</span><br><span class="line"></span><br><span class="line">[root@localhost go-ipfs]# ipfs bootstrap list</span><br><span class="line">ipfs bootstrap add /ip4/192.168.31.160/tcp/4001/p2p/ipfs bootstrap add  + (命令ipfs id出现的Address)</span><br><span class="line">[root@localhost system]# sudo systemctl daemon-reload</span><br><span class="line">[root@localhost system]# sudo systemctl start ipfs.service</span><br><span class="line">systemctl restart ipfs.service</span><br><span class="line"></span><br><span class="line">//拷贝</span><br><span class="line">scp [需要拷贝的文件路径] root@[ip地址]:[文件夹]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/06/%E9%93%BE%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/11/06/%E9%93%BE%E8%A1%A8/" itemprop="url">链表</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-06T20:09:14+08:00">
-                2023-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>给定一个头节点为 <code>head</code> 的链表用于记录一系列核心肌群训练项目编号，请查找并返回<strong>倒数第 <code>cnt</code> 个训练项目</strong>编号。—快慢指针</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">trainingPlan</span><span class="params">(head *ListNode, cnt <span class="type">int</span>)</span></span> *ListNode &#123;</span><br><span class="line">    <span class="comment">//快慢指针</span></span><br><span class="line">    slow,fast := head,head</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;cnt;i++&#123; <span class="comment">//注意这里提前走n步</span></span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> fast!=<span class="literal">nil</span>&#123;</span><br><span class="line">        slow = slow.Next</span><br><span class="line">        fast = fast.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>回文链表</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isPalindrome</span><span class="params">(head *ListNode)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> head == <span class="literal">nil</span> || head.Next == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	slow, fast := head, head</span><br><span class="line">	<span class="keyword">for</span> fast != <span class="literal">nil</span> &amp;&amp; fast.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">		slow = slow.Next</span><br><span class="line">		fast = fast.Next.Next</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> newHead *ListNode</span><br><span class="line">	<span class="keyword">for</span> slow != <span class="literal">nil</span> &#123;</span><br><span class="line">		node := slow.Next</span><br><span class="line">		slow.Next = newHead</span><br><span class="line">		newHead = slow</span><br><span class="line">		slow = node</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> newHead != <span class="literal">nil</span> &amp;&amp; head != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> newHead.Val != head.Val &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">		&#125;</span><br><span class="line">		newHead = newHead.Next</span><br><span class="line">		head = head.Next</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/06/Go%E8%AF%AD%E8%A8%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/11/06/Go%E8%AF%AD%E8%A8%80%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url">Go语言常见面试题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-06T11:35:32+08:00">
-                2023-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="异步，同步，并发，并行"><a href="#异步，同步，并发，并行" class="headerlink" title="异步，同步，并发，并行"></a>异步，同步，并发，并行</h4><ul>
-<li>同步：需要等到前一个任务执行完毕之后，后面的任务才能进行（<strong>同步中并没有并发或者并行的概念</strong>）</li>
-<li>异步：<strong>不同的任务之间并不会相互等待，是可以同时进行的</strong>，实现异步的方式–多线程，如果启动多个线程，计算机是多核的，就可以分配到独立的核心上运行，实现真正的并行，如果使用单核的处理器，或者通过亲和力强制将线程绑到某个核心cpu上，通过分配时间片的方式，这种线程是并发的执行</li>
-<li>并发：计算机可以同时执行多个任务，怎么做到并发有不同的形式，单核cpu可以通过给不同的任务分配时间片的方式，让一个任务执行一段时间，切换到另外一个任务，不同的任务会交替往复的执行下去，这个过程也叫做进程或者线程的上下文切换</li>
-<li>并行：多个任务同时执行，不需要通过分配时间片的方式，多核处理器，可以实现真正的并行</li>
-</ul>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311131022259.png" alt="image-20231113102151807"></p>
-<h4 id="Map是不是并发安全的，如何实现并发安全的"><a href="#Map是不是并发安全的，如何实现并发安全的" class="headerlink" title="Map是不是并发安全的，如何实现并发安全的"></a>Map是不是并发安全的，如何实现并发安全的</h4><p>不是并发安全的，sync.map是安全的，使用读写分离实现的，其思想是空间换时间</p>
-<p>RWMutex在某一时刻由任意数量的reader持有，或者是只被单个的writer持有,当有一个goroutine持有读锁，此时有其他的goroutine想要持有写锁，这个goroutine会被阻塞，直到读锁被释放</p>
-<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061139630.png" alt="image-20231106113915565" style="zoom:67%;" />
-
-<p>sync.Map的四个方法：<strong>Store(存值)、Load(取值)、Delete、Range</strong></p>
-<h5 id="Load：func-m-Map-Load-key-interface-value-interface-ok-bool"><a href="#Load：func-m-Map-Load-key-interface-value-interface-ok-bool" class="headerlink" title="Load：func (m *Map) Load(key interface{}) (value interface{}, ok bool)"></a>Load：func (m *Map) Load(key interface{}) (value interface{}, ok bool)</h5><p>Load方法用来加载sync.Map中的值，入参是key，返回值是对应的value以及value存在与否</p>
-<p>sync.Map更<strong>适合读多，更新多，而插入新值少</strong>的场景</p>
-<p>readOnly <strong>不适合反复插入，读取新值</strong>的场景，因为这种场景会频繁操作dirty，需要频繁加锁和更新read</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Sync包下的map很像是Go的map[interface{}]interface{}，但是对于普通的map来说，sync.Map可以保证在多个goroutine的并发使用是安全的，无需额外添加锁来进行控制</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="func-Map-Store-key-value-any"><a href="#func-Map-Store-key-value-any" class="headerlink" title="func( * Map)Store(key,value any)"></a>func( * Map)Store(key,value any)</h3><p>将一个key,value存入map中</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> smm sync.Map</span><br><span class="line">	smm.Store(<span class="string">&quot;Ethan&quot;</span>,<span class="string">&quot;Leo&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="func-Map-Delete-key-any"><a href="#func-Map-Delete-key-any" class="headerlink" title="func(* Map)Delete(key any)"></a>func(* Map)Delete(key any)</h3><p>将一个key从map中删除</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> smm sync.Map</span><br><span class="line">	smm.Delete(<span class="string">&quot;Ethan&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="func-Map-Load-key-any-value-any-ok-bool"><a href="#func-Map-Load-key-any-value-any-ok-bool" class="headerlink" title="func(* Map)Load(key any) (value any, ok bool)"></a>func(* Map)Load(key any) (value any, ok bool)</h3><p>从map中获取一个Key</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> smm sync.Map</span><br><span class="line">	smm.Store(<span class="string">&quot;Ethan&quot;</span>, <span class="string">&quot;Leo&quot;</span>)</span><br><span class="line">	value, ok := smm.Load(<span class="string">&quot;Ethan&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;The key not exist&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="func-Map-LoadAndDelete-key-any-value-any-loaded-bool"><a href="#func-Map-LoadAndDelete-key-any-value-any-loaded-bool" class="headerlink" title="func(* Map)LoadAndDelete(key any) (value any, loaded bool)"></a>func(* Map)LoadAndDelete(key any) (value any, loaded bool)</h3><p>从map中获取一个key，并且将key删除，如果key存在那么loaded会返回true，并且value就是map中存的值，如果key不存在那么loaded会返回一个false，并且value为nil</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">var</span> smm sync.Map</span><br><span class="line">	smm.Store(<span class="string">&quot;Ethan&quot;</span>, <span class="string">&quot;Leo&quot;</span>)</span><br><span class="line">	value, loaded := smm.LoadAndDelete(<span class="string">&quot;Ethan&quot;</span>)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;values is %v,is loaded %v \n&quot;</span>, value, loaded)</span><br><span class="line">	value, loaded = smm.LoadAndDelete(<span class="string">&quot;Ethan&quot;</span>)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;values is %v,is loaded %v \n&quot;</span>, value, loaded)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="func-m-Map-LoadOrStore-key-value-any-actual-any-loaded-bool"><a href="#func-m-Map-LoadOrStore-key-value-any-actual-any-loaded-bool" class="headerlink" title="func (m *Map) LoadOrStore(key, value any) (actual any, loaded bool)"></a>func (m *Map) LoadOrStore(key, value any) (actual any, loaded bool)</h3><p>从map中加载一个key，如果key不存在，那么就会将value存放在key中，返回value，loaded为false，如果key存在则返回value，loaded为true</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">var</span> smm sync.Map</span><br><span class="line">	actual, loaded := smm.LoadOrStore(<span class="string">&quot;Ethan&quot;</span>, <span class="string">&quot;Leo&quot;</span>)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;actual %v,is loaded %v \n&quot;</span>, actual, loaded)</span><br><span class="line">	actual, loaded = smm.LoadOrStore(<span class="string">&quot;Ethan&quot;</span>, <span class="string">&quot;Ethan&quot;</span>)</span><br><span class="line">	fmt.Printf(<span class="string">&quot;actual %v,is loaded %v \n&quot;</span>, actual, loaded)</span><br><span class="line">	value, ok := smm.Load(<span class="string">&quot;Ethan&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="func-m-Map-Range-f-func-key-value-any-bool"><a href="#func-m-Map-Range-f-func-key-value-any-bool" class="headerlink" title="func (m *Map) Range(f func(key, value any) bool)"></a>func (m *Map) Range(f func(key, value any) bool)</h3><p>迭代出map中的key，value,如果回调函数中返回false，那么就会停止迭代，如果返回true，那么就会继续迭代</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> smm sync.Map</span><br><span class="line">	smm.Store(<span class="string">&quot;Ethan&quot;</span>, <span class="string">&quot;Leo&quot;</span>)</span><br><span class="line">	smm.Store(<span class="string">&quot;Jack&quot;</span>, <span class="string">&quot;Chen&quot;</span>)</span><br><span class="line">	smm.Range(<span class="function"><span class="keyword">func</span><span class="params">(key, value any)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Key: %v - Value: %v\n&quot;</span>, key, value)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>控制子协程的几种方式：</p>
-<ul>
-<li>Channel: 使用channel控制子协程  make(chan  int)</li>
-<li>WaitGroup : 使用信号量机制控制子协程</li>
-<li>Context: 使用上下文控制子协程</li>
-</ul>
-<h4 id="Context作用"><a href="#Context作用" class="headerlink" title="Context作用"></a>Context作用</h4><p>1、跨goroutine传递请求范围的值，这样可以避免使用全局变量或传递大量参数来实现数据共享</p>
-<p>2、取消信号传递：通过Context，可以向相关的goroutine传递信号(取消信号，中止信号)，这样可以避免因为某些操作超时或出现错误导致程序出现不必要的等待或者阻塞</p>
-<p>3、截止时间管理：Context还可以设置超时时间，控制某些goroutine的执行时间，执行超过时间，Context会自动发出取消的信号</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Context <span class="keyword">interface</span>&#123;</span><br><span class="line">	Deadline (deadline time.Time,ok <span class="type">bool</span>) <span class="comment">//执行时间，信号是否被取消</span></span><br><span class="line">	Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">	Err() <span class="type">error</span></span><br><span class="line">	Value(key <span class="keyword">interface</span>&#123;&#125;) <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>小tips：struct{}{}不占用内存空间，0大小的数据结构，在某些情况下可以用来当作占位符或者信号量</p>
-<p>a、信号量：某些情况我们可能只会关心某些事情的发生，但是不需要传递实际的数据</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> signal = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//处理逻辑</span></span><br><span class="line">   <span class="built_in">close</span>(signal)</span><br><span class="line">&#125;()</span><br><span class="line">&lt;-signal  <span class="comment">//等待信号</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33521184/article/details/131881189">比较好的golang面试题，以下文章来自这个链接的摘抄和自测</a></strong></p>
-<p>+:会对字符串进行遍历，计算并开辟一个新的空间来存储原来的两个字符串。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	fmt.Println(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Sprintf:必须要用反射获取值，因此有性能损耗</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	c := fmt.Sprintf(<span class="string">&quot;%s,%s&quot;</span>, a, b)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p> strings.Builder:它是直接把[]byte转换为string，从而避免变量拷贝</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Builder <span class="keyword">struct</span> &#123;</span><br><span class="line">    addr *Builder</span><br><span class="line">    buf  []<span class="type">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bulid strings.Builder</span><br><span class="line">	bulid.WriteString(a)</span><br><span class="line">	bulid.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bulid.WriteString(b)</span><br><span class="line">	c := bulid.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>bytes.BufferL:它是直接把[]byte转换为string，从而避免变量拷贝</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Buffer <span class="keyword">struct</span> &#123;</span><br><span class="line">    buf      []<span class="type">byte</span></span><br><span class="line">    off      <span class="type">int</span></span><br><span class="line">    lastRead readOp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bytes bytes.Buffer</span><br><span class="line">	bytes.WriteString(a)</span><br><span class="line">	bytes.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bytes.WriteString(b)</span><br><span class="line">	c := bytes.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>strings.Join:自定义分隔符，适用对象[]string类型，因为我们传入切片长度固定，所以提前进行容量分配可以减少内存分配</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="type">string</span>&#123;<span class="string">&quot;nihao&quot;</span>, <span class="string">&quot;hello&quot;</span>&#125;</span><br><span class="line">	c := strings.Join(a, <span class="string">&quot;+&quot;</span>)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p>切片和数组的区别是什么？</p>
-<ul>
-<li>什么情况下使用切片，什么情况下使用数组？</li>
-</ul>
-</li>
-<li><p>切片的底层数据结构是什么？</p>
-</li>
-<li><p>如何扩容切片的容量？</p>
-</li>
-<li><p>切片的长度和容量有什么区别？</p>
-</li>
-<li><p>如何获取切片的长度和容量？</p>
-</li>
-<li><p>切片是否可比较？为什么？</p>
-</li>
-<li><p>不可使用&#x3D;&#x3D;来比较，可以循环遍历切片中的每个元素进行比较<br>如何判断两个切片是否相等？<br>如何在切片中插入和删除元素？：注意切片遵循左闭右开的原则<br>切片是否支持负索引？为什么？：不支持，负索引通常相对切片的末尾位置，go语言不支持</p>
-</li>
-<li><p>切片的追加操作会发生什么？如何避免在追加时重新分配底层数组内存？</p>
-</li>
-<li><p>如何遍历切片？有哪些方法可以遍历切片的元素？</p>
-</li>
-<li><p>切片在函数间传递时是传值还是传引用？</p>
-<ul>
-<li>切片是引用类型，在函数间传递的是引用，不是整个切片的拷贝</li>
-</ul>
-</li>
-<li><p>如何使用切片进行栈和队列的操作？<br>切片是否可以作为函数的参数和返回值？<br>切片的零值是什么？如何判断一个切片是否为nil？</p>
-<p>切片的零值是nil，一个未初始化的切片的值为nil，表示切片没有引用任何底层数组</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> mySlice == <span class="literal">nil</span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;切片为nil&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>切片在并发编程中是否安全？</p>
-<ul>
-<li>是并发安全的，切片的操作不会影响到底层的数组的内存分布，但是多个goroutine中对同一个切片进行写操作时，需要加锁来保证并发安全</li>
-</ul>
-</li>
-<li><p>切片是否支持多维？如何创建多维切片？支持</p>
-</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">t2</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">runtime.GOMAXPROCS(<span class="number">1</span>)</span><br><span class="line">wg:=sync.WaitGroup&#123;&#125;</span><br><span class="line">wg.Add(<span class="number">20</span>)</span><br><span class="line"><span class="comment">//step 1</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">10</span> ;i++  &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;i&quot;</span>,i)</span><br><span class="line">        wg.Done()</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="string">&quot;--------------------&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//step 2</span></span><br><span class="line"><span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;<span class="number">10</span> ;j++  &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(j <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;j&quot;</span>,j)</span><br><span class="line">        wg.Done()</span><br><span class="line">    &#125;(j)</span><br><span class="line">&#125;</span><br><span class="line">wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangh571354026/article/details/124359368">https://blog.csdn.net/zhangh571354026/article/details/124359368</a></p>
-<p>map中不能充当键的类型：函数，切片，还有包含引用字段的结构体，这种slice1&#x3D;&#x3D;slice2比较的是地址，而不是值</p>
-<p>map遍历输出是无序的，如果想让key有序的输出，需要给key进行排序，就可以按序输出，sort(key)，或者可以使用reflect.DeepEqual(slice1，slice2)来实现</p>
-<p>map里面不能出现相同的key，map里面的key是唯一的，channel可以充当map的key，但是channel也是引用的类型，比较的还是地址是不是相等</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="comment">/*//m := make(map[int]int)</span></span><br><span class="line"><span class="comment">   m := map[int]int&#123;</span></span><br><span class="line"><span class="comment">      1: 5,</span></span><br><span class="line"><span class="comment">      2: 6,</span></span><br><span class="line"><span class="comment">      3: 7,</span></span><br><span class="line"><span class="comment">      4: 8,</span></span><br><span class="line"><span class="comment">   &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   i, exit := m[7]</span></span><br><span class="line"><span class="comment">   if exit &#123;</span></span><br><span class="line"><span class="comment">      fmt.Println(i)</span></span><br><span class="line"><span class="comment">   &#125; else &#123;</span></span><br><span class="line"><span class="comment">      fmt.Println(&quot;不存在&quot;)</span></span><br><span class="line"><span class="comment">   &#125;*/</span></span><br><span class="line"></span><br><span class="line">   m := <span class="built_in">make</span>(<span class="keyword">map</span>[[<span class="number">2</span>]<span class="type">int</span>]<span class="type">int</span>)</span><br><span class="line">   ch1 := [<span class="number">2</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>&#125;</span><br><span class="line">   fmt.Println(ch1)</span><br><span class="line">   ch2 := [<span class="number">2</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>&#125;</span><br><span class="line">   fmt.Println(ch2)</span><br><span class="line">   <span class="keyword">if</span> ch1 == ch2 &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;equail&quot;</span>)</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;not equail&quot;</span>)</span><br><span class="line">   &#125;</span><br><span class="line">   m[ch1] = <span class="number">9</span></span><br><span class="line">   m[ch2] = <span class="number">10</span></span><br><span class="line">   <span class="keyword">if</span> ch1 == ch2 &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;equail&quot;</span>)</span><br><span class="line">      fmt.Println(m[ch1])</span><br><span class="line">      fmt.Println(m[ch2])</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fmt.Println(<span class="string">&quot;not equail&quot;</span>)</span><br><span class="line">      fmt.Println(m[ch1])</span><br><span class="line">      fmt.Println(m[ch2])</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output：</span><br><span class="line">[<span class="number">1</span> <span class="number">3</span>]</span><br><span class="line">[<span class="number">1</span> <span class="number">3</span>]</span><br><span class="line">equail</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意下面，虽然 m[ch1] = 9 ，m[ch2] = 10，但是他们是相等的，因为ch1和ch2是相同的数组，在map里面不能出现相同的key，map里面的key是唯一的</span></span><br><span class="line">equail  </span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h4 id="init函数知识点"><a href="#init函数知识点" class="headerlink" title="init函数知识点"></a>init函数知识点</h4><p>1、对同一个go文件的<code>init()</code>调用顺序是从上到下的。</p>
-<p>2、对同一个package中不同文件是按文件名字符串比较“从小到大”顺序调用各文件中的<code>init()</code>函数</p>
-<p><a target="_blank" rel="noopener" href="https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Init%E5%87%BD%E6%95%B0%E5%92%8Cmain%E5%87%BD%E6%95%B0.html">https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Init%E5%87%BD%E6%95%B0%E5%92%8Cmain%E5%87%BD%E6%95%B0.html</a></p>
-<p>go语言中<code>init</code>函数用于包<code>(package)</code>的初始化，该函数是go语言的一个重要特性。</p>
-<p>有下面的特征：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1 init函数是用于程序执行前做包的初始化的函数，比如初始化包里的变量等</span><br><span class="line"></span><br><span class="line">2 每个包可以拥有多个init函数</span><br><span class="line"></span><br><span class="line">3 包的每个源文件也可以拥有多个init函数</span><br><span class="line"></span><br><span class="line">4 同一个包中多个init函数的执行顺序go语言没有明确的定义(说明)</span><br><span class="line"></span><br><span class="line">5 不同包的init函数按照包导入的依赖关系决定该初始化函数的执行顺序</span><br><span class="line"></span><br><span class="line">6 init函数不能被其他函数调用，而是在main函数执行之前，自动被调用</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isValid</span><span class="params">(s <span class="type">string</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">	stack := <span class="built_in">make</span>([]<span class="type">rune</span>, <span class="number">0</span>)</span><br><span class="line">	mapping := <span class="keyword">map</span>[<span class="type">rune</span>]<span class="type">rune</span>&#123;</span><br><span class="line">		<span class="string">&#x27;)&#x27;</span>: <span class="string">&#x27;(&#x27;</span>,</span><br><span class="line">		<span class="string">&#x27;&#125;&#x27;</span>: <span class="string">&#x27;&#123;&#x27;</span>,</span><br><span class="line">		<span class="string">&#x27;]&#x27;</span>: <span class="string">&#x27;[&#x27;</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, char := <span class="keyword">range</span> s &#123;</span><br><span class="line">		<span class="keyword">if</span> char == <span class="string">&#x27;(&#x27;</span> || char == <span class="string">&#x27;&#123;&#x27;</span> || char == <span class="string">&#x27;[&#x27;</span> &#123;</span><br><span class="line">			stack = <span class="built_in">append</span>(stack, char)</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> char == <span class="string">&#x27;)&#x27;</span> || char == <span class="string">&#x27;&#125;&#x27;</span> || char == <span class="string">&#x27;]&#x27;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(stack) == <span class="number">0</span> || stack[<span class="built_in">len</span>(stack)<span class="number">-1</span>] != mapping[char] &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">			&#125;</span><br><span class="line">			stack = stack[:<span class="built_in">len</span>(stack)<span class="number">-1</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(stack) == <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">&quot;()&quot;</span></span><br><span class="line">	fmt.Println(isValid(s)) <span class="comment">// 输出: true</span></span><br><span class="line"></span><br><span class="line">	s = <span class="string">&quot;()[]&#123;&#125;&quot;</span></span><br><span class="line">	fmt.Println(isValid(s)) <span class="comment">// 输出: true</span></span><br><span class="line"></span><br><span class="line">	s = <span class="string">&quot;(]&quot;</span></span><br><span class="line">	fmt.Println(isValid(s)) <span class="comment">// 输出: false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><code>&quot;attachment; filename=%s&quot;</code>，它告诉浏览器将响应体的内容作为附件下载，并将下载的文件保存为指定的文件名。<code>%s</code> 会被替换为 <code>image_id</code>。这样用户在下载文件时，浏览器通常会使用 <code>image_id</code> 作为默认文件名。</p>
-<p>具体来说，通过 <code>file.Stat()</code> 方法获得的 <code>fileStat</code> 包含了以下信息：</p>
-<ul>
-<li><strong>文件大小 (<code>Size</code>):</strong> 通过 <code>fileStat.Size()</code> 可以获取文件的大小，以字节为单位。</li>
-<li><strong>修改时间 (<code>ModTime</code>):</strong> 通过 <code>fileStat.ModTime()</code> 可以获取文件的最后修改时间</li>
-</ul>
-<p>通过设置Content-Length，可以告诉浏览器不要分块传输，可以一次性传输，或者传输Content-Length设置的字节，使用<code>fileStat.Size()</code>得知文件的大小</p>
-<p>application&#x2F;octet-stream：浏览器一般不会自动执行或询问执行。 浏览器会像对待，设置了HTTP头Content-Disposition值为attachment的文件一样来对待这类文件，即浏览器会触发下载行为</p>
-<p>file.Seek(2,0),相对于文件的开头，文件的指针向后移动2个字节</p>
-<p>file.Seek(2,1)，相对于文件指针的当前的位置，文件的指针向后移动2个字节</p>
-<p>file.Seek(2,2)，相对于文件的尾部，文件的指针向后移动2个字节</p>
-<p>func ReplaceAll(s, old, new string) string</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;io/ioutil&quot;</span></span><br><span class="line">	<span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 读取 Dockerfile 内容</span></span><br><span class="line">	dockerfileContent, err := ioutil.ReadFile(<span class="string">&quot;path/to/your/Dockerfile&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Error reading Dockerfile:&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 定义 Dockerfile 参数</span></span><br><span class="line">	fromVersion := <span class="string">&quot;base-image:latest&quot;</span></span><br><span class="line">	chaincodeName := <span class="string">&quot;my-chaincode&quot;</span></span><br><span class="line">	version := <span class="string">&quot;1.0&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 替换 Dockerfile 中的变量</span></span><br><span class="line">	updatedDockerfile := replaceVariables(<span class="type">string</span>(dockerfileContent), <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;</span><br><span class="line">		<span class="string">&quot;FromVersion&quot;</span>:   fromVersion,</span><br><span class="line">		<span class="string">&quot;ChaincodeName&quot;</span>: chaincodeName,</span><br><span class="line">		<span class="string">&quot;Version&quot;</span>:       version,</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 打印更新后的 Dockerfile</span></span><br><span class="line">	fmt.Println(updatedDockerfile)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 替换 Dockerfile 中的变量</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">replaceVariables</span><span class="params">(dockerfileContent <span class="type">string</span>, variables <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">for</span> key, value := <span class="keyword">range</span> variables &#123;</span><br><span class="line">		placeholder := fmt.Sprintf(<span class="string">&quot;&#123;&#123;%s&#125;&#125;&quot;</span>, key)</span><br><span class="line">		dockerfileContent = strings.ReplaceAll(dockerfileContent, placeholder, value)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dockerfileContent</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>在Go 中，<strong>可以使用 strconv 包将字符串转换为整数</strong>。 具体而言，可以使用 strconv.Atoi() 函数将字符串转换为整数。 Atoi 是 ASCII to integer 的缩写，其返回值是一个整数和一个错误。 如果转换成功，错误为 nil ；如果转换失败，错误则不为 nil </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/05/Hexo%E8%B8%A9%E5%9D%91%E7%B3%BB%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/11/05/Hexo%E8%B8%A9%E5%9D%91%E7%B3%BB%E5%88%97/" itemprop="url">test</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-05T17:54:24+08:00">
-                2023-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83%E5%92%8C%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index">
-                    <span itemprop="name">日常搭建环境和踩坑记录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="说在前面，有的时候搭建好自己的服务器，文章不能实时更新，需要等到一段时间，感觉有点鸡肋，因为测试发现本地是可以看到更新的文章"><a href="#说在前面，有的时候搭建好自己的服务器，文章不能实时更新，需要等到一段时间，感觉有点鸡肋，因为测试发现本地是可以看到更新的文章" class="headerlink" title="说在前面，有的时候搭建好自己的服务器，文章不能实时更新，需要等到一段时间，感觉有点鸡肋，因为测试发现本地是可以看到更新的文章"></a>说在前面，有的时候搭建好自己的服务器，文章不能实时更新，需要等到一段时间，感觉有点鸡肋，因为测试发现本地是可以看到更新的文章</h5><h4 id="今日份教训，为了这个图片显示我真的是废了老大的劲，现时使用gitee，弄好了PicGo，发现gitee加了防盗链，结果搞了半天出现302，后来改用了腾讯云的cos，果然付费的东西才是省心的，"><a href="#今日份教训，为了这个图片显示我真的是废了老大的劲，现时使用gitee，弄好了PicGo，发现gitee加了防盗链，结果搞了半天出现302，后来改用了腾讯云的cos，果然付费的东西才是省心的，" class="headerlink" title="今日份教训，为了这个图片显示我真的是废了老大的劲，现时使用gitee，弄好了PicGo，发现gitee加了防盗链，结果搞了半天出现302，后来改用了腾讯云的cos，果然付费的东西才是省心的，"></a>今日份教训，为了这个图片显示我真的是废了老大的劲，现时使用gitee，弄好了PicGo，发现gitee加了防盗链，结果搞了半天出现302，后来改用了腾讯云的cos，果然付费的东西才是省心的，</h4><h4 id="配置自定义域名"><a href="#配置自定义域名" class="headerlink" title="配置自定义域名"></a>配置自定义域名</h4><p>本人买的是腾讯云，使用CNAME的方式配置的域名，在你的D:source目录下新建CNAME文件，里面为你的域名jinliooo123.site，github上面也是这个域名</p>
-<p>注意：需要看你github的github.io的ipv4，ipv4一共4字节，如果ping的时候发现是mac地址，可以把命令改成</p>
-<p>ping -4  用户名.github.io,拿到ipv4	</p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311052117185.png" alt="image-20231105175648382"></p>
-<p>拿到ipv4，填写到添加记录的后面，这是使用A记录类型方式，咱们一般使用第二种</p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311052123028.png" alt="image-20231105164633568"></p>
-<p>后面就是你自己的github.io的地址，服务器这边就完成了，接下来就是去github配置</p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311052125465.png" alt="image-20231105212448893"></p>
-<p>即可访问</p>
-<img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311052126895.png" alt="image-20231105212606868" style="zoom:80%;" />
-
-
-
-
-
-<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><p>hexo d -g命令，本地hexo s 的时候是可以更新的，但是github上不更新，如果只是单纯的改了博客文章，只需要deploy，如果是更改了目录，加个文件夹，比如about，Acyion里面，图中的三步都走</p>
-<p><img src="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311072035310.png" alt="image-20231107203053322"></p>
-<p>Docker</p>
-<p><em>:docker exec</em> docker exec是一个非常常用的命令,可以在正在运行的容器中执行命令</p>
-<p><code>docker exec -it &lt;容器名或容器id&gt;</code>  可以进入正在运行的docker容器</p>
-<p>hexo g -d</p>
-<p>hexo c	#清理一下<br>hexo g	#生成<br>hexo d	#部署到远程Github仓库</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2075,7 +1902,7 @@ golang.org/x/text@v0.14.0: is marked as explicit in vendor/modules.txt, but not 
               
                 <a href="/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2097,7 +1924,7 @@ golang.org/x/text@v0.14.0: is marked as explicit in vendor/modules.txt, but not 
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2134,7 +1961,7 @@ golang.org/x/text@v0.14.0: is marked as explicit in vendor/modules.txt, but not 
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311131022259.png">
 <meta property="og:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311061139630.png">
 <meta property="article:published_time" content="2023-11-06T03:35:32.000Z">
-<meta property="article:modified_time" content="2023-12-06T03:27:56.549Z">
+<meta property="article:modified_time" content="2023-12-22T09:22:59.344Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://hexoblog-1309432441.cos.ap-shanghai.myqcloud.com/img/202311131022259.png">
@@ -394,11 +394,11 @@
 <p> strings.Builder:它是直接把[]byte转换为string，从而避免变量拷贝</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Builder <span class="keyword">struct</span> &#123;</span><br><span class="line">    addr *Builder</span><br><span class="line">    buf  []<span class="type">byte</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bulid strings.Builder</span><br><span class="line">	bulid.WriteString(a)</span><br><span class="line">	bulid.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bulid.WriteString(b)</span><br><span class="line">	c := bulid.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>bytes.BufferL:它是直接把[]byte转换为string，从而避免变量拷贝</p>
+<p>bytes.Buffer:它是直接把[]byte转换为string，从而避免变量拷贝</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Buffer <span class="keyword">struct</span> &#123;</span><br><span class="line">    buf      []<span class="type">byte</span></span><br><span class="line">    off      <span class="type">int</span></span><br><span class="line">    lastRead readOp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="string">&quot;nihao&quot;</span></span><br><span class="line">	b := <span class="string">&quot;hello&quot;</span></span><br><span class="line">	<span class="keyword">var</span> bytes bytes.Buffer</span><br><span class="line">	bytes.WriteString(a)</span><br><span class="line">	bytes.WriteString(<span class="string">&quot; &quot;</span>)</span><br><span class="line">	bytes.WriteString(b)</span><br><span class="line">	c := bytes.String()</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>strings.Join:自定义分隔符，适用对象[]string类型，因为我们传入切片长度固定，所以提前进行容量分配可以减少内存分配</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="type">string</span>&#123;<span class="string">&quot;nihao&quot;</span>, <span class="string">&quot;hello&quot;</span>&#125;</span><br><span class="line">	c := strings.Join(a, <span class="string">&quot;+&quot;</span>)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="type">string</span>&#123;<span class="string">&quot;nihao&quot;</span>, <span class="string">&quot;hello&quot;</span>&#125;</span><br><span class="line">	c := strings.Join(a, <span class="string">&quot;+&quot;</span>)</span><br><span class="line">	fmt.Println(c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：nihao+hello</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -489,6 +489,98 @@
 
 
 <p>在Go 中，<strong>可以使用 strconv 包将字符串转换为整数</strong>。 具体而言，可以使用 strconv.Atoi() 函数将字符串转换为整数。 Atoi 是 ASCII to integer 的缩写，其返回值是一个整数和一个错误。 如果转换成功，错误为 nil ；如果转换失败，错误则不为 nil </p>
+<p>zookeeper，rabitmq，</p>
+<p>nacos，zookeeper，nignix</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">netstat  -ltp   | grep  ssh </span><br><span class="line"></span><br><span class="line">显示当前系统中所有处于监听状态的 TCP 端口，并列出每个端口的协议、本地地址和端口号，以及关联程序或进程信息。</span><br><span class="line"></span><br><span class="line">- `-l`：仅显示监听状态的端口。</span><br><span class="line">- `-n`：以数字形式显示 IP 地址和端口号。</span><br><span class="line">- `-t`：仅显示 TCP 协议相关的端口。</span><br><span class="line">- `-p`：显示与端口相关的程序或进程信息。</span><br><span class="line"></span><br><span class="line">将在 `netstat` 的输出中搜索包含字符串 &quot;ssh&quot; 的行，以过滤出与 SSH 服务相关的监听端口信息</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">netstat  -ef | grep  6379</span><br><span class="line"></span><br><span class="line">nohup sh bin/mqsrv &amp;  </span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; info keyspace</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379[14]&gt; select 9  //9是数据库的配置文件定义的</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">find / -name &quot;redis-cli&quot;</span><br><span class="line"></span><br><span class="line">[root@FVCTS-ISE640 redis]# ./redis-cli </span><br><span class="line">127.0.0.1:6379&gt; auth gssx@123</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>例如，如果数据库中有以下三个键：</p>
+<ol>
+<li><code>user:1</code></li>
+<li><code>user:2</code></li>
+<li><code>product:12345</code></li>
+</ol>
+<p>执行 <code>KEYS *</code> 命令将返回以下结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1) &quot;user:1&quot;</span><br><span class="line">2) &quot;user:2&quot;</span><br><span class="line">3) &quot;product:12345&quot;</span><br><span class="line"></span><br><span class="line">GET user:1</span><br></pre></td></tr></table></figure>
+
+
+
+<p>好的，我将这些信息整理成中文表格：</p>
+<table>
+<thead>
+<tr>
+<th>消息中间件</th>
+<th>客户端 SDK</th>
+<th>协议和规范</th>
+<th>有序消息</th>
+<th>定时消息</th>
+<th>批量消息</th>
+<th>广播消息</th>
+<th>消息过滤</th>
+<th>服务器触发的重传</th>
+<th>消息存储</th>
+<th>消息回溯</th>
+<th>消息优先级</th>
+<th>高可用和故障转移</th>
+<th>消息追踪</th>
+<th>配置</th>
+<th>管理和运维工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ActiveMQ</td>
+<td>Java, .NET, C++ 等</td>
+<td>推模型，支持 OpenWire、STOMP、AMQP、MQTT、JMS</td>
+<td>可通过独占消费者或独占队列保证顺序</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>使用 JDBC 快速持久化，如 levelDB、kahaDB 等高性能日志</td>
+<td>支持</td>
+<td>支持</td>
+<td>需要 ZooKeeper 服务器</td>
+<td>不支持</td>
+<td>默认配置较低级，用户需要优化配置参数</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td>Java, Scala 等</td>
+<td>pull模型，支持 TCP</td>
+<td>在分区内保证消息顺序</td>
+<td>不支持</td>
+<td>支持异步生产者</td>
+<td>不支持</td>
+<td>支持，可以使用 Kafka Streams 进行消息过滤</td>
+<td>不支持</td>
+<td>高性能文件存储</td>
+<td>支持 offset 标识</td>
+<td>不支持</td>
+<td>需要 ZooKeeper 服务器</td>
+<td>不支持</td>
+<td>使用键值对格式的配置，可以从文件或程序中提供值</td>
+<td>支持，使用终端命令暴露核心指标</td>
+</tr>
+<tr>
+<td>RocketMQ</td>
+<td>Java, C++, Go</td>
+<td>拉模型，支持 TCP、JMS、OpenMessaging</td>
+<td>严格保证消息顺序，并可以优雅地扩展</td>
+<td>支持</td>
+<td>支持同步模式以避免消息丢失</td>
+<td>支持</td>
+<td>支持基于 SQL92 的属性过滤表达式</td>
+<td>支持</td>
+<td>高性能低延迟的文件存储</td>
+<td>支持时间戳和偏移量两种指示方式</td>
+<td>不支持</td>
+<td>支持主从模式，无需额外工具</td>
+<td>支持</td>
+<td>开箱即用，用户只需关注少量配置</td>
+<td>支持，提供丰富的 Web 和终端命令来暴露核心指标</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -602,7 +694,7 @@
               
                 <a href="/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -624,7 +716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -677,7 +769,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="123456789101112131415161718package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &amp;#123;	&#x2F;&#x2F; 定义两个日期	startDate :&#x3D; time.Date(2023, time.December, 1, 0, 0, 0, 0, time.UTC)	endDate :&#x3D; time.Date(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于日期那些事">
+<meta property="og:url" content="http://example.com/2023/12/12/%E5%85%B3%E4%BA%8E%E6%97%A5%E6%9C%9F%E9%82%A3%E4%BA%9B%E4%BA%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="123456789101112131415161718package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func main() &amp;#123;	&#x2F;&#x2F; 定义两个日期	startDate :&#x3D; time.Date(2023, time.December, 1, 0, 0, 0, 0, time.UTC)	endDate :&#x3D; time.Date(">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-12-12T08:50:19.000Z">
+<meta property="article:modified_time" content="2024-01-05T10:32:36.669Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/12/12/关于日期那些事/"/>
+
+
+
+
+
+  <title>关于日期那些事 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/12/%E5%85%B3%E4%BA%8E%E6%97%A5%E6%9C%9F%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于日期那些事</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-12T16:50:19+08:00">
+                2023-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 定义两个日期</span></span><br><span class="line">	startDate := time.Date(<span class="number">2023</span>, time.December, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, time.UTC)</span><br><span class="line">	endDate := time.Date(<span class="number">2023</span>, time.December, <span class="number">10</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, time.UTC)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 计算日期差值</span></span><br><span class="line">	days := endDate.Sub(startDate).Hours() / <span class="number">24</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 输出结果</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;日期差值为：%d 天\n&quot;</span>, <span class="type">int</span>(days))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>搜索区间的概念：</p>
+<p>1、注意：请看下面注释</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">( number []<span class="type">int</span>,target <span class="type">int</span>)</span></span> <span class="type">int</span>&#123;</span><br><span class="line">	left := <span class="number">0</span></span><br><span class="line">	right := <span class="built_in">len</span>(number) <span class="number">-1</span> <span class="comment">//这里区间为[left,right]</span></span><br><span class="line">	<span class="keyword">for</span> left &lt;= right&#123;<span class="comment">//这里[left，left]和[right，right]也是一种情况</span></span><br><span class="line">        mod := left + (right - left) /<span class="number">2</span> <span class="comment">//防止溢出</span></span><br><span class="line">		<span class="keyword">if</span> number[mod] == target&#123;</span><br><span class="line">			<span class="keyword">return</span> mod </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> number[mod]&lt;target&#123;</span><br><span class="line">            left = mod +<span class="number">1</span>   <span class="comment">//注意这里已经在上面判断mod的情况，所以区间是[mod+1，right]</span></span><br><span class="line">            <span class="comment">//有的时候也会写做 left = mod</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> number[mod]&gt;target&#123;</span><br><span class="line">            right = mod - <span class="number">1</span>  <span class="comment">//同理也会写成right = mod</span></span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> left</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>一个很全面的sql慢查询博客：</p>
+<p><a target="_blank" rel="noopener" href="https://www.51cto.com/article/618217.html">https://www.51cto.com/article/618217.html</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> processlist</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> ;</span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+-----------------+--------+---------+-------+----------+------------------+</span></span><br><span class="line"><span class="operator">|</span> Id <span class="operator">|</span> <span class="keyword">User</span> <span class="operator">|</span> Host            <span class="operator">|</span> db     <span class="operator">|</span> Command <span class="operator">|</span> <span class="type">Time</span>  <span class="operator">|</span> State    <span class="operator">|</span> Info             <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+-----------------+--------+---------+-------+----------+------------------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> root <span class="operator">|</span> localhost:<span class="number">60573</span> <span class="operator">|</span> mpc_db <span class="operator">|</span> Sleep   <span class="operator">|</span> <span class="number">14152</span> <span class="operator">|</span>          <span class="operator">|</span> <span class="keyword">NULL</span>             <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">3</span> <span class="operator">|</span> root <span class="operator">|</span> localhost:<span class="number">60618</span> <span class="operator">|</span> mpc_db <span class="operator">|</span> Sleep   <span class="operator">|</span> <span class="number">14183</span> <span class="operator">|</span>          <span class="operator">|</span> <span class="keyword">NULL</span>             <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">4</span> <span class="operator">|</span> root <span class="operator">|</span> localhost:<span class="number">63184</span> <span class="operator">|</span> <span class="keyword">NULL</span>   <span class="operator">|</span> Query   <span class="operator">|</span>     <span class="number">0</span> <span class="operator">|</span> starting <span class="operator">|</span> <span class="keyword">show</span> processlist <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+-----------------+--------+---------+-------+----------+------------------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> slow_query_log <span class="operator">=</span> <span class="keyword">on</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> ;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> long_query_time <span class="operator">=</span> <span class="number">0.01</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">global</span> variables <span class="keyword">like</span> &quot;datadir&quot;;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name <span class="operator">|</span> <span class="keyword">Value</span>                                                           <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> datadir       <span class="operator">|</span> D:\software\Mysql\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\data\ <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span>, <span class="number">1</span> warning (<span class="number">0.01</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">global</span> variables <span class="keyword">like</span> &quot;slow_query_log_file&quot;;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+-----------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name       <span class="operator">|</span> <span class="keyword">Value</span>                                                                             <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+-----------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> slow_query_log_file <span class="operator">|</span> D:\software\Mysql\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\mysql<span class="number">-5.7</span><span class="number">.38</span><span class="operator">-</span>winx64\mysqllog\slow_query.log <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+-----------------------------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span>, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">以下是 Kubernetes 中一些常用的命令和其功能的总结：</span><br><span class="line">Deployment（部署）是一种用于描述和管理应用程序副本的资源对象。它是 Kubernetes 中的一种高级抽象，用于简化应用程序的部署和更新</span><br><span class="line"></span><br><span class="line">创建和管理资源:</span><br><span class="line">kubectl create: 创建一个资源对象。</span><br><span class="line">kubectl apply: 应用配置文件或更改到集群。</span><br><span class="line">kubeectl apply - f deploymenty,yaml //把这个配置文件应用到当前的pod里面</span><br><span class="line">kubectl get pod: 显示在 Deployment 中创建的 Pod 列表。</span><br><span class="line">kubectl get deployment  该命令将显示所有的 Deployment 对象</span><br><span class="line">kubectl describe: 显示资源对象的详细信息。</span><br><span class="line">kubectl edit: 编辑资源对象的配置。</span><br><span class="line">kubectl delete: 删除资源对象。</span><br><span class="line">管理和调试应用程序:</span><br><span class="line"></span><br><span class="line">kubectl logs: 查看 Pod 中容器的日志。</span><br><span class="line">kubectl exec: 在 Pod 中的容器中执行命令。</span><br><span class="line">kubectl port-forward: 将本地端口与 Pod 中的端口进行转发。</span><br><span class="line">kubectl run: 在集群中创建一个新的 Pod。</span><br><span class="line">管理集群状态:</span><br><span class="line"></span><br><span class="line">kubectl cluster-info: 显示集群信息。</span><br><span class="line">kubectl get nodes: 获取集群中的节点信息。</span><br><span class="line">kubectl get pods: 获取正在运行的 Pod 列表。</span><br><span class="line">kubectl get services: 获取服务的列表和详细信息。</span><br><span class="line">kubectl get deployments: 获取部署的列表和详细信息。</span><br><span class="line">kubectl get namespaces: 获取命名空间的列表。</span><br><span class="line">扩展和自动化:</span><br><span class="line"></span><br><span class="line">kubectl scale: 调整副本数量。</span><br><span class="line">kubectl autoscale: 设置自动扩展规则。</span><br><span class="line">kubectl rollout: 管理应用程序的滚动更新。</span><br><span class="line">kubectl apply -f: 使用配置文件进行资源的声明式部署。</span><br><span class="line">调试和故障排除:</span><br><span class="line"></span><br><span class="line">kubectl describe pod: 查看 Pod 的详细信息，包括事件和容器状态。</span><br><span class="line">kubectl describe service: 查看服务的详细信息，包括端口映射和绑定的 Pod。</span><br><span class="line">kubectl get events: 查看集群中的事件日志。</span><br><span class="line">kubectl logs: 查看 Pod 或容器的日志。</span><br><span class="line">kubectl exec: 在容器中执行命令进行调试。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl run jinli_pod --image=nginx --port=80 expose --port=8080</span><br><span class="line">//expose：将该pod暴露为一个服务，指定容器的端口为80</span><br><span class="line">//创建一个pod，运行nginx镜像，将容器的80端口映射到主机端口的8080</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">kubectl describe deployment enterprise-server</span><br><span class="line">Name:                   enterprise-server</span><br><span class="line">Namespace:              default</span><br><span class="line">CreationTimestamp:      Mon, 27 Nov 2023 10:43:13 +0800</span><br><span class="line">Labels:                 &lt;none&gt;</span><br><span class="line">Annotations:            deployment.kubernetes.io/revision: 1</span><br><span class="line">Selector:               app=enterprise-server,project=enterprise-server</span><br><span class="line">Replicas:               1 desired | 1 updated | 1 total | 0 available | 1 unavailable</span><br><span class="line">StrategyType:           RollingUpdate</span><br><span class="line">MinReadySeconds:        0</span><br><span class="line">RollingUpdateStrategy:  25% max unavailable, 25% max surge</span><br><span class="line">Pod Template:</span><br><span class="line">  Labels:  app=enterprise-server</span><br><span class="line">           project=enterprise-server</span><br><span class="line">  Containers:</span><br><span class="line">   enterprise-server:</span><br><span class="line">    Image:      192.168.30.127:5000/enterprise-server:v1</span><br><span class="line">    Port:       &lt;none&gt;</span><br><span class="line">    Host Port:  &lt;none&gt;</span><br><span class="line">    Environment:</span><br><span class="line">      SSO_LOGIN_URL:      192.168.30.127:30000/sso</span><br><span class="line">      SSO_ERROR_LOG_URL:  192.168.30.127:30000/sso-error</span><br><span class="line">      SSO_BACK_URL:       http://192.168.30.127:30001</span><br><span class="line">    Mounts:               &lt;none&gt;</span><br><span class="line">  Volumes:                &lt;none&gt;</span><br><span class="line">Conditions:</span><br><span class="line">  Type           Status  Reason</span><br><span class="line">  ----           ------  ------</span><br><span class="line">  Available      False   MinimumReplicasUnavailable</span><br><span class="line">  Progressing    False   ProgressDeadlineExceeded</span><br><span class="line">OldReplicaSets:  &lt;none&gt;</span><br><span class="line">NewReplicaSet:   enterprise-server-5c446d88c8 (1/1 replicas created)</span><br><span class="line">Events:          &lt;none&gt;</span><br><span class="line">[root@k8s-master ~]# </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>Go是否支持运算符重载</p>
+<p>今日份知识：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -x 指定方法名  请求的url -d  请求体body里面的内容 <span class="comment">//curl命令</span></span><br><span class="line">curl -x Get <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span>/add/user -d jinli</span><br></pre></td></tr></table></figure>
+
+<p>curl如果不指定方法，默认使用get方法，在go里面，<strong>get方法到底可以不可以把内容数据写在body里面传递呢</strong></p>
+<p>其实是可以的，通常如果我们使用get方法，都是把参数写在url里面，是否支持这个需要看具体的浏览器是否支持，例如google好像就不支持，但是自己写个webui，然后使用curl -x  Get去获取body的话是可以获取到的，</p>
+<p>但是RFC7231不鼓励这样的方式，所以这样的方式还是有可能读不到的</p>
+<p>get方法是幂等性的，post不是幂等的</p>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>自旋锁（Spin Lock）是一种基本的同步机制，用于在多线程或多核处理器环境中保护共享资源。与传统的互斥锁不同，自旋锁不会让线程进入阻塞状态，而是使用循环（自旋）来等待锁的释放。</p>
+<p>自旋锁的基本思想是，当一个线程需要访问被自旋锁保护的共享资源时，它会反复检查锁的状态，直到锁被释放为止。这个检查锁状态的过程被称为自旋。如果锁被其他线程占用，那么当前线程会一直自旋等待，而不是进入阻塞状态。</p>
+<p>自旋锁的优点在于它避免了线程切换和阻塞带来的开销，因为线程在自旋期间仍然处于活跃状态，可以立即获得锁并继续执行。这对于保护临界区较小且锁竞争不频繁的情况非常有效，因为自旋的时间相对较短。</p>
+<p>然而，自旋锁的缺点是在锁竞争激烈时会导致大量的空转（spin），消耗大量的 CPU 资源。如果自旋锁不能在合理的时间内获得锁，线程可能会浪费大量的时间在自旋上，导致性能下降。因此，自旋锁通常适用于锁竞争较轻的情况。</p>
+<p>在实际编程中，自旋锁通常由硬件指令支持。在多核处理器上，自旋锁可以使用原子操作和特殊的处理器指令来实现。在编程语言中，如 C++ 和 Java，也提供了自旋锁的库实现。</p>
+<p>总而言之，自旋锁是一种基于循环自旋等待的同步机制，用于保护共享资源，避免线程阻塞和切换的开销。它在锁竞争较轻的情况下效果良好，但在锁竞争激烈时可能导致性能下降。</p>
+<p><strong>5.1 思考题</strong></p>
+<p>\1. golang 中 select 的多个 case 同时成立，那么选择的是哪一个?</p>
+<p>\2. golang 中除了使用 sync 锁，还可以如何保证并发安全? atomic 是什么？</p>
+<p>\3. sync.Map 对键的类型有什么要求么？</p>
+<p>\4. 如何避免死锁? golang 中如何检测死锁?</p>
+<p>阻塞和非阻塞是指单个线程的状态</p>
+<p>同步，异步是2个线程之间的关系</p>
+<h3 id="MYsql死锁：SELECT-id-FROM-t-order-WHERE-order-no-1007-FOR-UPDATE"><a href="#MYsql死锁：SELECT-id-FROM-t-order-WHERE-order-no-1007-FOR-UPDATE" class="headerlink" title="MYsql死锁：SELECT id FROM t_order WHERE order_no &#x3D; 1007 FOR UPDATE;"></a><strong>MYsql死锁：SELECT id FROM t_order WHERE order_no &#x3D; 1007 FOR UPDATE;</strong></h3><p>for update语句只是对t_order这个表的，order_no&#x3D;1007这条记录，锁住；</p>
+<p>防止在一个事务之中对其操作，会产生并发的问题，引起数据冲突，对选中的记录进行排他锁，并不会真的更新这条数据</p>
+<p><strong>发生的原因</strong>：update 更新语句，如果where语句字段没有加索引，会出现把整个表的所有的行都锁住，也就是表里的索引项都加锁，相当于锁了整张表，所以大家误以为加了表锁</p>
+<p><strong>避免这种情况的发生：</strong></p>
+<p>我们可以将 MySQL 里的 <code>sql_safe_updates</code> 参数设置为 1，开启安全更新模式</p>
+<p>update 语句必须满足如下条件之一才能执行成功：</p>
+<ul>
+<li>使用 where，并且 where 条件中必须有索引列；</li>
+<li>使用 limit；</li>
+<li>同时使用 where 和 limit，此时 where 条件中可以没有索引列</li>
+</ul>
+<p><strong>select * from performance_schema.data_locks\G</strong></p>
+<p><strong>间隙表的模拟：</strong>间隙表主要用来处理幻读</p>
+<p>考虑以下示例，假设我们有一个名为 <code>t_order</code> 的表，其中有一个列名为 <code>order_date</code>，表示订单日期：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+----+------------+</span><br><span class="line">| id | order_date |</span><br><span class="line">+----+------------+</span><br><span class="line">| 1  | 2022-01-01 |</span><br><span class="line">| 2  | 2022-01-03 |</span><br><span class="line">| 3  | 2022-01-05 |</span><br><span class="line">+----+------------+</span><br></pre></td></tr></table></figure>
+
+<p>如果我们执行以下查询语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM t_order WHERE order_date BETWEEN &#x27;2022-01-02&#x27; AND &#x27;2022-01-04&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>此查询将检索 <code>order_date</code> 在 ‘2022-01-02’ 和 ‘2022-01-04’ 之间的行。在这种情况下，数据库会锁定 ‘2022-01-02’ 和 ‘2022-01-04’ 之间的间隙，以防止其他事务在该范围内插入新的数据。</p>
+<p>在上面的示例中，实际上没有行的 <code>order_date</code> 值等于 ‘2022-01-02’ 或 ‘2022-01-04’。间隙锁的目的是确保在事务执行期间没有其他事务插入这些不存在的行，<strong>从而避免幻读的发生。</strong></p>
+<p><strong>表中的最后一个记录和查询的id之间的关系：</strong></p>
+<p>如果表中最后一个记录的 order_no 为 1005，那么等值查询 order_no &#x3D; 1006（不存在），就是 next key lock，如上面事务 A 的情况。</p>
+<p>如果表中最后一个记录的 order_no 为 1010，那么等值查询 order_no &#x3D; 1006（不存在），就是间隙锁</p>
+<p>间隙锁标志：</p>
+<p>LOCK_MODE为x：说明是x型的next-key锁</p>
+<p>LOCK_MODE为x,REC_NOT_GAP,说明是x型记录锁</p>
+<p>LOCK_MODE为x，GAP，说明是x型间隙锁</p>
+<h2 id="跨平台编译—-windows平台编译linux平台的适用版本"><a href="#跨平台编译—-windows平台编译linux平台的适用版本" class="headerlink" title="跨平台编译—-windows平台编译linux平台的适用版本"></a>跨平台编译—-windows平台编译linux平台的适用版本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set GOARCH=amd64</span><br><span class="line">set GOOS= linux</span><br><span class="line">SET CGO_ENABLED=0  //交叉编译不支持 CGO 所以要禁用它</span><br><span class="line">go build hello.go</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于linux命令的管道符的理解</p>
+<p>管道：是进程之间的一种通信方式，主要适用的典型类型：父子进程</p>
+<p>创建管道的函数c底层接口：int pipe(int f[2])   返回的int类型，f[1]代表写，f[0]代表读</p>
+<p>父进程使用fork函数创建副本子进程，之后父进程的读关闭，子进程的写关闭</p>
+<p>telnet 远程ip  端口</p>
+<p>netstat  -a</p>
+<p>在&#x2F;ect&#x2F;hosts里面可以看映射关系   ip地址和域名的映射</p>
+<p>md5sum  文件：看文件的MD5值判断文件是否一样</p>
+<p>stat 文件：看文件的操作日期</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/12/11/%E5%85%B3%E4%BA%8E%E6%97%A5%E5%BF%97%E9%82%A3%E4%BA%9B%E4%BA%8B/" rel="next" title="关于日志那些事">
+                <i class="fa fa-chevron-left"></i> 关于日志那些事
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81"><span class="nav-number">1.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MYsql%E6%AD%BB%E9%94%81%EF%BC%9ASELECT-id-FROM-t-order-WHERE-order-no-1007-FOR-UPDATE"><span class="nav-number">2.</span> <span class="nav-text">MYsql死锁：SELECT id FROM t_order WHERE order_no &#x3D; 1007 FOR UPDATE;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91%E2%80%94-windows%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91linux%E5%B9%B3%E5%8F%B0%E7%9A%84%E9%80%82%E7%94%A8%E7%89%88%E6%9C%AC"><span class="nav-number"></span> <span class="nav-text">跨平台编译—-windows平台编译linux平台的适用版本</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
